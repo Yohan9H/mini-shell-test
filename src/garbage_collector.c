@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/12 18:41:40 by yohurteb         ###   ########.fr       */
+/*   Created: 2024/08/12 17:56:23 by yohurteb          #+#    #+#             */
+/*   Updated: 2024/08/12 18:41:37 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini-shell.h"
 
-void	init_data(t_data *data)
+void	print_error(int error)
 {
-	data->lex = malloc(sizeof(t_lex));
-	data->lex->input = NULL;
-	data->lex->first = NULL;
-	data->lex->last = NULL;
-	data->lex->new = NULL;
+	if (error == MALLOC)
+		fprintf(stderr, "error malloc");
 }
 
-int	main()
+void	exit_clean(t_data *data, int error)
 {
-	t_data	data;
-
-	init_data(&data);
-	while (1)
-	{
-		lexer(&data);
-		//parseur
-		//exec
-	}
-	free(data.lex);
+	if (data->lex->first)
+		ft_lstclear(&(data->lex->first));
+	if (data->lex->input)
+		free(data->lex->input);
+	if (data->lex->new)
+		free(data->lex->new);
+	print_error(error);
+	exit(1);
 }

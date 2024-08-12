@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   meta_char.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/12 18:41:40 by yohurteb         ###   ########.fr       */
+/*   Created: 2024/08/12 18:12:58 by yohurteb          #+#    #+#             */
+/*   Updated: 2024/08/12 18:42:01 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini-shell.h"
 
-void	init_data(t_data *data)
+void	single_redirection(char *str, t_data *data, int *i)
 {
-	data->lex = malloc(sizeof(t_lex));
-	data->lex->input = NULL;
-	data->lex->first = NULL;
-	data->lex->last = NULL;
-	data->lex->new = NULL;
-}
-
-int	main()
-{
-	t_data	data;
-
-	init_data(&data);
-	while (1)
+	if ((str[*i] == '>' || str[*i] == '<'))
 	{
-		lexer(&data);
-		//parseur
-		//exec
+		if (str[*i] == '>')
+			data->lex->new = ft_lstnew(">", REDIRECTION_TOKEN);
+		else
+			data->lex->new = ft_lstnew("<", REDIRECTION_TOKEN);
+		verif_and_add_back(data, i, 1);
 	}
-	free(data.lex);
 }

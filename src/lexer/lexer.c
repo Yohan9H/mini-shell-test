@@ -6,14 +6,16 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/12 15:57:54 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/12 18:43:53 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mini-shell.h>
 
-void	add_back(t_data *data, int *i, int num)
+void	verif_and_add_back(t_data *data, int *i, int num)
 {
+	if (!data->lex->new)
+		exit_clean(data, MALLOC);
 	ft_lstadd_back(&(data->lex->first), data->lex->new);
 	data->lex->new = NULL;
 	*i = *i + num;
@@ -28,20 +30,21 @@ int	choice_token(char *str, t_data *data, int i)
 			data->lex->new = ft_lstnew(">>", REDIRECTION_TOKEN);
 		else
 			data->lex->new = ft_lstnew("<<", REDIRECTION_TOKEN);
-		add_back(data, &i, 2);
+		verif_and_add_back(data, &i, 2);
 	}
-	else if ((str[i] == '>' || str[i] == '<'))
+	else if (single_redirection(str, data, &i)) // voir si possible de faire un truc comme ca pour reduire
+		// le code et voir si mes verifs de malloc sont corrects 
 	{
 		if (str[i] == '>')
 			data->lex->new = ft_lstnew(">", REDIRECTION_TOKEN);
 		else
 			data->lex->new = ft_lstnew("<", REDIRECTION_TOKEN);
-		add_back(data, &i, 1);
+		verif_and_add_back(data, &i, 1);
 	}
 	else if (str[i] == '|')
 	{
 		data->lex->new = ft_lstnew("|", PIPE_TOKEN);
-		add_back(data, &i, 1);
+		verif_and_add_back(data, &i, 1);
 	}
 	else
 		i++;

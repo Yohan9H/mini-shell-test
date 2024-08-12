@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/12 14:09:55 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/12 18:42:40 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# define MALLOC 1
 
 typedef enum 
 {
@@ -48,8 +49,15 @@ typedef struct s_data
 	t_lex	*lex;
 }	t_data;
 
+// ---- MAIN ----
+void	exit_clean(t_data *data, int error);
+
+// ---- LEXER ----
 char	*lexer(t_data *data);
 
+void	single_redirection(char *str, t_data *data, int *i);
+
+//	---- UTILS ----
 void	ft_lstadd_back(t_token **lst, t_token *new);
 
 void	ft_lstadd_front(t_token **lst, t_token *new);
