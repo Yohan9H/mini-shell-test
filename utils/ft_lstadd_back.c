@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/12 13:55:55 by yohurteb         ###   ########.fr       */
+/*   Created: 2024/05/23 13:51:04 by yohurteb          #+#    #+#             */
+/*   Updated: 2024/08/12 14:14:00 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini-shell.h"
 
-void	init_data(t_data *data)
+void	ft_lstadd_back(t_token **lst, t_token *new)
 {
-	data->lex = malloc(sizeof(t_lex));
-	data->lex->input = NULL;
-	data->lex->first = NULL;
-	data->lex->last = NULL;
-	data->lex->new = NULL;
-}
+	t_token	*ptr;
 
-int	main()
-{
-	t_data	data;
-
-	init_data(&data);
-	while (1)
+	if (!lst || !new)
+		return ;
+	if (*lst == NULL)
 	{
-		lexer(&data);
-		//parseur
-		//exec
+		*lst = new;
+		return ;
 	}
-	free(data.lex);
+	ptr = ft_lstlast(*lst);
+	ptr->next = new;
+	new->prev = ptr;
 }

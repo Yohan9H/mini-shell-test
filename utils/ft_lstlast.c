@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/12 13:55:55 by yohurteb         ###   ########.fr       */
+/*   Created: 2024/05/23 13:38:36 by yohurteb          #+#    #+#             */
+/*   Updated: 2024/08/12 14:12:52 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini-shell.h"
 
-void	init_data(t_data *data)
+t_token	*ft_lstlast(t_token *lst)
 {
-	data->lex = malloc(sizeof(t_lex));
-	data->lex->input = NULL;
-	data->lex->first = NULL;
-	data->lex->last = NULL;
-	data->lex->new = NULL;
-}
-
-int	main()
-{
-	t_data	data;
-
-	init_data(&data);
-	while (1)
+	if (!lst)
+		return (NULL);
+	while (lst->next != NULL)
 	{
-		lexer(&data);
-		//parseur
-		//exec
+		lst = lst->next;
 	}
-	free(data.lex);
+	return (lst);
 }
