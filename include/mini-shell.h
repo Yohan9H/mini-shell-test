@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/13 15:24:21 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/13 17:56:50 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# define MALLOC 1
+# define MALLOC 1 // faire un enum pour les erreurs
 
 typedef enum 
 {
@@ -79,13 +79,15 @@ int		double_redirection(char *str, t_data *data, int *i);
 
 int		check_pipe(char *str, t_data *data, int *i);
 
+int		single_quote(char *str, t_data *data, int *i);
+
 int		double_quote(char *str, t_data *data, int *i);
 
 int		is_string(char *str, t_data *data, int *i);
 
 //	---- UTILS LEXER ----
 
-int		len_db_quote(char *str, int *i);
+int		len_db_quote(char *str, int *i, char stop);
 
 int		len_string(char *str, int *i);
 

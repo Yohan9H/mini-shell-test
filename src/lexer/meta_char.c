@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:12:58 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/13 15:05:28 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/13 17:49:31 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	double_quote(char *str, t_data *data, int *i)
 
 	if (str[*i] == '"')
 	{
-		len = len_db_quote(str, i);
+		len = len_db_quote(str, i, '"');
 		data->lex->string = malloc((len + 1) * sizeof(char));
 		if (!data->lex->string)
 			exit_clean(data, MALLOC);
@@ -68,17 +68,17 @@ int	double_quote(char *str, t_data *data, int *i)
 	return (0);
 }
 
-int	is_string(char *str, t_data *data, int *i)
+int	single_quote(char *str, t_data *data, int *i)
 {
-	int len;
+	int	len;
 
-	if (str[*i] != ' ')
+	if (str[*i] == '\'')
 	{
-		len = len_string(str, i);
+		len = len_db_quote(str, i, '\'');
 		data->lex->string = malloc((len + 1) * sizeof(char));
 		if (!data->lex->string)
 			exit_clean(data, MALLOC);
-		cpy_str(str, data, i, ' ');
+		cpy_str(str, data, i, '\'');
 		data->lex->new = ft_lstnew(data->lex->string, STRING_TOKEN, data);
 		return (1);
 	}

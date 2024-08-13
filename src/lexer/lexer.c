@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/13 15:28:26 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:12:35 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	choice_token(char *str, t_data *data, int i)
 	else if (check_pipe(str, data, &i) == 1)
 		verif_and_add_back(data, &i, 1);
 	else if (double_quote(str, data, &i) == 1)
+		verif_and_add_back(data, &i, 1);
+	else if (single_quote(str, data, &i))
 		verif_and_add_back(data, &i, 1);
 	else if (is_string(str, data, &i) == 1)
 		verif_and_add_back(data, &i, 1);
@@ -64,15 +66,49 @@ char	*lexer(t_data *data)
 	return (NULL);
 }
 
-void	test_minishell(t_data *data) // Pour test
+
+
+
+
+
+
+
+
+
+// ---------------------------- TEST ------------------------------------
+
+
+
+
+
+
+
+
+char	*get_token(tokentype type)
+{
+	if (type == COMMAND_TOKEN)
+		return ("COMMAND_TOKEN");
+	if (type == STRING_TOKEN)
+		return ("STRING_TOKEN");
+	if (type == PIPE_TOKEN)
+		return ("PIPE_TOKEN");
+	if (type == REDIRECTION_TOKEN)
+		return ("REDIRECTION_TOKEN");
+	return (NULL);
+}
+
+void	test_minishell(t_data *data)
 {
 	t_token	*tmp = NULL;
+	int	i;
 
+	i = 0;
 	tmp = data->lex->first;
 	printf("  ----  \n");
 	while (tmp != NULL)
 	{
-		printf("value type : %u\n", tmp->type);
+		printf("num : %d\n", i++);
+		printf("value type : %s\n", get_token(tmp->type));
 		printf("value node : %s\n  ----  \n", tmp->value);
 		tmp = tmp->next;
 	}
