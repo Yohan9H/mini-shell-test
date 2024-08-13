@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/12 18:41:40 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:31:12 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	init_data(t_data *data)
 	data->lex->first = NULL;
 	data->lex->last = NULL;
 	data->lex->new = NULL;
+	data->lex->string = NULL;
 }
 
 int	main()

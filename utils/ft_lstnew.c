@@ -6,19 +6,19 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:39:05 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/12 14:09:55 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:24:47 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini-shell.h"
 
-t_token	*ft_lstnew(char *value, tokentype token)
+t_token	*ft_lstnew(char *value, tokentype token, t_data *data)
 {
 	t_token	*list;
 
 	list = (t_token *)malloc(sizeof(t_token));
 	if (!list)
-		return (NULL);
+		exit_clean(data, MALLOC);
 	list->value = value;
 	list->type = token;
 	list->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/12 18:42:40 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:24:21 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_lex
 	t_token	*first;
 	t_token	*last;
 	t_token	*new;
+	char	*string;
 }	t_lex;
 
 typedef struct s_data
@@ -52,13 +53,8 @@ typedef struct s_data
 // ---- MAIN ----
 void	exit_clean(t_data *data, int error);
 
-// ---- LEXER ----
-char	*lexer(t_data *data);
-
-void	single_redirection(char *str, t_data *data, int *i);
-
 //	---- UTILS ----
-void	ft_lstadd_back(t_token **lst, t_token *new);
+void	ft_lstadd_back(t_token **lst, t_token *new, t_token *last);
 
 void	ft_lstadd_front(t_token **lst, t_token *new);
 
@@ -66,10 +62,33 @@ void	ft_lstclear(t_token **lst);
 
 t_token	*ft_lstlast(t_token *lst);
 
-t_token	*ft_lstnew(char *value, tokentype token);
+t_token	*ft_lstnew(char *value, tokentype token, t_data *data);
 
 int		ft_lstsize(t_token *lst);
 
 char	**ft_split(char const *s, char c);
+
+int		ft_strlen(const char *s);
+
+// ---- LEXER ----
+char	*lexer(t_data *data);
+
+int		single_redirection(char *str, t_data *data, int *i);
+
+int		double_redirection(char *str, t_data *data, int *i);
+
+int		check_pipe(char *str, t_data *data, int *i);
+
+int		double_quote(char *str, t_data *data, int *i);
+
+int		is_string(char *str, t_data *data, int *i);
+
+//	---- UTILS LEXER ----
+
+int		len_db_quote(char *str, int *i);
+
+int		len_string(char *str, int *i);
+
+void	cpy_str(char *str, t_data *data, int *i, char stop);
 
 #endif

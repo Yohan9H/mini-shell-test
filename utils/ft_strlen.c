@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   garbage_collector.c                                :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/12 17:56:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/13 14:52:13 by yohurteb         ###   ########.fr       */
+/*   Created: 2024/03/22 18:20:07 by yohan.h           #+#    #+#             */
+/*   Updated: 2024/08/13 10:54:22 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini-shell.h"
 
-void	print_error(int error)
+int	ft_strlen(const char *s)
 {
-	if (error == MALLOC)
-		fprintf(stderr, "error malloc");
-}
+	int	i;
 
-void	exit_clean(t_data *data, int error)
-{
-	if (data->lex->first)
-		ft_lstclear(&(data->lex->first));
-	if (data->lex->input)
-		free(data->lex->input);
-	if (data->lex->new)
-		free(data->lex->new);
-	if (data->lex->string)
-		free(data->lex->string);
-	print_error(error);
-	exit(1);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }

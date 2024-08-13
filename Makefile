@@ -6,7 +6,7 @@
 #    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/08/12 18:40:05 by yohurteb         ###   ########.fr        #
+#    Updated: 2024/08/13 14:20:29 by yohurteb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,9 @@ SRCS = \
 	src/garbage_collector.c \
 	src/lexer/lexer.c \
 	src/lexer/meta_char.c \
+	src/lexer/utils_lexer/utils_lxr.c \
 	utils/ft_split.c \
+	utils/ft_strlen.c \
 	utils/ft_lstadd_back.c \
 	utils/ft_lstadd_front.c \
 	utils/ft_lstclear.c \
