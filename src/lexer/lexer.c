@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/13 18:12:35 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:36:47 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,9 @@ void	add_token(t_data *data)
 	i = 0;
 	while (str[i])
 		i = choice_token(str, data, i);
-	test_minishell(data); 			// Pour test
 }
 
-char	*lexer(t_data *data)
+void	lexer(t_data *data)
 {
 	int	i;
 
@@ -63,7 +62,7 @@ char	*lexer(t_data *data)
 	if (data->lex->first != NULL)
 		ft_lstclear(&(data->lex->first));
 	add_token(data);
-	return (NULL);
+	test_minishell(data); 			// Pour test
 }
 
 
@@ -92,6 +91,14 @@ char	*get_token(tokentype type)
 		return ("STRING_TOKEN");
 	if (type == PIPE_TOKEN)
 		return ("PIPE_TOKEN");
+	if (type == INPUT_TOKEN)
+		return ("INPUT_TOKEN");
+	if (type == OUTPUT_TOKEN)
+		return ("OUTPUT_TOKEN");
+	if (type == HEREDOC_TOKEN)
+		return ("HEREDOC_TOKEN");
+	if (type == APPEND_TOKEN)
+		return ("APPEND_TOKEN");
 	if (type == REDIRECTION_TOKEN)
 		return ("REDIRECTION_TOKEN");
 	return (NULL);

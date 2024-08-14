@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/13 17:56:50 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:59:08 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ typedef enum
 	COMMAND_TOKEN,
 	STRING_TOKEN,
 	PIPE_TOKEN,
-	REDIRECTION_TOKEN,
+	INPUT_TOKEN,
+	OUTPUT_TOKEN,
+	HEREDOC_TOKEN,
+	APPEND_TOKEN,
+	REDIRECTION_TOKEN, // au cas ou je dois compter le nb de redirection
 } tokentype;
 
 typedef struct s_token t_token;
@@ -71,7 +75,7 @@ char	**ft_split(char const *s, char c);
 int		ft_strlen(const char *s);
 
 // ---- LEXER ----
-char	*lexer(t_data *data);
+void	lexer(t_data *data);
 
 int		single_redirection(char *str, t_data *data, int *i);
 

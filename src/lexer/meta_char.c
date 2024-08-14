@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:12:58 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/13 17:49:31 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:43:21 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	double_redirection(char *str, t_data *data, int *i)
 		|| (str[*i] == '<' && str[*i + 1] == '<')))
 	{
 		if (str[*i] == '>')
-			data->lex->new = ft_lstnew(">>", REDIRECTION_TOKEN, data);
+			data->lex->new = ft_lstnew(">>", APPEND_TOKEN, data);
 		else
-			data->lex->new = ft_lstnew("<<", REDIRECTION_TOKEN, data);
+			data->lex->new = ft_lstnew("<<", HEREDOC_TOKEN, data); // 
 		return (1);
 	}
 	return (0);
@@ -31,9 +31,9 @@ int	single_redirection(char *str, t_data *data, int *i)
 	if ((str[*i] == '>' || str[*i] == '<'))
 	{
 		if (str[*i] == '>')
-			data->lex->new = ft_lstnew(">", REDIRECTION_TOKEN, data);
+			data->lex->new = ft_lstnew(">", OUTPUT_TOKEN, data);
 		else
-			data->lex->new = ft_lstnew("<", REDIRECTION_TOKEN, data);
+			data->lex->new = ft_lstnew("<", INPUT_TOKEN, data);
 		return (1);
 	}
 	return (0);
@@ -51,6 +51,7 @@ int	check_pipe(char *str, t_data *data, int *i)
 
 // il faut gerer les cas ou il y a encore des " ", 
 // peut etre rappeler la meme fonction une nouvelle fois
+// OU : faire un systeme ou je compte le nb de quote et je cpy jusqu'au dernier quote
 int	double_quote(char *str, t_data *data, int *i)
 {
 	int	len;
