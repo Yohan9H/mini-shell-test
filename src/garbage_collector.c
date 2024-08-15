@@ -6,19 +6,21 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:56:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/13 14:52:13 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:44:32 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini-shell.h"
+#include "minishell.h"
 
 void	print_error(int error)
 {
 	if (error == MALLOC)
-		fprintf(stderr, "error malloc");
+		fprintf(stderr, "error malloc\n");
+	if (error == END_QUOTE)
+		fprintf(stderr, "error quote\n");
 }
 
-void	exit_clean(t_data *data, int error)
+void	exit_clean(t_data *data, type_error error)
 {
 	if (data->lex->first)
 		ft_lstclear(&(data->lex->first));

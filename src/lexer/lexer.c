@@ -6,11 +6,11 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/15 14:24:55 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:57:16 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mini-shell.h>
+#include "minishell.h"
 
 void	test_minishell(t_data *data); // Pour test 
 

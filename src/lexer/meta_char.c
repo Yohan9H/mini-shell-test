@@ -6,11 +6,11 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:12:58 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/15 11:14:47 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:04:01 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini-shell.h"
+#include "minishell.h"
 
 int	double_redirection(char *str, t_data *data, int *i)
 {
@@ -20,7 +20,7 @@ int	double_redirection(char *str, t_data *data, int *i)
 		if (str[*i] == '>')
 			data->lex->new = ft_lstnew(">>", APPEND_TOKEN, data);
 		else
-			data->lex->new = ft_lstnew("<<", HEREDOC_TOKEN, data); // 
+			data->lex->new = ft_lstnew("<<", HEREDOC_TOKEN, data);
 		return (1);
 	}
 	return (0);
@@ -53,6 +53,7 @@ int	double_quote(char *str, t_data *data, int *i)
 {
 	int	len;
 
+	data->lex->nb_sep = verif_sep(str, i);
 	if (str[*i] == '"')
 	{
 		len = len_db_quote(str, i, '"');
@@ -70,6 +71,7 @@ int	single_quote(char *str, t_data *data, int *i)
 {
 	int	len;
 
+	data->lex->nb_sep = verif_sep(str, i);
 	if (str[*i] == '\'')
 	{
 		len = len_db_quote(str, i, '\'');

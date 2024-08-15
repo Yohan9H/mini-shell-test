@@ -6,11 +6,11 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:43:18 by yohan.h           #+#    #+#             */
-/*   Updated: 2024/08/12 10:36:15 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:58:01 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini-shell.h"
+#include "minishell.h"
 
 static size_t	ft_count_words(char const *s, char c)
 {

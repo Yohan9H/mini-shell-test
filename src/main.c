@@ -6,11 +6,11 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/13 15:31:12 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:06:16 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini-shell.h"
+#include "minishell.h"
 
 void	init_data(t_data *data)
 {
@@ -20,6 +20,7 @@ void	init_data(t_data *data)
 	data->lex->last = NULL;
 	data->lex->new = NULL;
 	data->lex->string = NULL;
+	data->lex->nb_sep = 0;
 }
 
 int	main()

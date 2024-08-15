@@ -6,11 +6,11 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:43:49 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/15 14:37:56 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:31:24 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini-shell.h"
+#include "minishell.h"
 
 // plus tard gerer les autres separateurs telle que le retour a la ligne et le tab
 int	is_string(char *str, t_data *data, int *i)

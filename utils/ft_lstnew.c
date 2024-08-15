@@ -6,11 +6,11 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:39:05 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/13 15:24:47 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:57:55 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini-shell.h"
+#include "minishell.h"
 
 t_token	*ft_lstnew(char *value, tokentype token, t_data *data)
 {

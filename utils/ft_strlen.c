@@ -6,11 +6,11 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 18:20:07 by yohan.h           #+#    #+#             */
-/*   Updated: 2024/08/13 10:54:22 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:58:05 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini-shell.h"
+#include "minishell.h"
 
 int	ft_strlen(const char *s)
 {

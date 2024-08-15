@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini-shell.h                                       :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/14 15:59:08 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:22:33 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,28 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# define MALLOC 1 // faire un enum pour les erreurs
+# define STRING ' '
+# define DOUBLE_Q '"'
+# define SINGLE_Q '\''
+
+typedef enum
+{
+	MALLOC,
+	END_QUOTE,
+} type_error;
 
 typedef enum 
 {
 	COMMAND_TOKEN,
 	STRING_TOKEN,
+	// DB_TOKEN,
+	// SG_TOKEN,  A voir si utile
 	PIPE_TOKEN,
 	INPUT_TOKEN,
 	OUTPUT_TOKEN,
 	HEREDOC_TOKEN,
 	APPEND_TOKEN,
-	REDIRECTION_TOKEN, // au cas ou je dois compter le nb de redirection
+	REDIRECTION_TOKEN,
 } tokentype;
 
 typedef struct s_token t_token;
@@ -47,6 +57,7 @@ typedef struct s_lex
 	t_token	*last;
 	t_token	*new;
 	char	*string;
+	int		nb_sep;
 }	t_lex;
 
 typedef struct s_data
@@ -55,7 +66,7 @@ typedef struct s_data
 }	t_data;
 
 // ---- MAIN ----
-void	exit_clean(t_data *data, int error);
+void	exit_clean(t_data *data, type_error error);
 
 //	---- UTILS ----
 void	ft_lstadd_back(t_token **lst, t_token *new, t_token *last);
@@ -96,5 +107,7 @@ int		len_db_quote(char *str, int *i, char stop);
 int		len_string(char *str, int *i);
 
 void	cpy_str(char *str, t_data *data, int *i, char stop);
+
+int	verif_sep(char *str, int *i);
 
 #endif
