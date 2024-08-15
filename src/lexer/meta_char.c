@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:12:58 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/14 17:43:21 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:14:47 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,6 @@ int	check_pipe(char *str, t_data *data, int *i)
 	return (0);
 }
 
-// il faut gerer les cas ou il y a encore des " ", 
-// peut etre rappeler la meme fonction une nouvelle fois
-// OU : faire un systeme ou je compte le nb de quote et je cpy jusqu'au dernier quote
 int	double_quote(char *str, t_data *data, int *i)
 {
 	int	len;

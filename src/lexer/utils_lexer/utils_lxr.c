@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:17:37 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/14 17:39:05 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:39:29 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	len_string(char *str, int *i)
 
 	len = 0;
 	tmp = *i;
-	while (str[*i] && str[*i] != ' ')
+	while (str[*i] && str[*i] != ' ' && str[*i] != '"' && str[*i] != '\'')
 	{
 		(*i)++;
 		len++;
@@ -55,8 +55,11 @@ void	cpy_str(char *str, t_data *data, int *i, char stop)
 		data->lex->string[tmp] = str[*i];
 		(*i)++;
 		tmp++;
+		if (stop == ' ')
+			if (str[*i] == '"' || str[*i] == '\'')
+				break;
 	}
-	if (!str[*i])
+	if (!str[*i] && stop != ' ')
 		(*i)--;
 	data->lex->string[tmp] = '\0';
 }

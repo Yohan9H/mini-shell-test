@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/14 17:36:47 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:24:55 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	choice_token(char *str, t_data *data, int i)
 	else if (single_quote(str, data, &i))
 		verif_and_add_back(data, &i, 1);
 	else if (is_string(str, data, &i) == 1)
-		verif_and_add_back(data, &i, 1);
+		verif_and_add_back(data, &i, 0);
 	else
 		i++;
 	return (i);
@@ -75,6 +75,7 @@ void	lexer(t_data *data)
 
 
 // ---------------------------- TEST ------------------------------------
+
 
 
 
