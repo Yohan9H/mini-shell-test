@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/16 10:50:14 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/16 12:02:35 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	verif_and_add_back(t_data *data, int *i, int num)
 	*i = *i + num;
 }
 
-int	choice_token(char *str, t_data *data, int i)
+int	choice_token(char *str, t_data *data, int i) // need handle $
 {
 	if (double_redirection(str, data, &i) == 1)
 		verif_and_add_back(data, &i, 2);

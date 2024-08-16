@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:17:37 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/16 10:47:55 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/16 12:06:44 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	cpy_str(char *str, t_data *data, int *i, char stop)
 	data->lex->string[tmp] = '\0';
 }
 
-int	verif_sep(char *str, int *i)
+int	verif_sep_close(char *str, int *i)
 {
 	int	tmp;
 	int	nb_sep;
@@ -78,7 +78,10 @@ int	verif_sep(char *str, int *i)
 		(*i)++;
 	}
 	*i = tmp;
-	return (nb_sep);
+	if (nb_sep % 2 == 1)
+		return (1);
+	else
+		return (0);
 }
 
 

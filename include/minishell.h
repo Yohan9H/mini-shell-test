@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/16 10:48:49 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/16 11:02:22 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 typedef enum
 {
 	MALLOC,
-	END_QUOTE,
+	QUOTE_CLOSE,
 } type_error;
 
 typedef enum 
@@ -57,7 +57,6 @@ typedef struct s_lex
 	t_token	*last;
 	t_token	*new;
 	char	*string;
-	int		nb_sep;
 }	t_lex;
 
 typedef struct s_data
@@ -108,6 +107,6 @@ int		len_string(char *str, int *i);
 
 void	cpy_str(char *str, t_data *data, int *i, char stop);
 
-int	verif_sep(char *str, int *i);
+int	verif_sep_close(char *str, int *i);
 
 #endif
