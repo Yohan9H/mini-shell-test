@@ -6,13 +6,12 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:43:49 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/15 16:31:24 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/16 16:59:21 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// plus tard gerer les autres separateurs telle que le retour a la ligne et le tab
 int	is_string(char *str, t_data *data, int *i)
 {
 	int len;
@@ -22,7 +21,7 @@ int	is_string(char *str, t_data *data, int *i)
 		len = len_string(str, i);
 		data->lex->string = malloc((len + 1) * sizeof(char));
 		if (!data->lex->string)
-			exit_clean(data, MALLOC);
+			exit_clean(data, MALLOC, Y_EXIT);
 		cpy_str(str, data, i, ' ');
 		data->lex->new = ft_lstnew(data->lex->string, STRING_TOKEN, data);
 		return (1);

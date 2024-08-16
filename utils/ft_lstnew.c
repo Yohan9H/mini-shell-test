@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:39:05 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/15 14:57:55 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/16 15:32:29 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_token	*ft_lstnew(char *value, tokentype token, t_data *data)
 
 	list = (t_token *)malloc(sizeof(t_token));
 	if (!list)
-		exit_clean(data, MALLOC);
+		exit_clean(data, MALLOC, Y_EXIT);
 	list->value = value;
 	list->type = token;
 	list->next = NULL;
