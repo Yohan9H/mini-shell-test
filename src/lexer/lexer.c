@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/15 14:57:16 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:50:14 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,10 @@ char	*get_token(tokentype type)
 		return ("APPEND_TOKEN");
 	if (type == REDIRECTION_TOKEN)
 		return ("REDIRECTION_TOKEN");
+	if (type == DB_TOKEN)
+		return ("DB_TOKEN");
+	if (type == SG_TOKEN)
+		return ("SG_TOKEN");
 	return (NULL);
 }
 

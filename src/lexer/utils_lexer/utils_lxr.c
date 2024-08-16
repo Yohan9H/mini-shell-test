@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:17:37 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/15 17:25:16 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:47:55 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,6 @@ int	len_string(char *str, int *i)
 	return (len);
 }
 
-int if_stop(char *str, t_data *data, int *i, char stop)
-{
-	if (stop == STRING)
-		if (str[*i] == DOUBLE_Q || str[*i] == SINGLE_Q)
-			return (1);
-	if ((stop == DOUBLE_Q || stop == SINGLE_Q) 
-		&& (str[*i] == DOUBLE_Q || str[*i] == SINGLE_Q))
-	{
-		(data->lex->nb_sep)--;
-		printf("lex->nb_sep = %d\n", data->lex->nb_sep); // test
-		if (data->lex->nb_sep == 0)
-			return (1);
-	}
-	return (0);
-}
-
 void	cpy_str(char *str, t_data *data, int *i, char stop)
 {
 	int tmp;
@@ -71,14 +55,12 @@ void	cpy_str(char *str, t_data *data, int *i, char stop)
 		data->lex->string[tmp] = str[*i];
 		(*i)++;
 		tmp++;
-		if (if_stop(str, data, i, stop) == 1)
+	if (stop == STRING)
+		if (str[*i] == DOUBLE_Q || str[*i] == SINGLE_Q)
 			break;
 	}
 	if (!str[*i] && stop != STRING)
 		(*i)--;
-	// if (stop == DOUBLE_Q || stop == SINGLE_Q) Ne fonctionne pas
-	// 	if (str[*i - 1] != stop)
-	// 		exit_clean(data, END_QUOTE);
 	data->lex->string[tmp] = '\0';
 }
 
@@ -96,6 +78,47 @@ int	verif_sep(char *str, int *i)
 		(*i)++;
 	}
 	*i = tmp;
-	printf("nb_sep = %d\n", nb_sep);
 	return (nb_sep);
 }
+
+
+
+
+
+
+
+
+
+// ------------------------  TRY  ---------------------------
+
+
+
+
+
+
+
+
+
+// int if_stop(char *str, t_data *data, int *i, char stop) // ne fonctionne plus avec ""''""ls""''"" si je fais cette tech pour gere le cas "make""file"
+// {													   // essai pour gere la concatenation de 2 str
+// 	if ((stop == DOUBLE_Q || stop == SINGLE_Q) 
+// 		&& (str[*i] == DOUBLE_Q || str[*i] == SINGLE_Q))
+// 	{
+// 		(data->lex->nb_sep)--;
+// 		printf("lex->nb_sep = %d\n", data->lex->nb_sep); // test
+// 		if (data->lex->nb_sep == 1)
+// 			return (1);
+// 	}
+// 	return (0);
+// }
+
+// int	condition_cpy(char *str, t_data *data, int *i, char stop) // essai pour gere la concatenation de 2 str
+// {
+// 	if (stop == STRING)
+// 		if (str[*i] == stop)
+// 			return (1);
+// 	if (stop == DOUBLE_Q || stop == SINGLE_Q)
+// 		if (data->lex->nb_sep == 0)
+// 			return (1);
+// 	return (0);
+// }

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:12:58 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/15 16:04:01 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:49:00 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	double_quote(char *str, t_data *data, int *i)
 		if (!data->lex->string)
 			exit_clean(data, MALLOC);
 		cpy_str(str, data, i, '"');
-		data->lex->new = ft_lstnew(data->lex->string, STRING_TOKEN, data);
+		data->lex->new = ft_lstnew(data->lex->string, DB_TOKEN, data);
 		return (1);
 	}
 	return (0);
@@ -79,7 +79,7 @@ int	single_quote(char *str, t_data *data, int *i)
 		if (!data->lex->string)
 			exit_clean(data, MALLOC);
 		cpy_str(str, data, i, '\'');
-		data->lex->new = ft_lstnew(data->lex->string, STRING_TOKEN, data);
+		data->lex->new = ft_lstnew(data->lex->string, SG_TOKEN, data);
 		return (1);
 	}
 	return (0);

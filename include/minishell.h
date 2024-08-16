@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/15 17:22:33 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:48:49 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ typedef enum
 {
 	COMMAND_TOKEN,
 	STRING_TOKEN,
-	// DB_TOKEN,
-	// SG_TOKEN,  A voir si utile
+	DB_TOKEN,
+	SG_TOKEN,
 	PIPE_TOKEN,
 	INPUT_TOKEN,
 	OUTPUT_TOKEN,
