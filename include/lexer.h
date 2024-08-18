@@ -6,12 +6,13 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/16 16:10:38 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:02:24 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
+# include "minishell.h"
 # define STRING ' '
 # define DOUBLE_Q '"'
 # define SINGLE_Q '\''
@@ -23,12 +24,6 @@ typedef enum
 } bool;
 
 typedef enum
-{
-	MALLOC,
-	QUOTE_CLOSE,
-} type_error;
-
-typedef enum 
 {
 	COMMAND_TOKEN,
 	STRING_TOKEN,
@@ -62,11 +57,6 @@ typedef struct s_lex
 	int		code_reset;
 }	t_lex;
 
-typedef struct s_data
-{
-	t_lex	*lex;
-}	t_data;
-
 // ---- LEXER ----
 void	lexer(t_data *data);
 
@@ -83,7 +73,6 @@ int		double_quote(char *str, t_data *data, int *i);
 int		is_string(char *str, t_data *data, int *i);
 
 //	---- UTILS LEXER ----
-
 int		len_db_quote(char *str, int *i, char stop);
 
 int		len_string(char *str, int *i);
