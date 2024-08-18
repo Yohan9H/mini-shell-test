@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/18 17:02:24 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:27:44 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # define STRING ' '
 # define DOUBLE_Q '"'
 # define SINGLE_Q '\''
+
+typedef struct s_data	t_data;
 
 typedef enum
 {
