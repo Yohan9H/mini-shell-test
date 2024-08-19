@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   utils_parser.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/18 16:54:53 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/19 16:35:41 by yohurteb         ###   ########.fr       */
+/*   Created: 2024/08/19 16:32:47 by yohurteb          #+#    #+#             */
+/*   Updated: 2024/08/19 16:52:52 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
-# include "minishell.h"
+#include "minishell.h"
 
-
-
-// ---- PARSER ----
-void	parser(t_data *data);
-
-void	prep_parser(t_data *data);
-
-// ---- PARSER ----
-int		is_str_sg_db(tokentype type);
-
-#endif
+int	is_str_sg_db(tokentype type)
+{
+	if (type == STRING_TOKEN || type == DB_TOKEN || type == SG_TOKEN)
+		return (1);
+	else
+		return (0);
+}

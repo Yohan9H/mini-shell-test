@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/16 18:13:59 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:56:43 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,66 +69,4 @@ void	lexer(t_data *data)
 	if (data->lex->input && data->lex->input[0])
 		add_history(data->lex->input);
 	add_token(data);
-	test_minishell(data); 			// Pour test
-}
-
-
-
-
-
-
-
-
-
-
-// ---------------------------- TEST ------------------------------------
-
-
-
-
-
-
-
-
-
-char	*get_token(tokentype type)
-{
-	if (type == COMMAND_TOKEN)
-		return ("COMMAND_TOKEN");
-	if (type == STRING_TOKEN)
-		return ("STRING_TOKEN");
-	if (type == PIPE_TOKEN)
-		return ("PIPE_TOKEN");
-	if (type == INPUT_TOKEN)
-		return ("INPUT_TOKEN");
-	if (type == OUTPUT_TOKEN)
-		return ("OUTPUT_TOKEN");
-	if (type == HEREDOC_TOKEN)
-		return ("HEREDOC_TOKEN");
-	if (type == APPEND_TOKEN)
-		return ("APPEND_TOKEN");
-	if (type == REDIRECTION_TOKEN)
-		return ("REDIRECTION_TOKEN");
-	if (type == DB_TOKEN)
-		return ("DB_TOKEN");
-	if (type == SG_TOKEN)
-		return ("SG_TOKEN");
-	return (NULL);
-}
-
-void	test_minishell(t_data *data)
-{
-	t_token	*tmp = NULL;
-	int	i;
-
-	i = 0;
-	tmp = data->lex->first;
-	printf("  ----  \n");
-	while (tmp != NULL)
-	{
-		printf("num : %d\n", i++);
-		printf("value type : %s\n", get_token(tmp->type));
-		printf("value node : %s\n  ----  \n", tmp->value);
-		tmp = tmp->next;
-	}
 }

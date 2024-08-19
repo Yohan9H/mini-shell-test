@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/18 17:27:44 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:19:08 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef enum
 typedef enum
 {
 	COMMAND_TOKEN,
+	ARG_TOKEN,
+	FILE_TOKEN,
 	STRING_TOKEN,
 	DB_TOKEN,
 	SG_TOKEN,

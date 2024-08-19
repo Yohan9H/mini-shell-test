@@ -3,5 +3,6 @@
 		"type_traits": "c",
 		"minishell.h": "c",
 		"lexer.h": "c"
-	}
+	},
+	"makefile.configureOnOpen": false
 }

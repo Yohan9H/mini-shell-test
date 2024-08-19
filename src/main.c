@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/16 16:23:29 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:53:46 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ int	main()
 	while (1)
 	{
 		lexer(&data);
-		//if (data->lex->code_reset == 0)
-		//	parseur
+		if (data.lex->code_reset == 0)
+			parser(&data);
 		//if (data->lex->code_reset == 0)
 		//exec
+		test_minishell(&data);
 	}
 }

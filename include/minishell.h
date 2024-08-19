@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/18 17:02:16 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:52:21 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,8 @@ int		ft_lstsize(t_token *lst);
 char	**ft_split(char const *s, char c);
 
 int		ft_strlen(const char *s);
+
+//	---- TEST ----
+void	test_minishell(t_data *data);
 
 #endif

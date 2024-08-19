@@ -6,13 +6,27 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:53:21 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/18 16:53:58 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:52:46 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parser(t_data *data)
+void	parsing(t_data *data, t_token *lst)
 {
-	
+	(void)data;
+	(void)lst;
+}
+
+void	parser(t_data *data) // Identifier les FILE avant toute chose 
+{
+	t_token	*lst;
+
+	prep_parser(data);
+	lst = data->lex->first;
+	while (lst != NULL)
+	{
+		parsing(data, lst);
+		lst = lst->next;
+	}
 }

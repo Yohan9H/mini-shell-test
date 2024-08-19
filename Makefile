@@ -6,7 +6,7 @@
 #    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/08/18 17:13:03 by yohurteb         ###   ########.fr        #
+#    Updated: 2024/08/19 16:20:28 by yohurteb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ SRCS = \
 	src/lexer/meta_char.c \
 	src/lexer/meta_char_two.c \
 	src/lexer/utils_lexer/utils_lxr.c \
+	src/parser/parser.c \
+	src/parser/prep_parser.c \
 	utils/garbage_collector.c \
 	utils/ft_split.c \
 	utils/ft_strlen.c \
@@ -31,7 +33,8 @@ SRCS = \
 	utils/ft_lstadd_front.c \
 	utils/ft_lstclear.c \
 	utils/ft_lstlast.c \
-	utils/ft_lstnew.c
+	utils/ft_lstnew.c \
+	test/test.c # ---- POUR TEST A ENLEVER ----
 
 OBJS = $(SRCS:.c=.o)
 
