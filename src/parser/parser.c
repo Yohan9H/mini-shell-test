@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:53:21 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/19 16:52:46 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/20 10:27:22 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	parsing(t_data *data, t_token *lst)
 	(void)lst;
 }
 
-void	parser(t_data *data) // Identifier les FILE avant toute chose 
+void	parser(t_data *data)
 {
 	t_token	*lst;
 
