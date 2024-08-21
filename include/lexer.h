@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/20 14:49:49 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/21 12:15:03 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct s_lex
 	t_token	*last;
 	t_token	*new;
 	char	*string;
-	int		code_reset;
 }	t_lex;
 
 // ---- LEXER ----
@@ -75,6 +74,9 @@ int		single_quote(char *str, t_data *data, int *i);
 int		double_quote(char *str, t_data *data, int *i);
 
 int		is_string(char *str, t_data *data, int *i);
+
+void	add_file_tk(t_token *first);
+
 
 //	---- UTILS LEXER ----
 int		len_db_quote(char *str, int *i, char stop);

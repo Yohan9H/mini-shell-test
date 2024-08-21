@@ -6,28 +6,39 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:53:21 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/20 15:06:23 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:02:10 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parsing(t_data *data, t_token *lst)
+void	verif_first_position(t_data *data, t_token *lst)
 {
-	if (lst->type == INPUT_TOKEN)
-		if (state_input(lst) == 1)
-			//error_pars(); mess personnalise pour le parser
+	if (lst->type == PIPE_TOKEN)
+	{
+		fprintf(stderr, "error near unexpected token \'|\'\n");
+		exit_clean(data, NOTHING, N_EXIT);
+	}
+}
+
+void	parsing(t_data *data, t_token *lst, int	*reset)
+{
+	if (*reset == 0 && lst->type == PIPE_TOKEN)
+		state_pipe(data, lst);
+	if (*reset == 0 && is_redirection(lst->type) == 1)
+		state_redirection(data, lst);
 }
 
 void	parser(t_data *data)
 {
 	t_token	*lst;
 
-	prep_parser(data);
 	lst = data->lex->first;
-	while (lst != NULL)
+	verif_first_position(data, data->lex->first);
+	while (data->code_reset == 0 && lst != NULL)
 	{
-		parsing(data, lst);
-		lst = lst->next;
+		parsing(data, lst, &data->code_reset);
+		if (data->code_reset == 0)
+			lst = lst->next;
 	}
 }

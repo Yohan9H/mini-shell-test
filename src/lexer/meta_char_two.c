@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:43:49 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/18 14:22:29 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/21 12:14:55 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,21 @@ int	is_string(char *str, t_data *data, int *i)
 		return (1);
 	}
 	return (0);
+}
+
+void	add_file_tk(t_token *first)
+{
+	t_token	*lst;
+
+	lst = first;
+	while (lst != NULL)
+	{
+		if (is_redirection(lst->type) == 1 && lst->next != NULL
+			&& lst->next->type == STRING_TOKEN)
+		{
+			lst = lst->next;
+			lst->type = FILE_TOKEN;
+		}
+		lst = lst->next;
+	}
 }

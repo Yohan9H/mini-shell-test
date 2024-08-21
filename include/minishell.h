@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/19 14:52:21 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/21 10:59:49 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ typedef enum
 {
 	MALLOC,
 	QUOTE_CLOSE,
+	NOTHING,
 } type_error;
 
 typedef struct s_data
 {
 	t_lex	*lex;
+	int		code_reset;
 }	t_data;
 
 //	---- MAIN ----

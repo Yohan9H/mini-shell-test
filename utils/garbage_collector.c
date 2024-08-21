@@ -6,20 +6,28 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:56:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/20 14:57:50 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/21 11:33:30 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_error(int error) // Peut etre de faire une new fonction pour les error du parser
+void	print_error(int error)
 {
 	if (error == MALLOC)
-		fprintf(stderr, "error malloc\n");
+		fprintf(stderr, "error : malloc\n");
 	if (error == QUOTE_CLOSE)
-		fprintf(stderr, "error quote\n");
-	if (error == W_INPUT)
-		fprintf(stderr, "error redirection");
+		fprintf(stderr, "error : quote not close\n");
+}
+
+void	if_exit(t_data *data, bool num)
+{
+	if (num == Y_EXIT)
+		exit(1);
+	else if (num == N_EXIT)
+		data->code_reset = 1;
+	else
+		return ;
 }
 
 void	exit_clean(t_data *data, type_error error, bool num)
@@ -40,13 +48,6 @@ void	exit_clean(t_data *data, type_error error, bool num)
 		data->lex->new = NULL;
 	}
 	print_error(error);
-	if (num == Y_EXIT)
-		exit(1);
-	else if (num == N_EXIT)
-	{
-		data->lex->code_reset = 1;
-		data->lex->input = NULL;
-	}
-	else
-		return ;
+	if_exit(data, num);
+
 }

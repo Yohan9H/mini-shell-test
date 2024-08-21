@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/19 14:56:43 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/21 14:47:44 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,19 @@ void	add_token(t_data *data)
 	i = 0;
 	while (str[i])
 	{
-		i = choice_token(str, data, i, &(data->lex->code_reset));
-		if (data->lex->code_reset == 1)
+		i = choice_token(str, data, i, &(data->code_reset));
+		if (data->code_reset == 1)
 			break;
 	}
+	add_file_tk(data->lex->first);
 }
 
-void	lexer(t_data *data)
+void	lexer(t_data *data) // faire les differents espaces
 {
 	int	i;
 
 	i = 0;
-	data->lex->code_reset = 0;
+	data->code_reset = 0;
 	data->lex->input = readline("minishell> ");
 	if (data->lex->first != NULL)
 		ft_lstclear(&(data->lex->first));
