@@ -6,18 +6,20 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:56:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/16 18:50:24 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:57:50 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_error(int error)
+void	print_error(int error) // Peut etre de faire une new fonction pour les error du parser
 {
 	if (error == MALLOC)
 		fprintf(stderr, "error malloc\n");
 	if (error == QUOTE_CLOSE)
 		fprintf(stderr, "error quote\n");
+	if (error == W_INPUT)
+		fprintf(stderr, "error redirection");
 }
 
 void	exit_clean(t_data *data, type_error error, bool num)
@@ -41,7 +43,10 @@ void	exit_clean(t_data *data, type_error error, bool num)
 	if (num == Y_EXIT)
 		exit(1);
 	else if (num == N_EXIT)
+	{
+		data->lex->code_reset = 1;
 		data->lex->input = NULL;
+	}
 	else
 		return ;
 }

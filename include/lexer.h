@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/19 15:19:08 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:49:49 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,6 @@ int		len_string(char *str, int *i);
 
 void	cpy_str(char *str, t_data *data, int *i, char stop);
 
-int		verif_sep_close(t_data *data, char *str, int *i);
+int		verif_sep_close(char *str, int *i);
 
 #endif

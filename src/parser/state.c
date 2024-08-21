@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   state.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/18 16:54:53 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/20 14:54:21 by yohurteb         ###   ########.fr       */
+/*   Created: 2024/08/20 15:06:40 by yohurteb          #+#    #+#             */
+/*   Updated: 2024/08/20 17:31:57 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
-# include "minishell.h"
+#include "minishell.h"
 
-typedef	enum
+int	state_input(t_token *lst)
 {
-	W_INPUT,
-	W_OUTPUT,
-	W_PIPE,
-}	error_pars;
-
-// ---- PARSER ----
-void	parser(t_data *data);
-
-void	prep_parser(t_data *data);
-
-// ---- PARSER ----
-int		is_str_sg_db(tokentype type);
-
-int		is_redirection(tokentype type);
-
-#endif
+	if (lst->next == NULL)
+		//error();
+	if (lst->next->type == PIPE_TOKEN)
+		//error();
+}

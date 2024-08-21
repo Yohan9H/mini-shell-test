@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:12:58 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/16 18:12:50 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:50:04 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	double_quote(char *str, t_data *data, int *i)
 {
 	int	len;
 
-	if (verif_sep_close(data, str, i) == 1)
+	if (verif_sep_close(str, i) == 1)
 		return (exit_clean(data, QUOTE_CLOSE, N_EXIT), 0);
 	if (str[*i] == '"')
 	{
@@ -72,7 +72,7 @@ int	single_quote(char *str, t_data *data, int *i)
 {
 	int	len;
 
-	if (verif_sep_close(data, str, i) == 1)
+	if (verif_sep_close(str, i) == 1)
 		return (exit_clean(data, QUOTE_CLOSE, N_EXIT), 0);
 	if (str[*i] == '\'')
 	{
