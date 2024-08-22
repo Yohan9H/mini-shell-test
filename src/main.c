@@ -6,15 +6,18 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/21 11:34:17 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/22 14:11:50 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_data(t_data *data) // le move dans le dossier lexer
+void	init_data(t_data *data, char **env) // le move dans le dossier lexer
 {
+	data->my_env = env; // methode a changer apres 
 	data->lex = malloc(sizeof(t_lex));
+	if (!data->lex)
+		exit(1);
 	data->lex->input = NULL;
 	data->lex->first = NULL;
 	data->lex->last = NULL;
@@ -22,11 +25,13 @@ void	init_data(t_data *data) // le move dans le dossier lexer
 	data->lex->string = NULL;
 }
 
-int	main()
+int	main(int ac, char **av, char **env)
 {
 	t_data	data;
 
-	init_data(&data);
+	(void)ac;
+	(void)av;
+	init_data(&data, env);
 	while (1)
 	{
 		lexer(&data);

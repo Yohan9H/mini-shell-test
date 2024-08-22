@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/21 14:47:44 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/22 12:07:17 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	test_minishell(t_data *data); // Pour test
 void	verif_and_add_back(t_data *data, int *i, int num)
 {
 	if (!data->lex->new)
-		exit_clean(data, MALLOC, Y_EXIT);
+		exit_clean(data, MALLOC, N_EXIT);
 	ft_lstadd_back(&(data->lex->first), data->lex->new, data->lex->last);
 	data->lex->new = NULL;
 	*i = *i + num;
@@ -35,6 +35,8 @@ int	choice_token(char *str, t_data *data, int i, int *reset)
 		verif_and_add_back(data, &i, 1);
 	else if (*reset == 0 && single_quote(str, data, &i) == 1)
 		verif_and_add_back(data, &i, 1);
+	else if (*reset == 0 && is_dollar(str, data, &i) == 1)
+		verif_and_add_back(data, &i, 0);
 	else if (*reset == 0 && is_string(str, data, &i) == 1)
 		verif_and_add_back(data, &i, 0);
 	else

@@ -6,11 +6,11 @@
 #    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/08/21 15:08:34 by yohurteb         ###   ########.fr        #
+#    Updated: 2024/08/22 14:09:45 by yohurteb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = mini_shell
+NAME = minishell
 
 CC = cc
 
@@ -36,6 +36,9 @@ SRCS = \
 	utils/ft_lstclear.c \
 	utils/ft_lstlast.c \
 	utils/ft_lstnew.c \
+	utils/ft_strncmp.c \
+	utils/ft_strdup.c \
+	utils/ft_strjoin.c \
 	test/test.c # ---- POUR TEST A ENLEVER ----
 
 OBJS = $(SRCS:.c=.o)

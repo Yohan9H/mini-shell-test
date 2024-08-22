@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/21 10:59:49 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/22 14:05:50 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_data
 {
 	t_lex	*lex;
 	int		code_reset;
+	char	**my_env;
 }	t_data;
 
 //	---- MAIN ----
@@ -53,6 +54,12 @@ int		ft_lstsize(t_token *lst);
 char	**ft_split(char const *s, char c);
 
 int		ft_strlen(const char *s);
+
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+
+char	*ft_strdup(const char *s1);
+
+char	*ft_strjoin(const char *s1, const char *s2);
 
 //	---- TEST ----
 void	test_minishell(t_data *data);

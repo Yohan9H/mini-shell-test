@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:12:58 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/20 14:50:04 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/22 09:35:47 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	double_quote(char *str, t_data *data, int *i)
 		len = len_db_quote(str, i, '"');
 		data->lex->string = malloc((len + 1) * sizeof(char));
 		if (!data->lex->string)
-			exit_clean(data, MALLOC, Y_EXIT);
+			exit_clean(data, MALLOC, N_EXIT);
 		cpy_str(str, data, i, '"');
 		data->lex->new = ft_lstnew(data->lex->string, DB_TOKEN, data);
 		return (1);
@@ -79,7 +79,7 @@ int	single_quote(char *str, t_data *data, int *i)
 		len = len_db_quote(str, i, '\'');
 		data->lex->string = malloc((len + 1) * sizeof(char));
 		if (!data->lex->string)
-			exit_clean(data, MALLOC, Y_EXIT);
+			exit_clean(data, MALLOC, N_EXIT);
 		cpy_str(str, data, i, '\'');
 		data->lex->new = ft_lstnew(data->lex->string, SG_TOKEN, data);
 		return (1);

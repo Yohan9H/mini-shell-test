@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/21 12:15:03 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/22 10:56:19 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ typedef enum
 
 typedef enum
 {
-	COMMAND_TOKEN,
-	ARG_TOKEN,
 	FILE_TOKEN,
+	DOLLAR_TOKEN,
 	STRING_TOKEN,
 	DB_TOKEN,
 	SG_TOKEN,
@@ -38,7 +37,6 @@ typedef enum
 	OUTPUT_TOKEN,
 	HEREDOC_TOKEN,
 	APPEND_TOKEN,
-	REDIRECTION_TOKEN,
 } tokentype;
 
 typedef struct s_token t_token;
@@ -74,6 +72,8 @@ int		single_quote(char *str, t_data *data, int *i);
 int		double_quote(char *str, t_data *data, int *i);
 
 int		is_string(char *str, t_data *data, int *i);
+
+int		is_dollar(char *str, t_data *data, int *i);
 
 void	add_file_tk(t_token *first);
 

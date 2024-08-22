@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:51:04 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/19 15:19:33 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/22 10:57:23 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 char	*get_token(tokentype type)
 {
-	if (type == COMMAND_TOKEN)
-		return ("COMMAND_TOKEN");
-	if (type == ARG_TOKEN)
-		return ("ARG_TOKEN");
+	if (type == DOLLAR_TOKEN)
+		return ("DOLLAR_TOKEN");
 	if (type == FILE_TOKEN)
 		return ("FILE_TOKEN");
 	if (type == STRING_TOKEN)
@@ -32,8 +30,6 @@ char	*get_token(tokentype type)
 		return ("HEREDOC_TOKEN");
 	if (type == APPEND_TOKEN)
 		return ("APPEND_TOKEN");
-	if (type == REDIRECTION_TOKEN)
-		return ("REDIRECTION_TOKEN");
 	if (type == DB_TOKEN)
 		return ("DB_TOKEN");
 	if (type == SG_TOKEN)
