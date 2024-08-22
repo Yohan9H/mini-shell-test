@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/22 10:56:19 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:21:38 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ typedef enum
 	FILE_TOKEN,
 	DOLLAR_TOKEN,
 	STRING_TOKEN,
-	DB_TOKEN,
-	SG_TOKEN,
+	DQ_TOKEN,
+	SQ_TOKEN,
 	PIPE_TOKEN,
 	INPUT_TOKEN,
 	OUTPUT_TOKEN,
@@ -85,6 +85,6 @@ int		len_string(char *str, int *i);
 
 void	cpy_str(char *str, t_data *data, int *i, char stop);
 
-int		verif_sep_close(char *str, int *i);
+int		verif_sep_close(char *str, int *i, char type, int len);
 
 #endif

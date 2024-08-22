@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 16:32:47 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/21 14:33:03 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:07:47 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_str_sg_db(tokentype type)
 {
-	if (type == STRING_TOKEN || type == DB_TOKEN || type == SG_TOKEN)
+	if (type == STRING_TOKEN || type == DQ_TOKEN || type == SQ_TOKEN)
 		return (1);
 	else
 		return (0);
