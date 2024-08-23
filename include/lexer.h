@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/22 15:21:38 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/23 10:40:48 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef enum
 
 typedef enum
 {
+	SPACE_TK,
 	FILE_TOKEN,
 	DOLLAR_TOKEN,
 	STRING_TOKEN,
@@ -61,6 +62,8 @@ typedef struct s_lex
 // ---- LEXER ----
 void	lexer(t_data *data);
 
+int	check_space(char *str, t_data *data, int *i);
+
 int		single_redirection(char *str, t_data *data, int *i);
 
 int		double_redirection(char *str, t_data *data, int *i);
@@ -77,6 +80,7 @@ int		is_dollar(char *str, t_data *data, int *i);
 
 void	add_file_tk(t_token *first);
 
+void	join_if_no_space(t_data *data);
 
 //	---- UTILS LEXER ----
 int		len_db_quote(char *str, int *i, char stop);
@@ -86,5 +90,7 @@ int		len_string(char *str, int *i);
 void	cpy_str(char *str, t_data *data, int *i, char stop);
 
 int		verif_sep_close(char *str, int *i, char type, int len);
+
+int		is_allspace(char c);
 
 #endif

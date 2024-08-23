@@ -6,11 +6,24 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:43:49 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/22 14:09:20 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/23 10:37:18 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	check_space(char *str, t_data *data, int *i)
+{
+	if (is_allspace(str[*i]) == 1)
+	{
+		while (is_allspace(str[*i]) == 1)
+			(*i)++;
+		data->lex->new = ft_lstnew(NULL, SPACE_TK, data);
+		return (1);
+	}
+	else
+		return (0);
+}
 
 int	is_string(char *str, t_data *data, int *i)
 {
