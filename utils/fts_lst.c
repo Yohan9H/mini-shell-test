@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_parser.c                                     :+:      :+:    :+:   */
+/*   fts_lst.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/19 16:32:47 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/23 10:51:14 by yohurteb         ###   ########.fr       */
+/*   Created: 2024/08/23 10:56:19 by yohurteb          #+#    #+#             */
+/*   Updated: 2024/08/23 12:01:12 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_redirection(tokentype type)
+void	delete_node(t_token *del, t_data *data)
 {
-	if (type == INPUT_TOKEN || type == OUTPUT_TOKEN || type == APPEND_TOKEN 
-		|| type == HEREDOC_TOKEN)
-		return (1);
+	if (del->prev != NULL)
+		del->prev->next = del->next;
 	else
-		return (0);
+		data->lex->first = del->next;
+	if (del->next != NULL)
+		del->next->prev = del->prev;
+	if (del->type == STRING_TOKEN)
+		free(del->value);
+	free(del);
+	del = NULL;
 }

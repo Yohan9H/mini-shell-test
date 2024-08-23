@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/22 14:05:50 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/23 11:49:28 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strdup(const char *s1);
 
 char	*ft_strjoin(const char *s1, const char *s2);
+
+void	delete_node(t_token *del, t_data *data);
 
 //	---- TEST ----
 void	test_minishell(t_data *data);

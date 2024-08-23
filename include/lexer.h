@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/23 10:40:48 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/23 11:49:16 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_lex
 // ---- LEXER ----
 void	lexer(t_data *data);
 
-int	check_space(char *str, t_data *data, int *i);
+int		check_space(char *str, t_data *data, int *i);
 
 int		single_redirection(char *str, t_data *data, int *i);
 
