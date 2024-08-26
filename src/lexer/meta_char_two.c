@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:43:49 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/23 10:37:18 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/26 14:39:29 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	check_space(char *str, t_data *data, int *i)
 int	is_string(char *str, t_data *data, int *i)
 {
 	int len;
-
-	if (str[*i] != ' ')
+	// rajouter a la fonction si meta char stop la string dans toute les fonctions associes
+	if (str[*i] && str[*i] != ' ') // mettre is_allspace
 	{
 		len = len_string(str, i);
 		data->lex->string = malloc((len + 1) * sizeof(char));
@@ -42,7 +42,7 @@ int	is_string(char *str, t_data *data, int *i)
 	return (0);
 }
 
-void	get_value(char *target, t_data *data, int len)
+int	get_value(char *target, t_data *data, int len)
 {
 	int	j;
 	int	find;
@@ -61,7 +61,9 @@ void	get_value(char *target, t_data *data, int len)
 		j++;
 	}
 	if (find == 0)
-		data->lex->string = ft_strjoin("$", data->lex->string);
+		return (1);
+	else
+		return (0);
 }
 
 int	is_dollar(char *str, t_data *data, int *i)
@@ -78,7 +80,8 @@ int	is_dollar(char *str, t_data *data, int *i)
 		if (!data->lex->string)
 			exit_clean(data, MALLOC, N_EXIT);
 		cpy_str(str, data, i, ' ');
-		get_value(data->lex->string, data, len);
+		if (get_value(data->lex->string, data, len) == 1)
+			return (0);
 		data->lex->new = ft_lstnew(data->lex->string, DOLLAR_TOKEN, data);
 		return (1);
 	}
@@ -96,6 +99,13 @@ void	add_file_tk(t_token *first)
 			&& lst->next->type == STRING_TOKEN)
 		{
 			lst = lst->next;
+			lst->type = FILE_TOKEN;
+		}
+		else if (is_redirection(lst->type) == 1 && lst->next->next != NULL
+			&& lst->next->type == SPACE_TK
+			&& is_str_sq_dq_dol(lst->next->next->type))
+		{
+			lst = lst->next->next;
 			lst->type = FILE_TOKEN;
 		}
 		lst = lst->next;

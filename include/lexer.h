@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/23 11:49:16 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/26 14:04:09 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ int		is_dollar(char *str, t_data *data, int *i);
 void	add_file_tk(t_token *first);
 
 void	join_if_no_space(t_data *data);
+
+int		is_str_sq_dq_dol(tokentype type);
 
 //	---- UTILS LEXER ----
 int		len_db_quote(char *str, int *i, char stop);
