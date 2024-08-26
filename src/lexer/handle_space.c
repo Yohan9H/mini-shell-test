@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 10:39:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/26 13:28:03 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:45:42 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,26 @@ void	join_lst(t_token *next, t_token *cur)
 	cur->type = STRING_TOKEN;
 }
 
-void	join_if_no_space(t_data *data)
+void	del_space(t_data *data)
+{
+	t_token	*lst;
+	t_token	*tmp;
+
+	lst = data->lex->first;
+	while (lst != NULL)
+	{
+		if (lst->type == SPACE_TK)
+		{
+			tmp = lst->next;
+			delete_node(lst, data);
+			lst = tmp;
+		}
+		else
+			lst = lst->next;
+	}
+}
+
+void	join_if_no_space_and_del_space(t_data *data)
 {
 	t_token *lst;
 
@@ -44,4 +63,5 @@ void	join_if_no_space(t_data *data)
 		else
 			lst = lst->next;
 	}
+	del_space(data);
 }

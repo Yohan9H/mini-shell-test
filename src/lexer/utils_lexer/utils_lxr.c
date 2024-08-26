@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:17:37 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/26 14:41:42 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:46:49 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ int	len_string(char *str, int *i)
 
 	len = 0;
 	tmp = *i;
-	while (str[*i] && str[*i] != ' ' && str[*i] != '"' && str[*i] != '\''
-		&& str[*i] != '$')
+	while (str[*i] && is_allspace(str[*i]) != 1
+		&& str[*i] != '"' && str[*i] != '\''
+		&& str[*i] != '$' && str[*i] != '<' && str[*i] != '>')
 	{
 		(*i)++;
 		len++;
@@ -65,7 +66,8 @@ void	cpy_str(char *str, t_data *data, int *i, char stop)
 		(*i)++;
 		tmp++;
 		if (stop == STRING)
-			if (str[*i] == DOUBLE_Q || str[*i] == SINGLE_Q || str[*i] == '$')
+			if (str[*i] == DOUBLE_Q || str[*i] == SINGLE_Q || str[*i] == '$'
+				|| str[*i] == '>' || str[*i] == '<' || str[*i] == '|')
 				break;
 	}
 	if (!str[*i] && stop != STRING)

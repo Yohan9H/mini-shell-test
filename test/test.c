@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:51:04 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/26 13:29:55 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:32:02 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,9 @@ void	test_minishell(t_data *data)
 	printf("  ----  \n");
 	while (tmp != NULL)
 	{
-		if (tmp->type != SPACE_TK)
-		{
-			printf("num : %d\n", i++);
-			printf("value type : %s\n", get_token(tmp->type));
-			printf("value node : %s\n  ----  \n", tmp->value);
-		}
+		printf("num : %d\n", i++);
+		printf("value type : %s\n", get_token(tmp->type));
+		printf("value node : %s\n  ----  \n", tmp->value);
 		tmp = tmp->next;
 	}
 }

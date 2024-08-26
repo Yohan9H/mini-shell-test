@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/26 14:21:24 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:34:30 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		lexer(&data);
-		//if (data.code_reset == 0)
-			//parser(&data);
+		if (data.code_reset == 0)
+			parser(&data);
 		//if (data.code_reset == 0)
 		//exec
 		if (data.code_reset == 0)
