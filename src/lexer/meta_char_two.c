@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:43:49 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/26 17:15:55 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:26:50 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int	get_value(char *target, t_data *data, int len)
 	find = 0;
 	while (data->my_env[j])
 	{
-		if (ft_strncmp(data->my_env[j], target, len) == 0)
+		if (ft_strncmp(data->my_env[j], target, len) == 0
+			&& data->my_env[j][len] == '=')
 		{
 			find = 1;
 			free(data->lex->string);
