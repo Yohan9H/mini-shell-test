@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:43:49 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/23 10:37:18 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:26:50 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_string(char *str, t_data *data, int *i)
 {
 	int len;
 
-	if (str[*i] != ' ')
+	if (str[*i] && is_allspace(str[*i]) == 0 && is_metachar(str[*i]) == 0)
 	{
 		len = len_string(str, i);
 		data->lex->string = malloc((len + 1) * sizeof(char));
@@ -42,7 +42,7 @@ int	is_string(char *str, t_data *data, int *i)
 	return (0);
 }
 
-void	get_value(char *target, t_data *data, int len)
+int	get_value(char *target, t_data *data, int len)
 {
 	int	j;
 	int	find;
@@ -51,7 +51,8 @@ void	get_value(char *target, t_data *data, int len)
 	find = 0;
 	while (data->my_env[j])
 	{
-		if (ft_strncmp(data->my_env[j], target, len) == 0)
+		if (ft_strncmp(data->my_env[j], target, len) == 0
+			&& data->my_env[j][len] == '=')
 		{
 			find = 1;
 			free(data->lex->string);
@@ -61,7 +62,9 @@ void	get_value(char *target, t_data *data, int len)
 		j++;
 	}
 	if (find == 0)
-		data->lex->string = ft_strjoin("$", data->lex->string);
+		return (1);
+	else
+		return (0);
 }
 
 int	is_dollar(char *str, t_data *data, int *i)
@@ -78,7 +81,8 @@ int	is_dollar(char *str, t_data *data, int *i)
 		if (!data->lex->string)
 			exit_clean(data, MALLOC, N_EXIT);
 		cpy_str(str, data, i, ' ');
-		get_value(data->lex->string, data, len);
+		if (get_value(data->lex->string, data, len) == 1)
+			return (0);
 		data->lex->new = ft_lstnew(data->lex->string, DOLLAR_TOKEN, data);
 		return (1);
 	}

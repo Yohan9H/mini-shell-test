@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fts_lst.c                                          :+:      :+:    :+:   */
+/*   utils_lxr_two.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/23 10:56:19 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/26 13:06:06 by yohurteb         ###   ########.fr       */
+/*   Created: 2024/08/26 15:03:53 by yohurteb          #+#    #+#             */
+/*   Updated: 2024/08/26 15:07:06 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	delete_node(t_token *del, t_data *data)
+int	is_metachar(char c)
 {
-	if (del->prev != NULL)
-		del->prev->next = del->next;
+	if (c == '>' || c == '<' || c == '|' || c == '$')
+		return (1);
 	else
-		data->lex->first = del->next;
-	if (del->next != NULL)
-		del->next->prev = del->prev;
-	if (del->type == STRING_TOKEN)
-		free(del->value);
-	free(del);
-	del = NULL;
+		return (0);
 }

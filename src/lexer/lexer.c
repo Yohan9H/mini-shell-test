@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/23 10:40:27 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/27 09:54:56 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	choice_token(char *str, t_data *data, int i, int *reset)
 	else if (*reset == 0 && is_string(str, data, &i) == 1)
 		verif_and_add_back(data, &i, 0);
 	else
-		i++;
+		if (*reset == 0 && str[i])
+			i++;
 	return (i);
 }
 
@@ -59,11 +60,11 @@ void	add_token(t_data *data)
 		if (data->code_reset == 1)
 			break;
 	}
+	join_if_no_space_and_del_space(data);
 	add_file_tk(data->lex->first);
-	join_if_no_space(data);
 }
 
-void	lexer(t_data *data) // faire les differents espaces
+void	lexer(t_data *data)
 {
 	int	i;
 

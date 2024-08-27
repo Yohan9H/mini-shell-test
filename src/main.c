@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/22 14:11:50 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:34:30 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int ac, char **av, char **env)
 			parser(&data);
 		//if (data.code_reset == 0)
 		//exec
-		if (data.code_reset == 0) 
+		if (data.code_reset == 0)
 			test_minishell(&data);
 	}
 	// free data->lex
