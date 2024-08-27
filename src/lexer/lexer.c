@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/26 16:45:42 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/27 09:54:56 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	choice_token(char *str, t_data *data, int i, int *reset)
 	else if (*reset == 0 && is_string(str, data, &i) == 1)
 		verif_and_add_back(data, &i, 0);
 	else
-		if (str[i])
+		if (*reset == 0 && str[i])
 			i++;
 	return (i);
 }
