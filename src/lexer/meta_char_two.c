@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:43:49 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/26 17:26:50 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:51:56 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	is_string(char *str, t_data *data, int *i)
 		len = len_string(str, i);
 		data->lex->string = malloc((len + 1) * sizeof(char));
 		if (!data->lex->string)
-			exit_clean(data, MALLOC, N_EXIT);
+			return (exit_clean(data, MALLOC, N_EXIT), 0);
 		cpy_str(str, data, i, ' ');
 		data->lex->new = ft_lstnew(data->lex->string, STRING_TOKEN, data);
 		return (1);
@@ -79,7 +79,7 @@ int	is_dollar(char *str, t_data *data, int *i)
 		len = len_string(str, i);
 		data->lex->string = malloc((len + 1) * sizeof(char));
 		if (!data->lex->string)
-			exit_clean(data, MALLOC, N_EXIT);
+			return (exit_clean(data, MALLOC, N_EXIT), 0);
 		cpy_str(str, data, i, ' ');
 		if (get_value(data->lex->string, data, len) == 1)
 			return (0);

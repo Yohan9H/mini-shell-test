@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/26 16:45:42 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:59:22 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,15 @@ int		single_quote(char *str, t_data *data, int *i);
 
 int		double_quote(char *str, t_data *data, int *i);
 
+char	*svg_after_dol(char *string);
+
+void	check_dollar_in_dq(t_data *data, char *string);
+
 int		is_string(char *str, t_data *data, int *i);
 
 int		is_dollar(char *str, t_data *data, int *i);
+
+int		get_value(char *target, t_data *data, int len);
 
 void	add_file_tk(t_token *first);
 

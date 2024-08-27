@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:12:58 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/27 09:47:22 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:51:21 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,9 @@ int	double_quote(char *str, t_data *data, int *i)
 			return (exit_clean(data, QUOTE_CLOSE, N_EXIT), 0);
 		data->lex->string = malloc((len + 1) * sizeof(char));
 		if (!data->lex->string)
-			exit_clean(data, MALLOC, N_EXIT);
+			return (exit_clean(data, MALLOC, N_EXIT), 0);
 		cpy_str(str, data, i, '"');
+		check_dollar_in_dq(data, data->lex->string);
 		data->lex->new = ft_lstnew(data->lex->string, DQ_TOKEN, data);
 		return (1);
 	}
@@ -79,7 +80,7 @@ int	single_quote(char *str, t_data *data, int *i)
 			return (exit_clean(data, QUOTE_CLOSE, N_EXIT), 0);
 		data->lex->string = malloc((len + 1) * sizeof(char));
 		if (!data->lex->string)
-			exit_clean(data, MALLOC, N_EXIT);
+			return(exit_clean(data, MALLOC, N_EXIT), 0);
 		cpy_str(str, data, i, '\'');
 		data->lex->new = ft_lstnew(data->lex->string, SQ_TOKEN, data);
 		return (1);
