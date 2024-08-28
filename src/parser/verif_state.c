@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 12:10:54 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/28 09:06:47 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:23:09 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ void	verif_redirection_pipe(t_data *data, t_token *lst)
 void	verif_dollar_fail(t_token *next)
 {
 	if (next->type == DOLLAR_FAIL)
-		fprintf(stderr, "$%s: ambiguous redirect\n", next->value);
+		fprintf(stderr, "%s: ambiguous redirect\n", next->value);
 }

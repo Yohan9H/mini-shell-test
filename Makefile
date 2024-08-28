@@ -6,7 +6,7 @@
 #    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/08/27 14:58:38 by yohurteb         ###   ########.fr        #
+#    Updated: 2024/08/28 09:38:05 by yohurteb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS = \
 	src/lexer/handle_space.c \
 	src/lexer/meta_char.c \
 	src/lexer/meta_char_two.c \
+	src/lexer/meta_char_three.c \
 	src/lexer/dollar_in_dq.c \
 	src/lexer/dollar_in_dq_two.c \
 	src/lexer/utils_lexer/utils_lxr.c \

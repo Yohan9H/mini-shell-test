@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   state.c                                            :+:      :+:    :+:   */
+/*   meta_char_three.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/20 15:06:40 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/28 09:14:17 by yohurteb         ###   ########.fr       */
+/*   Created: 2024/08/28 09:32:08 by yohurteb          #+#    #+#             */
+/*   Updated: 2024/08/28 09:32:27 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	state_pipe(t_data *data, t_token *lst)
+void	add_file_tk(t_token *first)
 {
-	verif_nothing(data, lst);
-	if (data->code_reset == 0)
-		verif_same_tk(data, lst->next, lst->type);
-}
+	t_token	*lst;
 
-void	state_redirection(t_data *data, t_token *lst)
-{
-	verif_nothing(data, lst);
-	if (data->code_reset == 0)
-		verif_same_tk(data, lst->next, lst->type);
-	if (data->code_reset == 0)
-		verif_redirection_pipe(data, lst->next);
-	if (data->code_reset == 0)
-		verif_dollar_fail(lst->next);
+	lst = first;
+	while (lst != NULL)
+	{
+		if (is_redirection(lst->type) == 1 && lst->next != NULL
+			&& is_str_sq_dq_dol(lst->next->type) == 1)
+		{
+			lst = lst->next;
+			lst->type = FILE_TOKEN;
+		}
+		lst = lst->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:43:49 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/28 08:56:18 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/28 09:37:45 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,26 @@ int	get_value(char *target, t_data *data, int len)
 		return (0);
 }
 
+void	verif_value(t_data *data, int len)
+{
+	char	*svg;
+
+	svg = ft_strdup(data->lex->string);
+	if (get_value(data->lex->string, data, len) == 1)
+	{
+		data->lex->string = ft_strdup(svg);
+		free(svg);
+		svg = ft_strdup(data->lex->string);
+		data->lex->string = ft_strjoin("$", svg);
+		data->lex->new = ft_lstnew(data->lex->string, DOLLAR_FAIL, data);
+		return (free(svg));
+	}
+	data->lex->new = ft_lstnew(data->lex->string, DOLLAR_TOKEN, data);
+}
+
 int	is_dollar(char *str, t_data *data, int *i)
 {
 	int		len;
-	char	*svg;
 
 	if (str[*i] == '$')
 	{
@@ -82,32 +98,8 @@ int	is_dollar(char *str, t_data *data, int *i)
 		if (!data->lex->string)
 			return (exit_clean(data, MALLOC, N_EXIT), 0);
 		cpy_str(str, data, i, ' ');
-		svg = ft_strdup(data->lex->string);
-		if (get_value(data->lex->string, data, len) == 1)
-		{
-			data->lex->string = ft_strdup(svg);
-			data->lex->new = ft_lstnew(data->lex->string, DOLLAR_FAIL, data);
-			return (free(svg), 1);
-		}
-		data->lex->new = ft_lstnew(data->lex->string, DOLLAR_TOKEN, data);
+		verif_value(data, len);
 		return (1);
 	}
 	return (0);
-}
-
-void	add_file_tk(t_token *first)
-{
-	t_token	*lst;
-
-	lst = first;
-	while (lst != NULL)
-	{
-		if (is_redirection(lst->type) == 1 && lst->next != NULL
-			&& is_str_sq_dq_dol(lst->next->type) == 1)
-		{
-			lst = lst->next;
-			lst->type = FILE_TOKEN;
-		}
-		lst = lst->next;
-	}
 }
