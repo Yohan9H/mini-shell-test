@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:51:04 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/26 16:32:02 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/28 08:34:58 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*get_token(tokentype type)
 		return ("SPACE_TK");
 	if (type == DOLLAR_TOKEN)
 		return ("DOLLAR_TOKEN");
+	if (type == DOLLAR_FAIL)
+		return ("DOLLAR_FAIL");
 	if (type == FILE_TOKEN)
 		return ("FILE_TOKEN");
 	if (type == STRING_TOKEN)

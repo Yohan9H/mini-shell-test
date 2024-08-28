@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/27 14:59:22 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/28 08:34:16 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef enum
 	SPACE_TK,
 	FILE_TOKEN,
 	DOLLAR_TOKEN,
+	DOLLAR_FAIL,
 	STRING_TOKEN,
 	DQ_TOKEN,
 	SQ_TOKEN,
