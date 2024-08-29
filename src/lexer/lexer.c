@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/28 15:57:21 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:36:31 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	lexer(t_data *data)
 	data->lex->input = readline("minishell> ");
 	if (data->lex->first != NULL)
 		ft_lstclear(&(data->lex->first));
-	if (data->lex->input == NULL)
+	if (data->lex->input == NULL) // Pour le ctrl-d pour le moment fonctionne surment plus avec l'exec
 	{
 		fprintf(stderr, "exit\n");
 		exit_clean(data, NOTHING, Y_EXIT);
