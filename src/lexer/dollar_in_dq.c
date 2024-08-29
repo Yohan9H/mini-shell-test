@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:07 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/27 17:01:59 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/29 11:54:39 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	join_str_value(t_data *data, char *string, char *value_dol, char *aft)
 	if (aft != NULL)
 	{
 		svg = ft_strdup(data->lex->string);
+		free(data->lex->string);
 		data->lex->string = ft_strjoin(svg, aft);
 		free(svg);
 		free(aft);	
@@ -93,6 +94,7 @@ void	if_dollar_in_dq(char *string, int len, int pos_D, t_data *data)
 		if (after_dol != NULL)
 		{
 			svg = ft_strdup(data->lex->string);
+			free(data->lex->string);
 			data->lex->string = ft_strjoin(svg, after_dol);
 			free(svg);
 			free(after_dol);
@@ -114,6 +116,7 @@ void	check_dollar_in_dq(t_data *data, char *string)
 		if (string[pos_D] && string[pos_D] == '$')
 		{
 			if_dollar_in_dq(string, len, pos_D, data);
+			free(string);
 			string = data->lex->string;
 			pos_D = 0;
 		}

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:32:43 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/29 11:11:08 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/29 11:56:28 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	ft_lstclear(t_token **lst)
 	while (*lst)
 	{
 		tmp = (*lst)->next;
-		if ((*lst)->type == STRING_TOKEN || (*lst)->type == FILE_TOKEN
-			|| (*lst)->type == DQ_TOKEN || (*lst)->type == SQ_TOKEN)
+		if (is_str_sq_dq_dol((*lst)->type) == 1
+		|| (*lst)->type == DOLLAR_FAIL || (*lst)->type == FILE_TOKEN)
 			free((*lst)->value);
 		free(*lst);
 		*lst = tmp;
