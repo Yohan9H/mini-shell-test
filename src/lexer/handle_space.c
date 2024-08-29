@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 10:39:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/28 08:45:57 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/29 10:56:39 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,12 @@ int	is_str_sq_dq_dol(tokentype type)
 
 void	join_lst(t_token *next, t_token *cur)
 {
-	cur->value = ft_strjoin(next->value, cur->value);
+	char	*svg;
+
+	svg = ft_strjoin(next->value, cur->value);
+	free(cur->value);
+	cur->value = svg;
+	svg = NULL;
 	cur->type = STRING_TOKEN;
 }
 

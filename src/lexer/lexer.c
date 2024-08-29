@@ -6,13 +6,11 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/27 09:54:56 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:57:21 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	test_minishell(t_data *data); // Pour test 
 
 void	verif_and_add_back(t_data *data, int *i, int num)
 {
@@ -73,7 +71,13 @@ void	lexer(t_data *data)
 	data->lex->input = readline("minishell> ");
 	if (data->lex->first != NULL)
 		ft_lstclear(&(data->lex->first));
+	if (data->lex->input == NULL)
+	{
+		fprintf(stderr, "exit\n");
+		exit_clean(data, NOTHING, Y_EXIT);
+	}
 	if (data->lex->input && data->lex->input[0])
 		add_history(data->lex->input);
-	add_token(data);
+	if (data->code_reset == 0)
+		add_token(data);
 }

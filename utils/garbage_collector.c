@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:56:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/21 11:33:30 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/29 09:48:37 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ void	print_error(int error)
 void	if_exit(t_data *data, bool num)
 {
 	if (num == Y_EXIT)
+	{
+		if (data->lex)
+			free(data->lex);
 		exit(1);
+	}
 	else if (num == N_EXIT)
 		data->code_reset = 1;
 	else

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:43:49 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/28 09:37:45 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:26:19 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,22 @@ void	verif_value(t_data *data, int len)
 	svg = ft_strdup(data->lex->string);
 	if (get_value(data->lex->string, data, len) == 1)
 	{
+		free(data->lex->string);
 		data->lex->string = ft_strdup(svg);
 		free(svg);
 		svg = ft_strdup(data->lex->string);
+		if (data->lex->string == NULL)
+		{
+			free(svg);
+			exit_clean(data, MALLOC, N_EXIT);
+		}
+		free(data->lex->string);
 		data->lex->string = ft_strjoin("$", svg);
+		free(svg);
 		data->lex->new = ft_lstnew(data->lex->string, DOLLAR_FAIL, data);
-		return (free(svg));
+		return ;
 	}
+	free(svg);
 	data->lex->new = ft_lstnew(data->lex->string, DOLLAR_TOKEN, data);
 }
 
