@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:56:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/29 09:48:37 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/30 18:59:23 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,30 @@ void	if_exit(t_data *data, bool num)
 	if (num == Y_EXIT)
 	{
 		if (data->lex)
+		{
 			free(data->lex);
+			data->lex = NULL;
+		}
+		if (data->par)
+		{
+			free(data->par);
+			data->par = NULL;
+		}
 		exit(1);
 	}
 	else if (num == N_EXIT)
 		data->code_reset = 1;
 	else
 		return ;
+}
+
+void	clean_data_parser(t_data *data)
+{
+	if (data->par->first)
+	{
+		ft_lstclear_exec(&(data->par->first));
+		data->par->first = NULL;
+	}
 }
 
 void	exit_clean(t_data *data, type_error error, bool num)
@@ -51,6 +68,7 @@ void	exit_clean(t_data *data, type_error error, bool num)
 		free(data->lex->new);
 		data->lex->new = NULL;
 	}
+	clean_data_parser(data);
 	print_error(error);
 	if_exit(data, num);
 

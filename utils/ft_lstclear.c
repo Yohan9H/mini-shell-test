@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:32:43 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/29 11:56:28 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/30 19:00:35 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,48 @@ void	ft_lstclear(t_token **lst)
 	*lst = NULL;
 }
 
-// void	del(void * data)
-// {
-// 	free(data);
-// }
-//
-// #include <stdio.h>
-// int	main()
-// {
-// 	t_list	*lst_1;
-//
-//     lst_1 = (t_list *)malloc(sizeof(t_list));
-//
-// 	lst_1->content = ft_strdup("salut");
-// 	lst_1->next = NULL;
+void	ft_lstclear_redir(t_redir **lst)
+{
+	t_redir	*tmp;
 
-// 	ft_lstclear(&lst_1, &del);
-// 	if (lst_1 == NULL)
-// 		printf("GOOD !\n");
-// 	free(lst_1);
-// 	return (0);
-// }
+	if (!*lst)
+		return ;
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		if ((*lst)->filename)
+		{
+			free((*lst)->filename);
+			(*lst)->filename = NULL;
+		}
+		free(*lst);
+		*lst = tmp;
+	}
+	*lst = NULL;
+}
+
+void	ft_lstclear_exec(t_exec **lst)
+{
+	t_exec	*tmp;
+	int		i;
+
+	i = 0;
+	if (!*lst)
+		return ;
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		free((*lst)->cmd);
+		while ((*lst)->args[i])
+		{
+			free((*lst)->args[i]);
+			i++;
+		}
+		if ((*lst)->args)
+			free((*lst)->args);
+		ft_lstclear_redir(&(*lst)->redir);
+		free(*lst);
+		*lst = tmp;
+	}
+	*lst = NULL;
+}

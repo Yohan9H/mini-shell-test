@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/29 13:31:34 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:13:59 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ typedef enum
 	STRING_TOKEN,
 	DQ_TOKEN,
 	SQ_TOKEN,
-	PIPE_TOKEN,
-	INPUT_TOKEN,
-	OUTPUT_TOKEN,
-	HEREDOC_TOKEN,
-	APPEND_TOKEN,
+	PIPE_TK,
+	INPUT_TK,
+	OUTPUT_TK,
+	HEREDOC_TK,
+	APPEND_TK,
 } tokentype;
 
 typedef struct s_token t_token;

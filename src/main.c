@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/29 15:41:09 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:53:57 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	init_sig()
 	signal(SIGINT, handle_sigint);
 }
 
-void	init_data(t_data *data, char **env) // le move dans le dossier lexer
+void	init_data(t_data *data, char **env)
 {
 	data->my_env = env; // methode a changer apres 
 	data->lex = malloc(sizeof(t_lex));
@@ -39,6 +39,11 @@ void	init_data(t_data *data, char **env) // le move dans le dossier lexer
 	data->lex->last = NULL;
 	data->lex->new = NULL;
 	data->lex->string = NULL;
+	data->par = (t_data_ex *)malloc(1 * sizeof(t_data_ex));
+	data->par->first = NULL;
+	data->par->new = NULL;
+	data->par->fst_rdr = NULL;
+	data->par->new_redir = NULL;
 }
 
 int	main(int ac, char **av, char **env)

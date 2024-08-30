@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/29 15:30:39 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/30 18:34:51 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # include <readline/history.h>
 # include <signal.h>
 
+typedef struct s_exec t_exec;
+
+typedef struct s_redir t_redir;
+
 typedef enum
 {
 	MALLOC,
@@ -28,11 +32,35 @@ typedef enum
 	NOTHING,
 } type_error;
 
+struct s_redir
+{
+	char		*filename;
+	tokentype	type;
+	t_redir 	*next;
+};
+
+struct s_exec
+{
+	char	*cmd;
+	char	**args;
+	t_redir	*redir;
+	t_exec	*next;
+};
+
+typedef struct s_data_ex
+{
+	t_exec	*first;
+	t_exec	*new;
+	t_redir	*fst_rdr;
+	t_redir	*new_redir;
+}	t_data_ex;
+
 typedef struct s_data
 {
-	t_lex	*lex;
-	int		code_reset;
-	char	**my_env;
+	t_lex		*lex;
+	t_data_ex	*par;
+	int			code_reset;
+	char		**my_env;
 }	t_data;
 
 //	---- MAIN ----
@@ -43,11 +71,23 @@ void	exit_clean(t_data *data, type_error error, bool num);
 //	---- UTILS ----
 void	ft_lstadd_back(t_token **lst, t_token *new, t_token *last);
 
+void	ft_rediradd_back(t_redir **lst, t_redir *new);
+
+void	ft_execadd_back(t_exec **lst, t_exec *new);
+
 void	ft_lstadd_front(t_token **lst, t_token *new);
 
 void	ft_lstclear(t_token **lst);
 
+void	ft_lstclear_redir(t_redir **lst);
+
+void	ft_lstclear_exec(t_exec **lst);
+
 t_token	*ft_lstlast(t_token *lst);
+
+t_redir	*ft_lstredirlast(t_redir *lst);
+
+t_exec	*ft_lstexeclast(t_exec *lst);
 
 t_token	*ft_lstnew(char *value, tokentype token, t_data *data);
 

@@ -6,7 +6,7 @@
 #    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/08/28 09:38:05 by yohurteb         ###   ########.fr        #
+#    Updated: 2024/08/30 18:35:52 by yohurteb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,8 @@ SRCS = \
 	src/parser/parser.c \
 	src/parser/state.c \
 	src/parser/verif_state.c \
+	src/parser/linked_exc.c \
+	src/parser/linked_exc_two.c \
 	src/parser/utils_parser/utils_parser.c \
 	utils/garbage_collector.c \
 	utils/ft_split.c \

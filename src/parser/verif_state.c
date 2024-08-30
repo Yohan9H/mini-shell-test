@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 12:10:54 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/28 10:23:09 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:13:23 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	verif_redirection_pipe(t_data *data, t_token *lst)
 		fprintf(stderr, "error near unexpected token \'%s\'\n", lst->value);
 		exit_clean(data, NOTHING, N_EXIT);
 	}
-	if (data->code_reset == 0 && lst->type == PIPE_TOKEN)
+	if (data->code_reset == 0 && lst->type == PIPE_TK)
 	{
 		fprintf(stderr, "error near unexpected token \'|\'\n");
 		exit_clean(data, NOTHING, N_EXIT);

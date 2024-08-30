@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:12:58 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/27 16:51:21 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:13:59 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	double_redirection(char *str, t_data *data, int *i)
 		|| (str[*i] == '<' && str[*i + 1] == '<')))
 	{
 		if (str[*i] == '>')
-			data->lex->new = ft_lstnew(">>", APPEND_TOKEN, data);
+			data->lex->new = ft_lstnew(">>", APPEND_TK, data);
 		else
-			data->lex->new = ft_lstnew("<<", HEREDOC_TOKEN, data);
+			data->lex->new = ft_lstnew("<<", HEREDOC_TK, data);
 		return (1);
 	}
 	return (0);
@@ -31,9 +31,9 @@ int	single_redirection(char *str, t_data *data, int *i)
 	if ((str[*i] == '>' || str[*i] == '<'))
 	{
 		if (str[*i] == '>')
-			data->lex->new = ft_lstnew(">", OUTPUT_TOKEN, data);
+			data->lex->new = ft_lstnew(">", OUTPUT_TK, data);
 		else
-			data->lex->new = ft_lstnew("<", INPUT_TOKEN, data);
+			data->lex->new = ft_lstnew("<", INPUT_TK, data);
 		return (1);
 	}
 	return (0);
@@ -43,7 +43,7 @@ int	check_pipe(char *str, t_data *data, int *i)
 {
 	if (str[*i] == '|')
 	{
-		data->lex->new = ft_lstnew("|", PIPE_TOKEN, data);
+		data->lex->new = ft_lstnew("|", PIPE_TK, data);
 		return (1);
 	}
 	return (0);

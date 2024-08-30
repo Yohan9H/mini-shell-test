@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:54:53 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/28 09:06:37 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/30 18:33:43 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,18 @@
 # define PARSER_H
 # include "minishell.h"
 
+typedef struct s_redir t_redir;
+
 // ---- PARSER ----
 void	parser(t_data *data);
 
 void	state_pipe(t_data *data, t_token *lst);
 
 void	state_redirection(t_data *data, t_token *lst);
+
+void	create_linked_lst_exec(t_data *data);
+
+t_redir	*create_linked_lst_redir(t_data *data, t_token *l_lex);
 
 // ---- VERIF STATE ----
 void	verif_nothing(t_data *data, t_token *lst);
