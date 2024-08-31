@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/31 14:29:18 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/31 15:18:07 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,12 @@
 # include <readline/history.h>
 # include <signal.h>
 
-typedef struct s_exec t_exec;
-
-typedef struct s_redir t_redir;
-
 typedef enum
 {
 	MALLOC,
 	QUOTE_CLOSE,
 	NOTHING,
 } type_error;
-
-struct s_redir
-{
-	char		*filename;
-	tokentype	type;
-	t_redir 	*next;
-};
-
-struct s_exec
-{
-	char	*cmd;
-	char	**args;
-	t_redir	*redir;
-	t_exec	*next;
-};
-
-typedef struct s_data_ex
-{
-	t_exec	*first;
-	t_exec	*new;
-	t_redir	*new_redir;
-}	t_data_ex;
 
 typedef struct s_data
 {
@@ -64,9 +38,14 @@ typedef struct s_data
 }	t_data;
 
 //	---- MAIN ----
+void	init_data(t_data *data, char **env);
+
 void	print_error(int error);
 
 void	exit_clean(t_data *data, type_error error, bool num);
+
+//  ---- SIGNALS ---- 
+void	init_sig();
 
 //	---- UTILS ----
 void	ft_lstadd_back(t_token **lst, t_token *new, t_token *last);
