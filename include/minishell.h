@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/31 11:33:54 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/31 14:29:18 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_data
 {
 	t_lex		*lex;
 	t_data_ex	*par;
+	t_exec		*head;
 	int			code_reset;
 	char		**my_env;
 }	t_data;

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:53:21 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/30 14:13:23 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/31 14:29:23 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,5 @@ void	parser(t_data *data)
 		clean_lst(data->lex->first);
 	if (data->code_reset == 0)
 		create_linked_lst_exec(data);
+	data->head = data->par->first;
 }
