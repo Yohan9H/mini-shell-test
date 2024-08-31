@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:56:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/30 18:59:23 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/31 10:51:58 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,16 @@ void	clean_data_parser(t_data *data)
 	{
 		ft_lstclear_exec(&(data->par->first));
 		data->par->first = NULL;
+	}
+	if (data->par->new)
+	{
+		free(data->par->new);
+		data->par->new = NULL;
+	}
+	if (data->par->new_redir)
+	{
+		free(data->par->new_redir);
+		data->par->new_redir = NULL;
 	}
 }
 

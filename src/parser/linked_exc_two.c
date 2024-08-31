@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:58:00 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/30 18:56:03 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/31 13:53:45 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,20 @@ t_redir	*new_node_redir(t_data *data, t_token *lst, tokentype type)
 t_redir	*create_linked_lst_redir(t_data *data, t_token *l_lex)
 {
 	t_token	*lst;
+	t_redir	*new_linked_rdr;
 
 	lst = l_lex;
+	new_linked_rdr = NULL;
 	while (lst != NULL && lst->type != PIPE_TK)
 	{
 		if (is_redirection(lst->type) == 1)
 		{
 			data->par->new_redir = new_node_redir(data, lst, lst->type);
-			ft_rediradd_back(&data->par->fst_rdr, data->par->new_redir);
+			ft_rediradd_back(&new_linked_rdr, data->par->new_redir);
 			data->par->new_redir = NULL;
 		}
 		lst = lst->next;
 	}
 	data->par->new_redir = NULL;
-	return (data->par->fst_rdr);
+	return (new_linked_rdr); 
 }

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/30 18:34:51 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:33:54 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct s_data_ex
 {
 	t_exec	*first;
 	t_exec	*new;
-	t_redir	*fst_rdr;
 	t_redir	*new_redir;
 }	t_data_ex;
 

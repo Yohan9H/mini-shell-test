@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/30 15:53:57 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:33:47 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	init_data(t_data *data, char **env)
 	data->par = (t_data_ex *)malloc(1 * sizeof(t_data_ex));
 	data->par->first = NULL;
 	data->par->new = NULL;
-	data->par->fst_rdr = NULL;
 	data->par->new_redir = NULL;
 }
 
@@ -63,6 +62,7 @@ int	main(int ac, char **av, char **env)
 		//exec
 		if (data.code_reset == 0)
 			test_minishell(&data);
+		exit_clean(&data, NOTHING, N_EXIT);
 	}
 	// free data->lex
 }

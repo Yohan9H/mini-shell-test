@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 09:12:17 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/30 18:50:13 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/31 14:04:42 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,22 @@ char	**cpy_args(t_token *l_lex)
 t_exec	*ft_lstnew_node(t_data *data, t_token *l_lex)
 {
 	t_token	*svg;
+	t_token	*find_cmd;
 	t_exec	*new;
 
 	new = (t_exec *)malloc(sizeof(t_exec));
-	if (l_lex != NULL && l_lex->type != STRING_TOKEN)
+	svg = l_lex;
+	if (svg != NULL && svg->type != STRING_TOKEN)
 	{
-		svg = l_lex;
-		while (svg != NULL && svg->type != STRING_TOKEN)
-			svg = svg->next;
-		new->cmd = ft_strdup(svg->value);
+		find_cmd = svg;
+		while (find_cmd != NULL && find_cmd->type != STRING_TOKEN)
+			find_cmd = find_cmd->next;
+		new->cmd = ft_strdup(find_cmd->value);
 	}
 	else
-		new->cmd = ft_strdup(l_lex->value);
-	new->args = cpy_args(l_lex);
-	new->redir = create_linked_lst_redir(data, l_lex);
+		new->cmd = ft_strdup(svg->value);
+	new->args = cpy_args(svg);
+	new->redir = create_linked_lst_redir(data, svg);
 	new->next = NULL;
 	return (new);
 }

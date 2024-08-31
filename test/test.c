@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:51:04 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/30 18:51:31 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/31 14:07:48 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	test_minishell(t_data *data)
 	int	i;
 
 	i = 0;
-	j = 0;
 	tmp = data->lex->first;
 	tmp_exec = data->par->first;
 	printf("  ----  \n");
@@ -61,20 +60,23 @@ void	test_minishell(t_data *data)
 		printf("value node : %s\n  ----  \n", tmp->value);
 		tmp = tmp->next;
 	}
+	printf("\n////////////////\n");
 	while (tmp_exec != NULL)
 	{
 		printf("cmd = %s\n", tmp_exec->cmd);
 		printf("args /\n");
+		j = 0;
 		while (tmp_exec->args[j])
 		{
 			printf("  -> %s\n", tmp_exec->args[j]);
 			j++;
 		}
 		printf("redirection /\n");
+		tmp_redir = tmp_exec->redir;
 		while (tmp_redir != NULL)
 		{
 			printf("     filename -> %s\n", tmp_redir->filename);
-			printf("     type     -> %c\n", tmp_redir->type);
+			printf("     type     -> %s\n", get_token(tmp_redir->type));
 			tmp_redir = tmp_redir->next;
 		}
 		printf("\n////////////////\n");
