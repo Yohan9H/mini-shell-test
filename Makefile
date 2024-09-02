@@ -6,7 +6,7 @@
 #    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/08/26 15:06:55 by yohurteb         ###   ########.fr        #
+#    Updated: 2024/08/31 15:13:50 by yohurteb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,15 +20,22 @@ LDFLAGS = -lreadline
 
 SRCS = \
 	src/main.c \
+	src/init.c \
+	src/signals/signals.c \
 	src/lexer/lexer.c \
 	src/lexer/handle_space.c \
 	src/lexer/meta_char.c \
 	src/lexer/meta_char_two.c \
+	src/lexer/meta_char_three.c \
+	src/lexer/dollar_in_dq.c \
+	src/lexer/dollar_in_dq_two.c \
 	src/lexer/utils_lexer/utils_lxr.c \
 	src/lexer/utils_lexer/utils_lxr_two.c \
 	src/parser/parser.c \
 	src/parser/state.c \
 	src/parser/verif_state.c \
+	src/parser/linked_exc.c \
+	src/parser/linked_exc_two.c \
 	src/parser/utils_parser/utils_parser.c \
 	utils/garbage_collector.c \
 	utils/ft_split.c \

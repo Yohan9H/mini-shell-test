@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/31 15:13:06 by yohurteb         ###   ########.fr       */
+/*   Created: 2024/08/31 15:12:23 by yohurteb          #+#    #+#             */
+/*   Updated: 2024/08/31 15:13:03 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **env)
-{
-	t_data	data;
+int g_sigint;
 
-	(void)ac;
-	(void)av;
-	init_data(&data, env);
-	init_sig();
-	while (1)
-	{
-		lexer(&data);
-		if (data.code_reset == 0)
-			parser(&data);
-		//if (data.code_reset == 0)
-		//	exec();
-		if (data.code_reset == 0)
-			test_minishell(&data);
-		exit_clean(&data, NOTHING, N_EXIT);
-	}
-	// free data->lex
+void	handle_sigint(int sig)
+{
+	(void)sig;
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
+void	init_sig()
+{
+	signal(SIGINT, handle_sigint);
 }

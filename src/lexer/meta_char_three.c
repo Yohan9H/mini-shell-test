@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   meta_char_three.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/31 15:13:06 by yohurteb         ###   ########.fr       */
+/*   Created: 2024/08/28 09:32:08 by yohurteb          #+#    #+#             */
+/*   Updated: 2024/08/28 09:32:27 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **env)
+void	add_file_tk(t_token *first)
 {
-	t_data	data;
+	t_token	*lst;
 
-	(void)ac;
-	(void)av;
-	init_data(&data, env);
-	init_sig();
-	while (1)
+	lst = first;
+	while (lst != NULL)
 	{
-		lexer(&data);
-		if (data.code_reset == 0)
-			parser(&data);
-		//if (data.code_reset == 0)
-		//	exec();
-		if (data.code_reset == 0)
-			test_minishell(&data);
-		exit_clean(&data, NOTHING, N_EXIT);
+		if (is_redirection(lst->type) == 1 && lst->next != NULL
+			&& is_str_sq_dq_dol(lst->next->type) == 1)
+		{
+			lst = lst->next;
+			lst->type = FILE_TOKEN;
+		}
+		lst = lst->next;
 	}
-	// free data->lex
 }

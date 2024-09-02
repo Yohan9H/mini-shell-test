@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:51:04 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/19 15:24:56 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/30 18:34:38 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,34 @@ void	ft_lstadd_back(t_token **lst, t_token *new, t_token *last)
 	ptr->next = new;
 	new->prev = ptr;
 	last = new;
+}
+
+void	ft_rediradd_back(t_redir **lst, t_redir *new)
+{
+	t_redir	*ptr;
+
+	if (!lst || !new)
+		return ;
+	if (*lst == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	ptr = ft_lstredirlast(*lst);
+	ptr->next = new;
+}
+
+void	ft_execadd_back(t_exec **lst, t_exec *new)
+{
+	t_exec	*ptr;
+
+	if (!lst || !new)
+		return ;
+	if (*lst == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	ptr = ft_lstexeclast(*lst);
+	ptr->next = new;
 }

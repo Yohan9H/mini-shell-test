@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:32:43 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/15 14:57:50 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:44:48 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_lstclear(t_token **lst)
 	while (*lst)
 	{
 		tmp = (*lst)->next;
-		if ((*lst)->type == STRING_TOKEN)
+		if (is_str_sq_dq_dol((*lst)->type) == 1
+		|| (*lst)->type == DOLLAR_FAIL || (*lst)->type == FILE_TOKEN)
 			free((*lst)->value);
 		free(*lst);
 		*lst = tmp;
@@ -29,24 +30,52 @@ void	ft_lstclear(t_token **lst)
 	*lst = NULL;
 }
 
-// void	del(void * data)
-// {
-// 	free(data);
-// }
-//
-// #include <stdio.h>
-// int	main()
-// {
-// 	t_list	*lst_1;
-//
-//     lst_1 = (t_list *)malloc(sizeof(t_list));
-//
-// 	lst_1->content = ft_strdup("salut");
-// 	lst_1->next = NULL;
+void	ft_lstclear_redir(t_redir **lst)
+{
+	t_redir	*tmp;
 
-// 	ft_lstclear(&lst_1, &del);
-// 	if (lst_1 == NULL)
-// 		printf("GOOD !\n");
-// 	free(lst_1);
-// 	return (0);
-// }
+	if (!*lst)
+		return ;
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		if ((*lst)->filename)
+		{
+			free((*lst)->filename);
+			(*lst)->filename = NULL;
+		}
+		free(*lst);
+		*lst = tmp;
+	}
+	*lst = NULL;
+}
+
+void	ft_lstclear_exec(t_exec **lst)
+{
+	t_exec	*tmp;
+	int		i;
+
+	if (!*lst)
+		return ;
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		free((*lst)->cmd);
+		i = 0;
+		while ((*lst)->args[i])
+		{
+			free((*lst)->args[i]);
+			(*lst)->args[i] = NULL;
+			i++;
+		}
+		if ((*lst)->args)
+		{
+			free((*lst)->args);
+			(*lst)->args = NULL;
+		}
+		ft_lstclear_redir(&(*lst)->redir);
+		free(*lst);
+		*lst = tmp;
+	}
+	*lst = NULL;
+}

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 11:47:52 by yohan.h           #+#    #+#             */
-/*   Updated: 2024/08/22 10:46:50 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/28 14:32:49 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*ft_strdup(const char *s1)
 	size_t	i;
 
 	i = 0;
+	if (!s1)
+		return (NULL);
 	len_s1 = ft_strlen(s1);
 	cpy = (char *)malloc((len_s1 + 1) * sizeof(char));
 	if (!cpy)

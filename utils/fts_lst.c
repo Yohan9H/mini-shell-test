@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 10:56:19 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/26 13:06:06 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/08/29 11:02:29 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	delete_node(t_token *del, t_data *data)
 		data->lex->first = del->next;
 	if (del->next != NULL)
 		del->next->prev = del->prev;
-	if (del->type == STRING_TOKEN)
+	if (is_str_sq_dq_dol(del->type) == 1)
 		free(del->value);
 	free(del);
 	del = NULL;

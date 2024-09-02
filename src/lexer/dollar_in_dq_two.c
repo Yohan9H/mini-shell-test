@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   dollar_in_dq_two.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/31 15:13:06 by yohurteb         ###   ########.fr       */
+/*   Created: 2024/08/27 14:37:37 by yohurteb          #+#    #+#             */
+/*   Updated: 2024/08/27 15:22:18 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **env)
+char	*svg_after_dol(char *string)
 {
-	t_data	data;
+	char	*cpy;
+	int		i;
 
-	(void)ac;
-	(void)av;
-	init_data(&data, env);
-	init_sig();
-	while (1)
-	{
-		lexer(&data);
-		if (data.code_reset == 0)
-			parser(&data);
-		//if (data.code_reset == 0)
-		//	exec();
-		if (data.code_reset == 0)
-			test_minishell(&data);
-		exit_clean(&data, NOTHING, N_EXIT);
-	}
-	// free data->lex
+	i = 0;
+	cpy = NULL;
+	while (string[i] && is_allspace(string[i]) != 1 && string[i] != '\''
+		&& string[i] != '$')
+		i++;
+	if (string[i])
+		cpy = ft_strdup(&string[i]);
+	return (cpy);
 }
