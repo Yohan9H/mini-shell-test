@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/02 14:16:19 by yohurteb         ###   ########.fr       */
+/*   Created: 2024/09/02 12:09:30 by yohurteb          #+#    #+#             */
+/*   Updated: 2024/09/02 14:01:08 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef ENV_H
+# define ENV_H
 #include "minishell.h"
 
-int	main(int ac, char **av, char **env)
-{
-	t_data	data;
+typedef struct s_env t_env;
 
-	(void)ac;
-	(void)av;
-	init_data(&data, env);
-	init_sig();
-	while (1)
-	{
-		lexer(&data);
-		if (data.code_reset == 0)
-			parser(&data);
-		//if (data.code_reset == 0)
-		//	exec();
-		if (data.code_reset == 0)
-			test_minishell(&data);
-		exit_clean(&data, NOTHING, N_EXIT);
-	}
-}
+struct s_env
+{
+	char	*line;
+	t_env	*next;
+};
+
+void	create_linked_env(t_data *data, char **env);
+
+#endif

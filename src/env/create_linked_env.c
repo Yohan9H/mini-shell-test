@@ -1,34 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   create_linked_env.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/02 14:16:19 by yohurteb         ###   ########.fr       */
+/*   Created: 2024/09/02 12:08:10 by yohurteb          #+#    #+#             */
+/*   Updated: 2024/09/02 14:16:36 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **env)
+t_env	*create_node_env(t_data *data, char *line)
 {
-	t_data	data;
+	t_env	*node;
 
-	(void)ac;
-	(void)av;
-	init_data(&data, env);
-	init_sig();
-	while (1)
+	node = (t_env *)malloc(sizeof(t_env));
+	if (!node)
+		exit_clean(data, NOTHING, N_EXIT);
+	node->line = ft_strdup(line);
+	node->next = NULL;
+	return (node);
+}
+
+void	create_linked_env(t_data *data, char **env)
+{
+	t_env	*node;
+	int		i;
+	
+	i = 0;
+	if (!env)
+		return ;
+	while (env[i])
 	{
-		lexer(&data);
-		if (data.code_reset == 0)
-			parser(&data);
-		//if (data.code_reset == 0)
-		//	exec();
-		if (data.code_reset == 0)
-			test_minishell(&data);
-		exit_clean(&data, NOTHING, N_EXIT);
+		node = create_node_env(data, env[i]);
+		ft_envadd_back(&data->my_env, node);
+		i++;
 	}
 }

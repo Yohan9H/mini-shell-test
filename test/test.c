@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:51:04 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/31 14:31:09 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:15:49 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,21 @@ void	test_minishell(t_data *data)
 	t_token	*tmp = NULL;
 	t_exec	*tmp_exec = NULL;
 	t_redir	*tmp_redir = NULL;
+	t_env	*tmp_env = NULL;
 	int	j;
 	int	i;
 
 	i = 0;
 	tmp = data->lex->first;
 	tmp_exec = data->head;
+	tmp_env = data->my_env;
+	// -------------   ENV   --------------
+	// while (tmp_env != NULL)
+	// {
+	// 	printf("%s\n", tmp_env->line);
+	// 	tmp_env = tmp_env->next;
+	// }
+	// -------------   LEXER   --------------
 	// printf("  ----  \n");
 	// while (tmp != NULL)
 	// {
@@ -60,6 +69,7 @@ void	test_minishell(t_data *data)
 	// 	printf("value node : %s\n  ----  \n", tmp->value);
 	// 	tmp = tmp->next;
 	// }
+	// -------------   PARSER   --------------
 	printf("\n////////////////\n");
 	while (tmp_exec != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/31 15:18:07 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:13:46 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 # include "lexer.h"
 # include "parser.h"
+# include "env.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -34,7 +35,7 @@ typedef struct s_data
 	t_data_ex	*par;
 	t_exec		*head;
 	int			code_reset;
-	char		**my_env;
+	t_env		*my_env;
 }	t_data;
 
 //	---- MAIN ----
@@ -54,6 +55,8 @@ void	ft_rediradd_back(t_redir **lst, t_redir *new);
 
 void	ft_execadd_back(t_exec **lst, t_exec *new);
 
+void	ft_envadd_back(t_env **lst, t_env *new);
+
 void	ft_lstadd_front(t_token **lst, t_token *new);
 
 void	ft_lstclear(t_token **lst);
@@ -62,11 +65,15 @@ void	ft_lstclear_redir(t_redir **lst);
 
 void	ft_lstclear_exec(t_exec **lst);
 
+void	ft_lstclear_env(t_env **lst);
+
 t_token	*ft_lstlast(t_token *lst);
 
 t_redir	*ft_lstredirlast(t_redir *lst);
 
 t_exec	*ft_lstexeclast(t_exec *lst);
+
+t_env	*ft_lstenvlast(t_env *lst);
 
 t_token	*ft_lstnew(char *value, tokentype token, t_data *data);
 
