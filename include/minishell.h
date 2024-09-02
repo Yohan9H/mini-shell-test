@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/31 15:18:07 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:25:03 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <fcntl.h>
 
 typedef enum
 {
@@ -83,6 +84,11 @@ char	*ft_strdup(const char *s1);
 char	*ft_strjoin(const char *s1, const char *s2);
 
 void	delete_node(t_token *del, t_data *data);
+
+//  ---- EXEC ----
+char	*my_get_path(char *cmd, char **envp);
+
+int	exec_cmd(t_data *data, char **envp);
 
 //	---- TEST ----
 void	test_minishell(t_data *data);
