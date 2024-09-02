@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/02 16:32:18 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/02 16:48:09 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	exec_cmd(t_data *data, char **envp)
 			}
 		}
 		prev_fd = pipe_fd[0];
+		exec = exec->next;
 	}
 	return (0);
 }
