@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/02 16:48:09 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/03 13:58:49 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,34 @@ int	exec_cmd(t_data *data, char **envp)
 {
 	t_exec *exec;
 	int id;
+	int childpid;
 	int pipe_fd[2];
 	int	prev_fd;
 	int fdinput;
 	int	fdoutput;
 	int flags;
+	int status;
 	char	*args;
+	int fdstdin;
+	int	fdstdout;
 
 	exec = data->head;
 	prev_fd = -1;
+
+ 	fdstdin = dup(STDIN_FILENO);
+	fdstdout = dup(STDOUT_FILENO);
+	
 	while (exec)
 	{
-		pipe(pipe_fd);
+		if (exec->next)
+			pipe(pipe_fd);
 		id = create_child_process();
 		if (id == 0)
 		{
+			printf("process enfant avant 1er check");
 			if (exec->redir && exec->redir->type == INPUT_TK)
 			{
+				printf("process enfant avant 2eme check");
 				fdinput = open(exec->redir->filename, O_RDONLY);
 				if (dup2(fdinput, STDIN_FILENO) == -1)
 				{
@@ -56,34 +67,63 @@ int	exec_cmd(t_data *data, char **envp)
 			}
 			else if (prev_fd != -1)
 			{
+				printf("process enfant avant 3eme check");
 				if (dup2(prev_fd, STDIN_FILENO) == -1)
 					return (-1);
+				close(prev_fd);
 			}
 			if (exec->redir && exec->redir->type == OUTPUT_TK)
 			{
+				printf("process enfant avant 4eme check");
 				flags = O_WRONLY | O_CREAT | O_TRUNC;
-				fdoutput = open(exec->redir->filename, flags);
+				fdoutput = open(exec->redir->filename, flags, 0644);
 				if (dup2(fdoutput, STDOUT_FILENO) == -1)
 					return (-1);
+				close(fdoutput);
 			}
 			if (exec->next)
 			{
+				printf("process enfant avant 5eme check");
 				close(pipe_fd[0]);
 				if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
 					return (-1);
+				close(pipe_fd[1]);
 			}
 			
 			if (access(exec->cmd, F_OK | X_OK) == 0)
 				args = exec->cmd;
 			else
 				args = my_get_path(exec->cmd, envp);
+			printf("process enfant avant 6eme check");
 			if (execve(args, exec->args, envp) == -1)
 			{
 				exit(EXIT_FAILURE);
 			}
 		}
-		prev_fd = pipe_fd[0];
+		if (prev_fd != -1)
+		{
+			close(prev_fd);
+		}
+		if (exec->next)
+		{
+			close(pipe_fd[1]);
+			prev_fd = pipe_fd[0];
+		}
+		else
+			close(pipe_fd[0]);
 		exec = exec->next;
 	}
+	while ((id = waitpid(-1, &status, 0)) > 0)
+    {
+        if (WIFEXITED(status)) {
+            printf("Processus enfant %d terminé avec le code de sortie %d.\n", id, WEXITSTATUS(status));
+        } else {
+            perror("Erreur pendant l'attente d'un processus enfant");
+        }
+    }
+	if (dup2(fdstdin, STDIN_FILENO) == -1)
+					return (-1);
+	if (dup2(fdstdout, STDOUT_FILENO) == -1)
+					return (-1);
 	return (0);
 }
