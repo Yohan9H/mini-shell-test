@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/03 13:58:49 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/03 15:33:57 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,13 @@ int	exec_cmd(t_data *data, char **envp)
 			if (exec->redir && exec->redir->type == INPUT_TK)
 			{
 				printf("process enfant avant 2eme check");
-				fdinput = open(exec->redir->filename, O_RDONLY);
+				while (exec->redir && exec->redir->type == INPUT_TK)
+				{
+					fdinput = open(exec->redir->filename, O_RDONLY);
+					if (exec->redir->next && exec->redir->next->type == INPUT_TK)
+						close(fdinput);
+					exec->redir = exec->redir->next;
+				}
 				if (dup2(fdinput, STDIN_FILENO) == -1)
 				{
 					perror("open");
@@ -75,8 +81,15 @@ int	exec_cmd(t_data *data, char **envp)
 			if (exec->redir && exec->redir->type == OUTPUT_TK)
 			{
 				printf("process enfant avant 4eme check");
-				flags = O_WRONLY | O_CREAT | O_TRUNC;
-				fdoutput = open(exec->redir->filename, flags, 0644);
+				while (exec->redir && exec->redir->type == OUTPUT_TK)
+				{
+					
+					flags = O_WRONLY | O_CREAT | O_TRUNC;
+					fdoutput = open(exec->redir->filename, flags, 0644);
+					if (exec->redir->next && exec->redir->type == OUTPUT_TK)
+						close(fdoutput);
+					exec->redir = exec->redir->next;
+				}
 				if (dup2(fdoutput, STDOUT_FILENO) == -1)
 					return (-1);
 				close(fdoutput);
