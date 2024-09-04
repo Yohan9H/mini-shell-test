@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/03 14:51:09 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/04 13:16:15 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ typedef struct s_data
 	int			code_reset;
 	char		**my_env;
 }	t_data;
+
+typedef struct s_pipe
+{
+	int			pipe_fd[2];
+	int			prev_fd;
+}	t_pipe;
 
 //	---- MAIN ----
 void	init_data(t_data *data, char **env);
