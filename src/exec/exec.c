@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/04 15:08:17 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/04 16:39:34 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_fd(int input_test)
 {
-	int fdstdin;
+	int	fdstdin;
 	int	fdstdout;
 
 	if (input_test)
@@ -31,7 +31,6 @@ void	init_fd(int input_test)
 	}
 }
 
-
 int	create_child_process(void)
 {
 	int	id;
@@ -47,9 +46,8 @@ int	create_child_process(void)
 
 void	wait_children(int id, int status)
 {
-        if (!WIFEXITED(status)) {
-            perror("Erreur pendant l'attente d'un processus enfant");
-        }
+	if (!WIFEXITED(status))
+		perror("Erreur pendant l'attente d'un processus enfant");
 }
 
 void	close_fds(t_exec **exec, int pipe_fd[2], int *prev_fd)
@@ -97,9 +95,9 @@ void	exec_line(t_exec *exec, char **envp)
 
 void	output_redir(t_exec *exec)
 {
-	int fdoutput;
+	int	fdoutput;
 	int	flags;
-	
+
 	while (exec->redir && exec->redir->type == OUTPUT_TK)
 	{
 		flags = O_WRONLY | O_CREAT | O_TRUNC;
@@ -134,28 +132,27 @@ void	input_redir(t_exec *exec)
 
 void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, char **envp)
 {
-	if (exec->redir && exec->redir->type == INPUT_TK) //redirection input
+	if (exec->redir && exec->redir->type == INPUT_TK)
 		input_redir(exec);
-	else if (prev_fd != -1) //commande suivante sans redirection
+	else if (prev_fd != -1)
 		dup_stdin(prev_fd);
-	if (exec->redir && exec->redir->type == OUTPUT_TK) //redirection output
+	if (exec->redir && exec->redir->type == OUTPUT_TK)
 		output_redir(exec);
-	if (exec->next) // ecriture dans le pipe pour la commande suivante
+	if (exec->next)
 		dup_stdout(pipe_fd);
 	exec_line(exec, envp);
 }
 
 int	exec_cmd(t_data *data, char **envp)
 {
-	t_exec *exec;
-	int id;
-	int pipe_fd[2];
-	int	prev_fd;
-	int status;
+	t_exec	*exec;
+	int		id;
+	int		pipe_fd[2];
+	int		prev_fd;
+	int		status;
 
 	exec = data->head;
 	prev_fd = -1;
-
 	init_fd(1);
 	while (exec)
 	{
@@ -165,9 +162,14 @@ int	exec_cmd(t_data *data, char **envp)
 		if (id == 0)
 			child_process(exec, pipe_fd, prev_fd, envp);
 		close_fds(&exec, pipe_fd, &prev_fd);
-	}	
-	while ((id = waitpid(-1, &status, 0)) > 0)
+	}
+	while (1)
+	{
+		id = waitpid(-1, &status, 0);
+		if (id <= 0)
+			break ;
 		wait_children(id, status);
+	}
 	init_fd(0);
 	return (0);
 }
