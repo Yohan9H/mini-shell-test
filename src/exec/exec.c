@@ -6,27 +6,24 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/04 16:39:34 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/04 18:24:32 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_fd(int input_test)
+void	init_fd(int input_test, t_execom *execom)
 {
-	int	fdstdin;
-	int	fdstdout;
-
 	if (input_test)
 	{
-		fdstdin = dup(STDIN_FILENO);
-		fdstdout = dup(STDOUT_FILENO);
+		execom->fdstdin = dup(STDIN_FILENO);
+		execom->fdstdout = dup(STDOUT_FILENO);
 	}
 	else
 	{
-		if (dup2(fdstdin, STDIN_FILENO) == -1)
+		if (dup2(execom->fdstdin, STDIN_FILENO) == -1)
 			return (-1);
-		if (dup2(fdstdout, STDOUT_FILENO) == -1)
+		if (dup2(execom->fdstdout, STDOUT_FILENO) == -1)
 			return (-1);
 	}
 }
@@ -50,18 +47,17 @@ void	wait_children(int id, int status)
 		perror("Erreur pendant l'attente d'un processus enfant");
 }
 
-void	close_fds(t_exec **exec, int pipe_fd[2], int *prev_fd)
+void	close_fds(t_exec *exec, int pipe_fd[2], int *prev_fd)
 {
 	if (*prev_fd != -1)
 		close(*prev_fd);
-	if ((*exec)->next)
+	if (exec->next)
 	{
 		close(pipe_fd[1]);
 		*prev_fd = pipe_fd[0];
 	}
 	else
 		close(pipe_fd[0]);
-	(*exec) = (*exec)->next;
 }
 
 void	dup_stdin(int prev_fd)
@@ -98,11 +94,16 @@ void	output_redir(t_exec *exec)
 	int	fdoutput;
 	int	flags;
 
-	while (exec->redir && exec->redir->type == OUTPUT_TK)
+	while (exec->redir && (exec->redir->type == OUTPUT_TK || \
+		exec->redir->type == APPEND_TK))
 	{
-		flags = O_WRONLY | O_CREAT | O_TRUNC;
+		if (exec->redir->type == APPEND_TK)
+			flags = O_WRONLY | O_CREAT | O_APPEND;
+		else
+			flags = O_WRONLY | O_CREAT | O_TRUNC;
 		fdoutput = open(exec->redir->filename, flags, 0644);
-		if (exec->redir->next && exec->redir->type == OUTPUT_TK)
+		if (exec->redir->next && (exec->redir->type == OUTPUT_TK || \
+		exec->redir->type == APPEND_TK))
 			close(fdoutput);
 		exec->redir = exec->redir->next;
 	}
@@ -136,7 +137,8 @@ void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, char **envp)
 		input_redir(exec);
 	else if (prev_fd != -1)
 		dup_stdin(prev_fd);
-	if (exec->redir && exec->redir->type == OUTPUT_TK)
+	if (exec->redir && (exec->redir->type == OUTPUT_TK || \
+		exec->redir->type == APPEND_TK))
 		output_redir(exec);
 	if (exec->next)
 		dup_stdout(pipe_fd);
@@ -145,31 +147,30 @@ void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, char **envp)
 
 int	exec_cmd(t_data *data, char **envp)
 {
-	t_exec	*exec;
-	int		id;
-	int		pipe_fd[2];
-	int		prev_fd;
-	int		status;
+	t_exec		*exec;
+	t_exec		*exec_temp;
+	t_execom	execom;
+	int			id;
+	int			pipe_fd[2];
+	int			prev_fd;
+	int			status;
 
 	exec = data->head;
+	exec_temp = exec;
 	prev_fd = -1;
-	init_fd(1);
-	while (exec)
+	init_fd(1, &execom);
+	while (exec_temp)
 	{
-		if (exec->next)
+		if (exec_temp->next)
 			pipe(pipe_fd);
 		id = create_child_process();
 		if (id == 0)
-			child_process(exec, pipe_fd, prev_fd, envp);
-		close_fds(&exec, pipe_fd, &prev_fd);
+			child_process(exec_temp, pipe_fd, prev_fd, envp);
+		close_fds(exec_temp, pipe_fd, &prev_fd);
+		exec_temp = exec_temp->next;
 	}
-	while (1)
-	{
-		id = waitpid(-1, &status, 0);
-		if (id <= 0)
-			break ;
+	while ((id = waitpid(-1, &status, 0)) > 0)
 		wait_children(id, status);
-	}
-	init_fd(0);
+	init_fd(0, &execom);
 	return (0);
 }

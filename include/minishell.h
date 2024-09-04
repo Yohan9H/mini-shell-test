@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/04 13:16:15 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/04 17:32:53 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <errno.h> 
+# include <linux/limits.h>
 
 typedef enum
 {
@@ -39,11 +40,13 @@ typedef struct s_data
 	char		**my_env;
 }	t_data;
 
-typedef struct s_pipe
+typedef struct s_execom
 {
 	int			pipe_fd[2];
 	int			prev_fd;
-}	t_pipe;
+	int			fdstdin;
+	int			fdstdout;
+}	t_execom;
 
 //	---- MAIN ----
 void	init_data(t_data *data, char **env);
