@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:32:43 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/31 11:44:48 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:13:28 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,26 @@ void	ft_lstclear_exec(t_exec **lst)
 			(*lst)->args = NULL;
 		}
 		ft_lstclear_redir(&(*lst)->redir);
+		free(*lst);
+		*lst = tmp;
+	}
+	*lst = NULL;
+}
+
+void	ft_lstclear_env(t_env **lst)
+{
+	t_env	*tmp;
+
+	if (!*lst)
+		return ;
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		if ((*lst)->line)
+		{
+			free((*lst)->line);
+			(*lst)->line = NULL;
+		}
 		free(*lst);
 		*lst = tmp;
 	}
