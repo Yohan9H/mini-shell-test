@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/05 11:02:23 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:12:43 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,7 @@ void	add_token(t_data *data)
 
 void	lexer(t_data *data)
 {
-	int	i;
 
-	i = 0;
 	data->code_reset = 0;
 	data->lex->input = readline("minishell> ");
 	if (data->lex->first != NULL)

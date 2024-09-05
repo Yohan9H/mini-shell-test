@@ -6,15 +6,15 @@
 #    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/09/02 12:16:09 by yohurteb         ###   ########.fr        #
+#    Updated: 2024/09/05 15:12:22 by yohurteb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CC = cc
+CC = gcc -g
 
-CFLAGS = -Wall -Werror -Wextra -I include/ -g
+CFLAGS =  -I include/ -g
 
 LDFLAGS = -lreadline
 
@@ -38,6 +38,8 @@ SRCS = \
 	src/parser/linked_exc.c \
 	src/parser/linked_exc_two.c \
 	src/parser/utils_parser/utils_parser.c \
+	src/exec/exec.c \
+	src/exec/parsing_com.c \
 	utils/garbage_collector.c \
 	utils/ft_split.c \
 	utils/ft_strlen.c \

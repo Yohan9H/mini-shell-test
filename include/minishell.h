@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/02 14:13:46 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:10:59 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <fcntl.h>
+# include <errno.h> 
+# include <linux/limits.h>
 
 typedef enum
 {
@@ -37,6 +40,14 @@ typedef struct s_data
 	int			code_reset;
 	t_env		*my_env;
 }	t_data;
+
+typedef struct s_execom
+{
+	int			pipe_fd[2];
+	int			prev_fd;
+	int			fdstdin;
+	int			fdstdout;
+}	t_execom;
 
 //	---- MAIN ----
 void	init_data(t_data *data, char **env);
@@ -90,6 +101,11 @@ char	*ft_strdup(const char *s1);
 char	*ft_strjoin(const char *s1, const char *s2);
 
 void	delete_node(t_token *del, t_data *data);
+
+//  ---- EXEC ----
+char	*my_get_path(char *cmd, char **envp);
+
+int	exec_cmd(t_data *data, char **envp);
 
 //	---- TEST ----
 void	test_minishell(t_data *data);
