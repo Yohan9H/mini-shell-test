@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 09:12:17 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/31 14:04:42 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/05 11:59:06 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	calculate_nb_args(t_token *l_lex)
 	return (nb_str);
 }
 
-char	**cpy_args(t_token *l_lex)
+char	**cpy_args(t_token *l_lex, t_data *data)
 {
 	t_token *lst;
 	char	**new;
@@ -43,7 +43,9 @@ char	**cpy_args(t_token *l_lex)
 	{
 		if (lst->type == STRING_TOKEN)
 		{
-			new[i] = ft_strdup(lst->value); // faire une protection
+			new[i] = ft_strdup(lst->value);
+			if (!new[i])
+				exit_clean(data, MALLOC, N_EXIT);
 			i++;
 		}
 		lst = lst->next;
@@ -57,7 +59,7 @@ t_exec	*ft_lstnew_node(t_data *data, t_token *l_lex)
 	t_token	*svg;
 	t_token	*find_cmd;
 	t_exec	*new;
-
+	
 	new = (t_exec *)malloc(sizeof(t_exec));
 	svg = l_lex;
 	if (svg != NULL && svg->type != STRING_TOKEN)
@@ -69,7 +71,7 @@ t_exec	*ft_lstnew_node(t_data *data, t_token *l_lex)
 	}
 	else
 		new->cmd = ft_strdup(svg->value);
-	new->args = cpy_args(svg);
+	new->args = cpy_args(svg, data);
 	new->redir = create_linked_lst_redir(data, svg);
 	new->next = NULL;
 	return (new);

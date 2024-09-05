@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:53:21 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/31 14:29:23 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:41:28 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,16 @@ void	parsing(t_data *data, t_token *lst, int	*reset)
 		state_redirection(data, lst);
 }
 
-void	clean_lst(t_token *head)
+void	clean_lst(t_token *head, t_data *data)
 {
 	t_token	*lst;
 
+	(void)data;
 	lst = head;
 	while (lst != NULL)
 	{
 		if (lst->type == DQ_TOKEN || lst->type == SQ_TOKEN
-			|| lst->type == DOLLAR_TOKEN)
+			|| lst->type == DOLLAR_TOKEN || lst->type == DOLLAR_FAIL)
 			lst->type = STRING_TOKEN;
 		lst = lst->next;
 	}
@@ -58,7 +59,7 @@ void	parser(t_data *data)
 			lst = lst->next;
 	}
 	if (data->code_reset == 0)
-		clean_lst(data->lex->first);
+		clean_lst(data->lex->first, data);
 	if (data->code_reset == 0)
 		create_linked_lst_exec(data);
 	data->head = data->par->first;

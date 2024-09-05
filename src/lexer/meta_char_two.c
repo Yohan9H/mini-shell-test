@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:43:49 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/28 16:26:19 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:05:51 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,24 @@ int	is_string(char *str, t_data *data, int *i)
 
 int	get_value(char *target, t_data *data, int len)
 {
-	int	j;
-	int	find;
+	t_env	*lst_env;
+	int		j;
+	int		find;
 
 	j = 0;
 	find = 0;
-	while (data->my_env[j])
+	lst_env = data->my_env;
+	while (lst_env != NULL)
 	{
-		if (ft_strncmp(data->my_env[j], target, len) == 0
-			&& data->my_env[j][len] == '=')
+		if (ft_strncmp(lst_env->line, target, len) == 0
+			&& lst_env->line[len] == '=')
 		{
 			find = 1;
 			free(data->lex->string);
-			data->lex->string = ft_strdup(&(data->my_env)[j][len + 1]);
+			data->lex->string = ft_strdup(&lst_env->line[len + 1]);
 			break;
 		}
-		j++;
+		lst_env = lst_env->next;
 	}
 	if (find == 0)
 		return (1);
