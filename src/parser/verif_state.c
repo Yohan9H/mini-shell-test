@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 12:10:54 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/30 14:13:23 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:16:28 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	verif_nothing(t_data *data, t_token *lst)
 {
-	if (lst->next == NULL)
+	if (lst->next == NULL || ft_strlen(lst->value) == 0)
 	{
 		fprintf(stderr, "error : nothing after \'%s\'\n", lst->value);
 		exit_clean(data, NOTHING, N_EXIT);
