@@ -1,0 +1,12 @@
+c
+i
+include
+j
+k
+Makefile
+minishell
+readline.supp
+src
+test
+utils
+val_perso.sh

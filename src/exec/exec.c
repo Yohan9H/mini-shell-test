@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/04 18:24:32 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/05 15:01:29 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,33 @@ void	init_fd(int input_test, t_execom *execom)
 {
 	if (input_test)
 	{
-		execom->fdstdin = dup(STDIN_FILENO);
-		execom->fdstdout = dup(STDOUT_FILENO);
+		if (execom->fdstdin = dup(STDIN_FILENO) == -1)
+		{
+			perror("dup failed");
+    		exit(EXIT_FAILURE);
+		}
+		if (execom->fdstdout = dup(STDOUT_FILENO) == -1)
+		{
+			perror("dup failed");
+    		exit(EXIT_FAILURE);
+		}
 	}
 	else
 	{
 		if (dup2(execom->fdstdin, STDIN_FILENO) == -1)
-			return (-1);
+		{
+			close(execom->fdstdin);
+			perror("dup2 failed");
+    		exit(EXIT_FAILURE);
+		}
 		if (dup2(execom->fdstdout, STDOUT_FILENO) == -1)
-			return (-1);
+		{
+			close(execom->fdstdout);
+			perror("dup2 failed");
+    		exit(EXIT_FAILURE);
+		}
+		close(execom->fdstdin);
+		close(execom->fdstdout);
 	}
 }
 
@@ -56,14 +74,17 @@ void	close_fds(t_exec *exec, int pipe_fd[2], int *prev_fd)
 		close(pipe_fd[1]);
 		*prev_fd = pipe_fd[0];
 	}
-	else
+	else if (*prev_fd != -1)
 		close(pipe_fd[0]);
 }
 
 void	dup_stdin(int prev_fd)
 {
 	if (dup2(prev_fd, STDIN_FILENO) == -1)
-		return (-1);
+	{
+		perror("dup2 stdin failed");
+    	exit(EXIT_FAILURE);
+	}
 	close(prev_fd);
 }
 
@@ -71,7 +92,10 @@ void	dup_stdout(int pipe_fd[2])
 {
 	close(pipe_fd[0]);
 	if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
-		return (-1);
+	{
+		perror("dup2 stdout failed");
+    	exit(EXIT_FAILURE);
+	}
 	close(pipe_fd[1]);
 }
 
@@ -108,7 +132,10 @@ void	output_redir(t_exec *exec)
 		exec->redir = exec->redir->next;
 	}
 	if (dup2(fdoutput, STDOUT_FILENO) == -1)
-		return (-1);
+	{
+		perror("dup2 output redirection failed");
+    	exit(EXIT_FAILURE);
+	}
 	close(fdoutput);
 }
 
@@ -125,7 +152,7 @@ void	input_redir(t_exec *exec)
 	}
 	if (dup2(fdinput, STDIN_FILENO) == -1)
 	{
-		perror("open");
+		perror("dup2 input redirection failed");
 		return (-1);
 	}
 	close(fdinput);
@@ -166,6 +193,7 @@ int	exec_cmd(t_data *data, char **envp)
 		id = create_child_process();
 		if (id == 0)
 			child_process(exec_temp, pipe_fd, prev_fd, envp);
+		//init_fd(0, &execom);
 		close_fds(exec_temp, pipe_fd, &prev_fd);
 		exec_temp = exec_temp->next;
 	}
