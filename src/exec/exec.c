@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/05 15:01:29 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/05 18:14:53 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,20 @@ void	init_fd(int input_test, t_execom *execom)
 {
 	if (input_test)
 	{
-		if (execom->fdstdin = dup(STDIN_FILENO) == -1)
-		{
-			perror("dup failed");
-    		exit(EXIT_FAILURE);
-		}
-		if (execom->fdstdout = dup(STDOUT_FILENO) == -1)
-		{
-			perror("dup failed");
-    		exit(EXIT_FAILURE);
-		}
+		execom->fdstdin = dup(STDIN_FILENO);
+		execom->fdstdout = dup(STDOUT_FILENO);
 	}
 	else
 	{
 		if (dup2(execom->fdstdin, STDIN_FILENO) == -1)
 		{
 			close(execom->fdstdin);
-			perror("dup2 failed");
-    		exit(EXIT_FAILURE);
+			return (-1);
 		}
 		if (dup2(execom->fdstdout, STDOUT_FILENO) == -1)
 		{
 			close(execom->fdstdout);
-			perror("dup2 failed");
-    		exit(EXIT_FAILURE);
+			return (-1);
 		}
 		close(execom->fdstdin);
 		close(execom->fdstdout);
