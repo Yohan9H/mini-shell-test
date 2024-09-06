@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/06 13:35:13 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/06 17:22:16 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,4 @@ int	main(int ac, char **av, char **env)
 			test_minishell(&data);
 		exit_clean(&data, NOTHING, N_EXIT);
 	}
-	// free data->lex
 }

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:07 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/29 11:54:39 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:08:02 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,23 @@
 
 char	*get_value_in_dq(char *target, t_data *data, int len, int *find)
 {
+	t_env	*lst_env;
 	char	*str;
 	int	j;
 
 	j = 0;
 	*find = -1;
-	while (data->my_env[j])
+	lst_env = data->my_env;
+	while (lst_env != NULL)
 	{
-		if (ft_strncmp(data->my_env[j], target, len) == 0
-			&& data->my_env[j][len] == '=')
+		if (ft_strncmp(lst_env->line, target, len) == 0
+			&& lst_env->line[len] == '=')
 		{
 			*find = 1;
-			str = ft_strdup(&(data->my_env)[j][len + 1]);
+			str = ft_strdup(&lst_env->line[len + 1]);
 			break;
 		}
-		j++;
+		lst_env = lst_env->next;
 	}
 	if (*find == -1)
 		return (NULL);

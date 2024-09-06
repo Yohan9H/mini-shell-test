@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fts_lst.c                                          :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/23 10:56:19 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/05 13:33:46 by yohurteb         ###   ########.fr       */
+/*   Created: 2024/09/02 12:09:30 by yohurteb          #+#    #+#             */
+/*   Updated: 2024/09/02 14:01:08 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef ENV_H
+# define ENV_H
 #include "minishell.h"
 
-void	delete_node(t_token *del, t_data *data)
+typedef struct s_env t_env;
+
+struct s_env
 {
-	if (del->prev != NULL)
-		del->prev->next = del->next;
-	else
-		data->lex->first = del->next;
-	if (del->next != NULL)
-		del->next->prev = del->prev;
-	if (is_str_sq_dq_dol(del->type) == 1 || del->type == DOLLAR_FAIL)
-		free(del->value);
-	free(del);
-	del = NULL;
-}
+	char	*line;
+	t_env	*next;
+};
+
+void	create_linked_env(t_data *data, char **env);
+
+#endif

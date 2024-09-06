@@ -6,7 +6,7 @@
 #    By: apernot <apernot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/09/06 14:32:52 by apernot          ###   ########.fr        #
+#    Updated: 2024/09/06 17:22:24 by apernot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS = \
 	src/main.c \
 	src/init.c \
 	src/signals/signals.c \
+	src/env/create_linked_env.c \
 	src/lexer/lexer.c \
 	src/lexer/handle_space.c \
 	src/lexer/meta_char.c \

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:51:04 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/30 18:34:38 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:26:19 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,20 @@ void	ft_execadd_back(t_exec **lst, t_exec *new)
 		return ;
 	}
 	ptr = ft_lstexeclast(*lst);
+	ptr->next = new;
+}
+
+void	ft_envadd_back(t_env **lst, t_env *new)
+{
+	t_env	*ptr;
+
+	if (!lst || !new)
+		return ;
+	if (*lst == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	ptr = ft_lstenvlast(*lst);
 	ptr->next = new;
 }
