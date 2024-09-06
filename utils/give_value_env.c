@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   give_value_env.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/06 11:31:26 by yohurteb         ###   ########.fr       */
+/*   Created: 2024/09/06 11:42:20 by yohurteb          #+#    #+#             */
+/*   Updated: 2024/09/06 11:44:09 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **env)
+char	*give_value_env(char *target, t_data *data, int len)
 {
-	t_data	data;
+	t_env	*lst_env;
+	char	*str;
+	int		j;
 
-	(void)ac;
-	(void)av;
-	init_data(&data, env);
-	init_sig();
-	while (1)
+	j = 0;
+	lst_env = data->my_env;
+	while (lst_env != NULL)
 	{
-		lexer(&data);
-		if (data.code_reset == 0)
-			parser(&data);
-		if (data.code_reset == 0)
-			exec_cmd(&data, env);
-		// if (data.code_reset == 0)
-		// 	test_minishell(&data);
-		exit_clean(&data, NOTHING, N_EXIT);
+		if (ft_strncmp(lst_env->line, target, len) == 0
+			&& lst_env->line[len] == '=')
+		{
+			str = ft_strdup(&lst_env->line[len + 1]);
+			return (str);
+		}
+		lst_env = lst_env->next;
 	}
+	return (NULL);
 }

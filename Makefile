@@ -6,7 +6,7 @@
 #    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/09/05 15:12:22 by yohurteb         ###   ########.fr        #
+#    Updated: 2024/09/06 14:36:28 by yohurteb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,9 @@ SRCS = \
 	src/parser/utils_parser/utils_parser.c \
 	src/exec/exec.c \
 	src/exec/parsing_com.c \
+	src/exec/verif_builtin.c \
+	src/exec/builtin.c \
+	src/exec/builtin_two.c \
 	utils/garbage_collector.c \
 	utils/ft_split.c \
 	utils/ft_strlen.c \
@@ -52,6 +55,8 @@ SRCS = \
 	utils/ft_strdup.c \
 	utils/ft_strjoin.c \
 	utils/fts_lst.c \
+	utils/give_value_env.c \
+	utils/ft_isprint.c \
 	test/test.c # ---- POUR TEST A ENLEVER ----
 
 OBJS = $(SRCS:.c=.o)
