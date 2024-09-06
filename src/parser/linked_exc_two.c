@@ -6,11 +6,16 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:58:00 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/31 13:53:45 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:51:39 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	create_heredoc(t_data *data, t_redir *new)
+{
+	
+}
 
 t_redir	*new_node_redir(t_data *data, t_token *lst, tokentype type)
 {
@@ -19,6 +24,11 @@ t_redir	*new_node_redir(t_data *data, t_token *lst, tokentype type)
 	new = (t_redir *)malloc(sizeof(t_redir));
 	if (!new)
 		exit_clean(data, MALLOC, Y_EXIT);
+	if (type == HEREDOC_TK)
+	{
+		create_heredoc(data, new);
+		return (new);
+	}
 	new->filename = ft_strdup(lst->next->value);
 	new->type = type;
 	new->next = NULL;

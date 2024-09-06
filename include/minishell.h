@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/06 17:21:55 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/06 17:49:52 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	ft_execadd_back(t_exec **lst, t_exec *new);
 
 void	ft_envadd_back(t_env **lst, t_env *new);
 
+t_env	*create_node_env(t_data *data, char *line);
+
 void	ft_lstadd_front(t_token **lst, t_token *new);
 
 void	ft_lstclear(t_token **lst);
@@ -98,6 +100,8 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 char	*ft_strdup(const char *s1);
 
+char	*ft_strdup_env(const char *s1);
+
 char	*ft_strjoin(const char *s1, const char *s2);
 
 void	delete_node(t_token *del, t_data *data);
@@ -106,12 +110,30 @@ void	ft_putstr_fd(char *s, int fd);
 
 char	*ft_strtrim(char const *s1, char const *set);
 
+void	delete_node_env(t_env *del, t_data *data);
+
+char	*give_value_env(char *target, t_data *data, int len);
+
+int		ft_isprint(int c);
+
 //  ---- EXEC ----
 char	*my_get_path(char *cmd, char **envp);
 
-int	check_heredoc (t_exec *exec, int fd_out);
+int		check_heredoc (t_exec *exec, int fd_out);
 
-int	exec_cmd(t_data *data, char **envp);
+int		exec_cmd(t_data *data, char **envp);
+
+int		verif_builtin(t_data *data, t_exec *lst);
+
+int		builtin_cd(t_data *data, char *path);
+
+int		builtin_pwd(void);
+
+int		builtin_exit(t_data *data);
+
+int		builtin_env(t_data *data);
+
+int		builtin_unset(t_data *data, char *new_var);
 
 //	---- TEST ----
 void	test_minishell(t_data *data);

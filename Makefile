@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: apernot <apernot@student.42.fr>            +#+  +:+       +#+         #
+#    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/09/06 17:22:24 by apernot          ###   ########.fr        #
+#    Updated: 2024/09/06 17:47:36 by yohurteb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,9 @@ SRCS = \
 	src/parser/utils_parser/utils_parser.c \
 	src/exec/exec.c \
 	src/exec/parsing_com.c \
+	src/exec/verif_builtin.c \
+	src/exec/builtin.c \
+	src/exec/builtin_two.c \
 	src/exec/heredoc.c \
 	utils/garbage_collector.c \
 	utils/ft_split.c \
@@ -53,6 +56,8 @@ SRCS = \
 	utils/ft_strdup.c \
 	utils/ft_strjoin.c \
 	utils/fts_lst.c \
+	utils/give_value_env.c \
+	utils/ft_isprint.c \
 	utils/ft_putstr_fd.c \
 	utils/ft_strtrim.c \
 	test/test.c # ---- POUR TEST A ENLEVER ----
