@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/06 13:35:13 by apernot          ###   ########.fr       */
+/*   Created: 2024/09/06 13:40:54 by apernot           #+#    #+#             */
+/*   Updated: 2024/09/06 13:42:59 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **env)
+void	ft_putstr_fd(char *s, int fd)
 {
-	t_data	data;
+	int	i;
 
-	(void)ac;
-	(void)av;
-	init_data(&data, env);
-	init_sig();
-	while (1)
+	i = 0;
+	while (s[i])
 	{
-		lexer(&data);
-		if (data.code_reset == 0)
-			parser(&data);
-		if (data.code_reset == 0)
-			exec_cmd(&data, env);
-		if (data.code_reset == 0)
-			test_minishell(&data);
-		exit_clean(&data, NOTHING, N_EXIT);
-	}
-	// free data->lex
+		write(fd, &s[i], 1);
+		i++;
+	}	
 }

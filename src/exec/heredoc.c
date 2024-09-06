@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/06 13:35:13 by apernot          ###   ########.fr       */
+/*   Created: 2024/09/06 11:54:11 by apernot           #+#    #+#             */
+/*   Updated: 2024/09/06 14:43:39 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **env)
+int	check_heredoc (t_exec *exec, int fd_out)
 {
-	t_data	data;
+	char 	*line;
+	char	*tmp;
 
-	(void)ac;
-	(void)av;
-	init_data(&data, env);
-	init_sig();
-	while (1)
+	while(1)
 	{
-		lexer(&data);
-		if (data.code_reset == 0)
-			parser(&data);
-		if (data.code_reset == 0)
-			exec_cmd(&data, env);
-		if (data.code_reset == 0)
-			test_minishell(&data);
-		exit_clean(&data, NOTHING, N_EXIT);
+		line = readline("> ");
+		if (!line)
+			break ;
+		if (strncmp(line, exec->redir->filename, ft_strlen(line)) == 0)
+		{
+			free(line);
+			break ;
+		}
+		tmp = ft_strjoin(line, "\n");
+		ft_putstr_fd(tmp, fd_out);
+		free(line);
+		free(tmp);
 	}
-	// free data->lex
 }

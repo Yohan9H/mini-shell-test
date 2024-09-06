@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/05 18:14:53 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/06 14:23:16 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,11 @@ void	output_redir(t_exec *exec)
 		else
 			flags = O_WRONLY | O_CREAT | O_TRUNC;
 		fdoutput = open(exec->redir->filename, flags, 0644);
+		if (fdoutput == -1) 
+		{
+			perror(exec->redir->filename);
+			exit(EXIT_FAILURE);
+		}
 		if (exec->redir->next && (exec->redir->type == OUTPUT_TK || \
 		exec->redir->type == APPEND_TK))
 			close(fdoutput);
@@ -136,6 +141,11 @@ void	input_redir(t_exec *exec)
 	while (exec->redir && exec->redir->type == INPUT_TK)
 	{
 		fdinput = open(exec->redir->filename, O_RDONLY);
+		if (fdinput == -1) 
+		{
+			perror(exec->redir->filename);
+			exit(EXIT_FAILURE);
+		}
 		if (exec->redir->next && exec->redir->next->type == INPUT_TK)
 			close(fdinput);
 		exec->redir = exec->redir->next;
@@ -143,15 +153,38 @@ void	input_redir(t_exec *exec)
 	if (dup2(fdinput, STDIN_FILENO) == -1)
 	{
 		perror("dup2 input redirection failed");
-		return (-1);
+		EXIT_FAILURE;
 	}
 	close(fdinput);
+}
+
+void heredoc_redir(t_exec *exec)
+{
+	int fd_heredoc;
+	int here_doc_pipe[2];
+
+	if (pipe(here_doc_pipe) == -1)
+	{
+		perror("pipe");
+		exit(EXIT_FAILURE);
+	}
+	check_heredoc(exec, here_doc_pipe[1]);
+	close(here_doc_pipe[1]);
+	fd_heredoc = here_doc_pipe[0];
+	if (dup2(fd_heredoc, STDIN_FILENO) == -1)
+	{
+		perror("dup2 input redirection failed");
+		EXIT_FAILURE;
+	}
+	close(fd_heredoc);
 }
 
 void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, char **envp)
 {
 	if (exec->redir && exec->redir->type == INPUT_TK)
 		input_redir(exec);
+	else if (exec->redir && exec->redir->type == HEREDOC_TK)
+		heredoc_redir(exec);
 	else if (prev_fd != -1)
 		dup_stdin(prev_fd);
 	if (exec->redir && (exec->redir->type == OUTPUT_TK || \

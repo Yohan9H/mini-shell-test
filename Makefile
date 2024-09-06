@@ -6,7 +6,7 @@
 #    By: apernot <apernot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/09/02 16:35:45 by apernot          ###   ########.fr        #
+#    Updated: 2024/09/06 14:32:52 by apernot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS = \
 	src/parser/utils_parser/utils_parser.c \
 	src/exec/exec.c \
 	src/exec/parsing_com.c \
+	src/exec/heredoc.c \
 	utils/garbage_collector.c \
 	utils/ft_split.c \
 	utils/ft_strlen.c \
@@ -51,6 +52,8 @@ SRCS = \
 	utils/ft_strdup.c \
 	utils/ft_strjoin.c \
 	utils/fts_lst.c \
+	utils/ft_putstr_fd.c \
+	utils/ft_strtrim.c \
 	test/test.c # ---- POUR TEST A ENLEVER ----
 
 OBJS = $(SRCS:.c=.o)

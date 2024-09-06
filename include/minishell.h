@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/04 17:32:53 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/06 14:32:28 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,14 @@ char	*ft_strjoin(const char *s1, const char *s2);
 
 void	delete_node(t_token *del, t_data *data);
 
+void	ft_putstr_fd(char *s, int fd);
+
+char	*ft_strtrim(char const *s1, char const *set);
+
 //  ---- EXEC ----
 char	*my_get_path(char *cmd, char **envp);
+
+int	check_heredoc (t_exec *exec, int fd_out);
 
 int	exec_cmd(t_data *data, char **envp);
 
