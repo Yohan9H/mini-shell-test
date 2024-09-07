@@ -6,15 +6,71 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:58:00 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/06 16:51:39 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:39:31 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	create_heredoc(t_data *data, t_redir *new)
+char	*find_name(t_data *data)
 {
-	
+	char	*name;
+	char	*str_counter;
+	char	*base;
+	int		counter;
+
+	counter = 0;
+	str_counter = NULL;
+	base = ft_strdup(".heredoc");
+	name = ft_strdup(".heredoc");
+	while (1)
+	{
+		if (access(name, F_OK) == -1)
+		{
+			if (str_counter != NULL)
+				free(str_counter);
+			free(base);
+			return (name);
+		}
+		counter++;
+		str_counter = ft_itoa(counter);
+		name = ft_strjoin(base, str_counter);
+	}
+	return (name);
+}
+
+int	put_value_in_heredoc(t_data *data, char *eof, int fd)
+{
+	char 	*line;
+	char	*tmp;
+
+	while(1)
+	{
+		line = readline("> ");
+		if (strncmp(line, eof, ft_strlen(eof)) == 0)
+		{
+			free(line);
+			break ;
+		}
+		tmp = ft_strjoin(line, "\n");
+		ft_putstr_fd(tmp, fd);
+		free(line);
+		free(tmp);
+	}
+}
+
+void	create_heredoc(t_data *data, t_redir *new, char *eof)
+{
+	int		fd;
+
+	new->filename = find_name(data);
+	fd = open(new->filename, O_CREAT | O_RDWR, S_IRWXU | S_IRWXG | S_IRWXO);
+	if (fd == -1)
+		exit_clean(data, OPEN, Y_EXIT);
+	put_value_in_heredoc(data, eof, fd);
+	close(fd);
+	new->type = HEREDOC_TK;
+	new->next = NULL;
 }
 
 t_redir	*new_node_redir(t_data *data, t_token *lst, tokentype type)
@@ -26,7 +82,7 @@ t_redir	*new_node_redir(t_data *data, t_token *lst, tokentype type)
 		exit_clean(data, MALLOC, Y_EXIT);
 	if (type == HEREDOC_TK)
 	{
-		create_heredoc(data, new);
+		create_heredoc(data, new, lst->next->value);
 		return (new);
 	}
 	new->filename = ft_strdup(lst->next->value);

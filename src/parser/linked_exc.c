@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 09:12:17 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/05 11:59:06 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/07 15:52:49 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ t_exec	*ft_lstnew_node(t_data *data, t_token *l_lex)
 		find_cmd = svg;
 		while (find_cmd != NULL && find_cmd->type != STRING_TOKEN)
 			find_cmd = find_cmd->next;
-		new->cmd = ft_strdup(find_cmd->value);
+		if (find_cmd != NULL)
+			new->cmd = ft_strdup(find_cmd->value);
+		else
+			new->cmd = ft_strdup("");
 	}
 	else
 		new->cmd = ft_strdup(svg->value);

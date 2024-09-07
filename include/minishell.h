@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/06 17:49:52 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:31:37 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <fcntl.h>
+# include <sys/stat.h>
 # include <errno.h> 
 # include <linux/limits.h>
 
@@ -30,6 +31,7 @@ typedef enum
 	MALLOC,
 	QUOTE_CLOSE,
 	NOTHING,
+	OPEN,
 } type_error;
 
 typedef struct s_data
@@ -116,10 +118,10 @@ char	*give_value_env(char *target, t_data *data, int len);
 
 int		ft_isprint(int c);
 
+char	*ft_itoa(int nb);
+
 //  ---- EXEC ----
 char	*my_get_path(char *cmd, char **envp);
-
-int		check_heredoc (t_exec *exec, int fd_out);
 
 int		exec_cmd(t_data *data, char **envp);
 
@@ -134,6 +136,8 @@ int		builtin_exit(t_data *data);
 int		builtin_env(t_data *data);
 
 int		builtin_unset(t_data *data, char *new_var);
+
+int		builtin_export(t_data *data, char *add_var);
 
 //	---- TEST ----
 void	test_minishell(t_data *data);
