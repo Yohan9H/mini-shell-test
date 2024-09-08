@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:56:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/07 16:28:25 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:10:23 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	clean_my_env(t_data *data)
 	}
 }
 
-void	if_exit(t_data *data, bool num)
+void	if_exit(t_data *data, t_bool num)
 {
 	if (num == Y_EXIT)
 	{
@@ -73,7 +73,7 @@ void	clean_data_parser(t_data *data)
 	}
 }
 
-void	exit_clean(t_data *data, type_error error, bool num)
+void	exit_clean(t_data *data, t_type_error error, t_bool num)
 {
 	if (data->lex->first)
 	{
@@ -93,5 +93,4 @@ void	exit_clean(t_data *data, type_error error, bool num)
 	clean_data_parser(data);
 	print_error(error);
 	if_exit(data, num);
-
 }

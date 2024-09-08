@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:12:58 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/30 14:13:59 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 13:52:56 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	double_redirection(char *str, t_data *data, int *i)
 {
 	if (str[*i + 1] && ((str[*i] == '>' && str[*i + 1] == '>')
-		|| (str[*i] == '<' && str[*i + 1] == '<')))
+			|| (str[*i] == '<' && str[*i + 1] == '<')))
 	{
 		if (str[*i] == '>')
 			data->lex->new = ft_lstnew(">>", APPEND_TK, data);
@@ -80,7 +80,7 @@ int	single_quote(char *str, t_data *data, int *i)
 			return (exit_clean(data, QUOTE_CLOSE, N_EXIT), 0);
 		data->lex->string = malloc((len + 1) * sizeof(char));
 		if (!data->lex->string)
-			return(exit_clean(data, MALLOC, N_EXIT), 0);
+			return (exit_clean(data, MALLOC, N_EXIT), 0);
 		cpy_str(str, data, i, '\'');
 		data->lex->new = ft_lstnew(data->lex->string, SQ_TOKEN, data);
 		return (1);

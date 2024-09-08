@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:32:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/05 15:02:17 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 13:53:05 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	add_file_tk(t_token *first)
 	while (lst != NULL)
 	{
 		if ((is_redirection(lst->type) == 1 && lst->next != NULL
-			&& is_str_sq_dq_dol(lst->next->type) == 1)
+				&& is_str_sq_dq_dol(lst->next->type) == 1)
 			|| (lst->next != NULL && lst->next->type == DOLLAR_FAIL))
 		{
 			lst = lst->next;

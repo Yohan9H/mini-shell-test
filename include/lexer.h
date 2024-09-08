@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/30 14:13:59 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:09:59 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@
 
 typedef struct s_data	t_data;
 
-typedef enum
+typedef enum e_bool
 {
 	Y_EXIT,
 	N_EXIT,
-} bool;
+}	t_bool;
 
-typedef enum
+typedef enum e_tokentype
 {
 	SPACE_TK,
 	FILE_TOKEN,
@@ -39,13 +39,13 @@ typedef enum
 	OUTPUT_TK,
 	HEREDOC_TK,
 	APPEND_TK,
-} tokentype;
+}	t_tokentype;
 
-typedef struct s_token t_token;
+typedef struct s_token	t_token;
 
 struct s_token
 {
-	tokentype	type;
+	t_tokentype	type;
 	char		*value;
 	t_token		*prev;
 	t_token		*next;
@@ -89,7 +89,7 @@ void	add_file_tk(t_token *first);
 
 void	join_if_no_space_and_del_space(t_data *data);
 
-int		is_str_sq_dq_dol(tokentype type);
+int		is_str_sq_dq_dol(t_tokentype type);
 
 //	---- UTILS LEXER ----
 int		len_db_quote(char *str, int *i, char stop);

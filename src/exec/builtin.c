@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:24:21 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/06 13:26:47 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:11:58 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	builtin_exit(t_data *data)
 
 int	builtin_env(t_data *data)
 {
-	t_env *lst;
+	t_env	*lst;
 
 	lst = data->my_env;
 	while (lst != NULL)

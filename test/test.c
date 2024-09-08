@@ -6,13 +6,13 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:51:04 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/05 14:56:33 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:09:39 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_token(tokentype type)
+char	*get_token(t_tokentype type)
 {
 	if (type == SPACE_TK)
 		return ("SPACE_TK");

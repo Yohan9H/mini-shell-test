@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/06 18:20:01 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 13:46:44 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,33 +158,10 @@ void	input_redir(t_exec *exec)
 	close(fdinput);
 }
 
-// void heredoc_redir(t_exec *exec)
-// {
-// 	int fd_heredoc;
-// 	int here_doc_pipe[2];
-// 
-// 	if (pipe(here_doc_pipe) == -1)
-// 	{
-// 		perror("pipe");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	check_heredoc(exec, here_doc_pipe[1]);
-// 	close(here_doc_pipe[1]);
-// 	fd_heredoc = here_doc_pipe[0];
-// 	if (dup2(fd_heredoc, STDIN_FILENO) == -1)
-// 	{
-// 		perror("dup2 input redirection failed");
-// 		EXIT_FAILURE;
-// 	}
-// 	close(fd_heredoc);
-// }
-
 void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, char **envp)
 {
 	if (exec->redir && exec->redir->type == INPUT_TK)
 		input_redir(exec);
-	// else if (exec->redir && exec->redir->type == HEREDOC_TK)
-	// 	heredoc_redir(exec);
 	else if (prev_fd != -1)
 		dup_stdin(prev_fd);
 	if (exec->redir && (exec->redir->type == OUTPUT_TK || \

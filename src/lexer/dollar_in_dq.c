@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:07 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/02 14:08:02 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 13:51:21 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*get_value_in_dq(char *target, t_data *data, int len, int *find)
 {
 	t_env	*lst_env;
 	char	*str;
-	int	j;
+	int		j;
 
 	j = 0;
 	*find = -1;
@@ -28,7 +28,7 @@ char	*get_value_in_dq(char *target, t_data *data, int len, int *find)
 		{
 			*find = 1;
 			str = ft_strdup(&lst_env->line[len + 1]);
-			break;
+			break ;
 		}
 		lst_env = lst_env->next;
 	}
@@ -74,7 +74,7 @@ void	join_str_value(t_data *data, char *string, char *value_dol, char *aft)
 		free(data->lex->string);
 		data->lex->string = ft_strjoin(svg, aft);
 		free(svg);
-		free(aft);	
+		free(aft);
 	}
 }
 
@@ -109,19 +109,19 @@ void	if_dollar_in_dq(char *string, int len, int pos_D, t_data *data)
 void	check_dollar_in_dq(t_data *data, char *string)
 {
 	int		len;
-	int		pos_D;
+	int		pos_d;
 
-	pos_D = 0;
+	pos_d = 0;
 	len = 0;
-	while (string[0] && string[pos_D])
+	while (string[0] && string[pos_d])
 	{
-		if (string[pos_D] && string[pos_D] == '$')
+		if (string[pos_d] && string[pos_d] == '$')
 		{
-			if_dollar_in_dq(string, len, pos_D, data);
+			if_dollar_in_dq(string, len, pos_d, data);
 			free(string);
 			string = data->lex->string;
-			pos_D = 0;
+			pos_d = 0;
 		}
-		pos_D++;
+		pos_d++;
 	}
 }

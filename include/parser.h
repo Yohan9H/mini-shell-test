@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:54:53 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/31 14:50:22 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:11:00 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 # define PARSER_H
 # include "minishell.h"
 
-typedef struct s_exec t_exec;
+typedef struct s_exec	t_exec;
 
-typedef struct s_redir t_redir;
+typedef struct s_redir	t_redir;
 
 struct s_redir
 {
 	char		*filename;
-	tokentype	type;
-	t_redir 	*next;
+	t_tokentype	type;
+	t_redir		*next;
 };
 
 struct s_exec
@@ -54,13 +54,13 @@ t_redir	*create_linked_lst_redir(t_data *data, t_token *l_lex);
 // ---- VERIF STATE ----
 void	verif_nothing(t_data *data, t_token *lst);
 
-void	verif_same_tk(t_data *data, t_token *lst, tokentype type);
+void	verif_same_tk(t_data *data, t_token *lst, t_tokentype type);
 
 void	verif_redirection_pipe(t_data *data, t_token *lst);
 
 void	verif_dollar_fail(t_token *next);
 
 // ---- UTILS PARSER ----
-int		is_redirection(tokentype type);
+int		is_redirection(t_tokentype type);
 
 #endif

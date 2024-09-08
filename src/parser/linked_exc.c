@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 09:12:17 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/07 15:52:49 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 13:56:47 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	calculate_nb_args(t_token *l_lex)
 
 char	**cpy_args(t_token *l_lex, t_data *data)
 {
-	t_token *lst;
+	t_token	*lst;
 	char	**new;
 	int		nb_args;
 	int		i;
@@ -59,7 +59,7 @@ t_exec	*ft_lstnew_node(t_data *data, t_token *l_lex)
 	t_token	*svg;
 	t_token	*find_cmd;
 	t_exec	*new;
-	
+
 	new = (t_exec *)malloc(sizeof(t_exec));
 	svg = l_lex;
 	if (svg != NULL && svg->type != STRING_TOKEN)
@@ -82,7 +82,7 @@ t_exec	*ft_lstnew_node(t_data *data, t_token *l_lex)
 
 void	create_linked_lst_exec(t_data *data)
 {
-	t_token *l_lex;
+	t_token	*l_lex;
 
 	l_lex = data->lex->first;
 	while (l_lex != NULL)

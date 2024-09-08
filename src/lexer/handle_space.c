@@ -6,13 +6,13 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 10:39:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/29 10:56:39 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:09:39 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_str_sq_dq_dol(tokentype type)
+int	is_str_sq_dq_dol(t_tokentype type)
 {
 	if (type == STRING_TOKEN || type == DQ_TOKEN || type == SQ_TOKEN
 		|| type == DOLLAR_TOKEN)
@@ -53,7 +53,7 @@ void	del_space(t_data *data)
 
 void	join_if_no_space_and_del_space(t_data *data)
 {
-	t_token *lst;
+	t_token		*lst;
 
 	lst = data->lex->first;
 	while (lst != NULL)

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 12:10:54 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/05 14:16:28 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:09:39 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	verif_nothing(t_data *data, t_token *lst)
 	}
 }
 
-void	verif_same_tk(t_data *data, t_token *lst, tokentype type)
+void	verif_same_tk(t_data *data, t_token *lst, t_tokentype type)
 {
 	if (lst->type == type)
 	{

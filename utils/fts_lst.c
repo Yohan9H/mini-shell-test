@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 10:56:19 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/06 13:53:57 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:04:35 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,24 @@ void	delete_node(t_token *del, t_data *data)
 	del = NULL;
 }
 
+int	line_del_found(t_data *data, t_env *current, t_env *prev)
+{
+	if (prev == NULL)
+	{
+		data->my_env = current->next;
+		free(current->line);
+		free(current);
+		return (1);
+	}
+	else
+	{
+		prev->next = current->next;
+		free(current->line);
+		free(current);
+		return (1);
+	}
+}
+
 void	delete_node_env(t_env *del, t_data *data)
 {
 	t_env	*current;
@@ -38,22 +56,8 @@ void	delete_node_env(t_env *del, t_data *data)
 	while (current != NULL)
 	{
 		if (ft_strncmp(current->line, del->line, len) == 0)
-		{
-			if (prev == NULL)
-			{
-				data->my_env = current->next;
-				free(current->line);
-				free(current);
+			if (line_del_found(data, current, prev) == 1)
 				return ;
-			}
-			else
-			{
-				prev->next = current->next;
-				free(current->line);
-				free(current);
-				return ;
-			}
-		}
 		prev = current;
 		current = current->next;
 	}

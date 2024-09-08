@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:12:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/05 18:10:20 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/08 14:06:41 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
-int g_sigint;
+int	g_sigint;
 
 void	handle_sigint(int sig)
 {
@@ -24,7 +23,7 @@ void	handle_sigint(int sig)
 	rl_redisplay();
 }
 
-void	init_sig()
+void	init_sig(void)
 {
 	signal(SIGINT, handle_sigint);
 }

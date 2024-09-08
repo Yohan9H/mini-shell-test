@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/06 13:20:54 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 13:52:22 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	add_token(t_data *data)
 	{
 		i = choice_token(str, data, i, &(data->code_reset));
 		if (data->code_reset == 1)
-			break;
+			break ;
 	}
 	join_if_no_space_and_del_space(data);
 	add_file_tk(data->lex->first);
@@ -64,12 +64,11 @@ void	add_token(t_data *data)
 
 void	lexer(t_data *data)
 {
-
 	data->code_reset = 0;
 	data->lex->input = readline("minishell> ");
 	if (data->lex->first != NULL)
 		ft_lstclear(&(data->lex->first));
-	if (data->lex->input == NULL) // Pour le ctrl-d pour le moment fonctionne surment plus avec l'exec
+	if (data->lex->input == NULL)
 	{
 		printf("exit\n");
 		exit_clean(data, NOTHING, Y_EXIT);

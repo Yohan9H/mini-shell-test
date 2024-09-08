@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 12:08:10 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/02 14:16:36 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:12:29 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	create_linked_env(t_data *data, char **env)
 {
 	t_env	*node;
 	int		i;
-	
+
 	i = 0;
 	if (!env)
 		return ;

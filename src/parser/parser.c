@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:53:21 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/05 14:41:28 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 13:57:31 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	parser(t_data *data)
 	t_token	*lst;
 
 	if (data->lex->first == NULL)
-		return(exit_clean(data, NOTHING, N_EXIT));
+		return (exit_clean(data, NOTHING, N_EXIT));
 	lst = data->lex->first;
 	verif_first_position(data, data->lex->first);
 	while (data->code_reset == 0 && lst != NULL)

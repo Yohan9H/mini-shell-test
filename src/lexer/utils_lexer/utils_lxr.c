@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:17:37 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/27 10:27:06 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 13:55:10 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	len_db_quote(char *str, int *i, char stop)
 
 int	len_string(char *str, int *i)
 {
-	int	len;
-	int tmp;
+	int		len;
+	int		tmp;
 
 	len = 0;
 	tmp = *i;
@@ -57,7 +57,7 @@ int	len_string(char *str, int *i)
 
 void	cpy_str(char *str, t_data *data, int *i, char stop)
 {
-	int tmp;
+	int		tmp;
 
 	tmp = 0;
 	while (str[*i] && str[*i] != stop)
@@ -68,7 +68,7 @@ void	cpy_str(char *str, t_data *data, int *i, char stop)
 		if (stop == STRING)
 			if (str[*i] == DOUBLE_Q || str[*i] == SINGLE_Q || str[*i] == '$'
 				|| str[*i] == '>' || str[*i] == '<' || str[*i] == '|')
-				break;
+				break ;
 	}
 	if (!str[*i] && stop != STRING)
 		(*i)--;
@@ -95,44 +95,3 @@ int	verif_sep_close(char *str, int *i, char type, int len)
 	else
 		return (0);
 }
-
-
-
-
-
-
-
-
-// ------------------------  TRY  ---------------------------
-
-
-
-
-
-
-
-
-
-// int if_stop(char *str, t_data *data, int *i, char stop) // ne fonctionne plus avec ""''""ls""''"" si je fais cette tech pour gere le cas "make""file"
-// {													   // essai pour gere la concatenation de 2 str
-// 	if ((stop == DOUBLE_Q || stop == SINGLE_Q) 
-// 		&& (str[*i] == DOUBLE_Q || str[*i] == SINGLE_Q))
-// 	{
-// 		(data->lex->nb_sep)--;
-// 		printf("lex->nb_sep = %d\n", data->lex->nb_sep); // test
-// 		if (data->lex->nb_sep == 1)
-// 			return (1);
-// 	}
-// 	return (0);
-// }
-
-// int	condition_cpy(char *str, t_data *data, int *i, char stop) // essai pour gere la concatenation de 2 str
-// {
-// 	if (stop == STRING)
-// 		if (str[*i] == stop)
-// 			return (1);
-// 	if (stop == DOUBLE_Q || stop == SINGLE_Q)
-// 		if (data->lex->nb_sep == 0)
-// 			return (1);
-// 	return (0);
-// }

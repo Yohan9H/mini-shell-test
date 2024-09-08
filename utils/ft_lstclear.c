@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:32:43 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/02 14:13:28 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:01:32 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_lstclear(t_token **lst)
 	{
 		tmp = (*lst)->next;
 		if (is_str_sq_dq_dol((*lst)->type) == 1
-		|| (*lst)->type == DOLLAR_FAIL || (*lst)->type == FILE_TOKEN)
+			|| (*lst)->type == DOLLAR_FAIL || (*lst)->type == FILE_TOKEN)
 			free((*lst)->value);
 		free(*lst);
 		*lst = tmp;
@@ -50,6 +50,15 @@ void	ft_lstclear_redir(t_redir **lst)
 	*lst = NULL;
 }
 
+void	ft_lstclear_exec_long(t_exec **lst)
+{
+	if ((*lst)->args)
+	{
+		free((*lst)->args);
+		(*lst)->args = NULL;
+	}
+}
+
 void	ft_lstclear_exec(t_exec **lst)
 {
 	t_exec	*tmp;
@@ -68,11 +77,7 @@ void	ft_lstclear_exec(t_exec **lst)
 			(*lst)->args[i] = NULL;
 			i++;
 		}
-		if ((*lst)->args)
-		{
-			free((*lst)->args);
-			(*lst)->args = NULL;
-		}
+		ft_lstclear_exec_long(lst);
 		ft_lstclear_redir(&(*lst)->redir);
 		free(*lst);
 		*lst = tmp;

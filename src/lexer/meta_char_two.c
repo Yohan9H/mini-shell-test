@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:43:49 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/02 14:05:51 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 13:53:34 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_space(char *str, t_data *data, int *i)
 
 int	is_string(char *str, t_data *data, int *i)
 {
-	int len;
+	int		len;
 
 	if (str[*i] && is_allspace(str[*i]) == 0 && is_metachar(str[*i]) == 0)
 	{
@@ -59,7 +59,7 @@ int	get_value(char *target, t_data *data, int len)
 			find = 1;
 			free(data->lex->string);
 			data->lex->string = ft_strdup(&lst_env->line[len + 1]);
-			break;
+			break ;
 		}
 		lst_env = lst_env->next;
 	}

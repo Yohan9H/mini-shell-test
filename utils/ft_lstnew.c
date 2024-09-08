@@ -6,13 +6,13 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:39:05 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/30 14:50:06 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:09:39 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*ft_lstnew(char *value, tokentype token, t_data *data)
+t_token	*ft_lstnew(char *value, t_tokentype token, t_data *data)
 {
 	t_token	*list;
 

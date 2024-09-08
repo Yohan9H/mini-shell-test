@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:28:12 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/06 15:05:11 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:12:12 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	skip_name(char *add_var, int *i, char *name)
 
 int	builtin_export(t_data *data, char *add_var)
 {
-	t_env 	*node;
+	t_env	*node;
 	char	*name;
 	char	*value_var;
 	char	*final_line;

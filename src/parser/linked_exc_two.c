@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:58:00 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/07 16:39:31 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:09:39 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ char	*find_name(t_data *data)
 
 int	put_value_in_heredoc(t_data *data, char *eof, int fd)
 {
-	char 	*line;
+	char	*line;
 	char	*tmp;
 
-	while(1)
+	while (1)
 	{
 		line = readline("> ");
 		if (strncmp(line, eof, ft_strlen(eof)) == 0)
@@ -73,9 +73,9 @@ void	create_heredoc(t_data *data, t_redir *new, char *eof)
 	new->next = NULL;
 }
 
-t_redir	*new_node_redir(t_data *data, t_token *lst, tokentype type)
+t_redir	*new_node_redir(t_data *data, t_token *lst, t_tokentype type)
 {
-	t_redir *new;
+	t_redir	*new;
 
 	new = (t_redir *)malloc(sizeof(t_redir));
 	if (!new)
@@ -109,5 +109,5 @@ t_redir	*create_linked_lst_redir(t_data *data, t_token *l_lex)
 		lst = lst->next;
 	}
 	data->par->new_redir = NULL;
-	return (new_linked_rdr); 
+	return (new_linked_rdr);
 }

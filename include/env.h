@@ -6,15 +6,15 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 12:09:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/02 14:01:08 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:07:46 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENV_H
 # define ENV_H
-#include "minishell.h"
+# include "minishell.h"
 
-typedef struct s_env t_env;
+typedef struct s_env	t_env;
 
 struct s_env
 {

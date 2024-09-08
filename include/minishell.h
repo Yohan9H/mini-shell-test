@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/07 16:31:37 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:10:38 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@
 # include <errno.h> 
 # include <linux/limits.h>
 
-typedef enum
+typedef enum e_type_error
 {
 	MALLOC,
 	QUOTE_CLOSE,
 	NOTHING,
 	OPEN,
-} type_error;
+}	t_type_error;
 
 typedef struct s_data
 {
@@ -56,10 +56,10 @@ void	init_data(t_data *data, char **env);
 
 void	print_error(int error);
 
-void	exit_clean(t_data *data, type_error error, bool num);
+void	exit_clean(t_data *data, t_type_error error, t_bool num);
 
 //  ---- SIGNALS ---- 
-void	init_sig();
+void	init_sig(void);
 
 //	---- UTILS ----
 void	ft_lstadd_back(t_token **lst, t_token *new, t_token *last);
@@ -90,7 +90,7 @@ t_exec	*ft_lstexeclast(t_exec *lst);
 
 t_env	*ft_lstenvlast(t_env *lst);
 
-t_token	*ft_lstnew(char *value, tokentype token, t_data *data);
+t_token	*ft_lstnew(char *value, t_tokentype token, t_data *data);
 
 int		ft_lstsize(t_token *lst);
 
