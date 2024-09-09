@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:29:17 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/08/15 14:57:58 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/09 15:55:02 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,21 @@ int	ft_lstsize(t_token *lst)
 
 	count = 0;
 	ptr = lst;
+	while (ptr != NULL)
+	{
+		ptr = ptr->next;
+		count++;
+	}
+	return (count);
+}
+
+int	ft_lstsize_env(t_env *env)
+{
+	t_env	*ptr;
+	int		count;
+
+	count = 0;
+	ptr = env;
 	while (ptr != NULL)
 	{
 		ptr = ptr->next;

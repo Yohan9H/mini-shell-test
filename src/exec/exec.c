@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/08 13:46:44 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:57:00 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,20 +89,72 @@ void	dup_stdout(int pipe_fd[2])
 	close(pipe_fd[1]);
 }
 
-void	exec_line(t_exec *exec, char **envp)
+void	exec_line(t_exec *exec, t_data *data)
 {
 	char	*args;
 
 	if (access(exec->cmd, F_OK | X_OK) == 0)
 		args = exec->cmd;
 	else
-		args = my_get_path(exec->cmd, envp);
-	if (execve(args, exec->args, envp) == -1)
+		args = my_get_path(exec->cmd, data);
+	if (execve(args, exec->args, my_env_to_tab(data->my_env) == -1))
 	{
-		exit(EXIT_FAILURE);
+		free(args);
+		free(exec->args);
+		exit_clean(data, NOTHING, Y_EXIT);
 	}
 }
 
+
+void	output_redir(t_exec *exec)
+{
+	int	fdoutput;
+	int	flags;
+	int success;
+	int	failure;
+
+	success = 0;
+	failure = 0;
+	while (exec->redir && (exec->redir->type == OUTPUT_TK || \
+		exec->redir->type == APPEND_TK))
+	{
+		if (exec->redir->filename[0] == '$')
+		{
+			fprintf(stderr, "%s: ambiguous redirect\n", exec->redir->filename);
+			failure = 1;
+			break ;
+		}
+		else
+		{
+			success = 1;
+			if (exec->redir->type == APPEND_TK)
+
+				flags = O_WRONLY | O_CREAT | O_APPEND;
+			else
+				flags = O_WRONLY | O_CREAT | O_TRUNC;
+			fdoutput = open(exec->redir->filename, flags, 0644);
+			if (fdoutput == -1) 
+			{
+				perror(exec->redir->filename);
+				exit(EXIT_FAILURE);
+			}
+			if (exec->redir->next && (exec->redir->type == OUTPUT_TK || \
+			exec->redir->type == APPEND_TK) && exec->redir->next->filename[0] != '$')
+				close(fdoutput);
+			exec->redir = exec->redir->next;
+		}
+	}
+	if (success)
+	{
+		if (dup2(fdoutput, STDOUT_FILENO) == -1)
+		{
+			perror("dup2 output redirection failed");
+			exit(EXIT_FAILURE);
+		}
+		close(fdoutput);
+	}
+}
+/*
 void	output_redir(t_exec *exec)
 {
 	int	fdoutput;
@@ -129,10 +181,11 @@ void	output_redir(t_exec *exec)
 	if (dup2(fdoutput, STDOUT_FILENO) == -1)
 	{
 		perror("dup2 output redirection failed");
-    	exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	close(fdoutput);
 }
+*/
 
 void	input_redir(t_exec *exec)
 {
@@ -153,13 +206,15 @@ void	input_redir(t_exec *exec)
 	if (dup2(fdinput, STDIN_FILENO) == -1)
 	{
 		perror("dup2 input redirection failed");
-		EXIT_FAILURE;
+		exit(EXIT_FAILURE);
 	}
 	close(fdinput);
 }
 
-void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, char **envp)
+void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, t_data *data, t_execom execom)
 {
+	close(execom.fdstdin);
+	close(execom.fdstdout);
 	if (exec->redir && exec->redir->type == INPUT_TK)
 		input_redir(exec);
 	else if (prev_fd != -1)
@@ -169,7 +224,7 @@ void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, char **envp)
 		output_redir(exec);
 	if (exec->next)
 		dup_stdout(pipe_fd);
-	exec_line(exec, envp);
+	exec_line(exec, data);
 }
 
 int	exec_cmd(t_data *data, char **envp)
@@ -194,8 +249,7 @@ int	exec_cmd(t_data *data, char **envp)
 		{
 			id = create_child_process();
 			if (id == 0)
-				child_process(exec_temp, pipe_fd, prev_fd, envp);
-			//init_fd(0, &execom);
+				child_process(exec_temp, pipe_fd, prev_fd, data, execom);
 			close_fds(exec_temp, pipe_fd, &prev_fd);
 			exec_temp = exec_temp->next;
 		}

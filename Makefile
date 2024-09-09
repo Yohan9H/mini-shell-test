@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
+#    By: apernot <apernot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/09/07 15:33:26 by yohurteb         ###   ########.fr        #
+#    Updated: 2024/09/09 16:09:19 by apernot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ SRCS = \
 	utils/ft_putstr_fd.c \
 	utils/ft_strtrim.c \
 	utils/ft_itoa.c \
+	utils/ft_lstsize.c \
 	test/test.c # ---- POUR TEST A ENLEVER ----
 
 OBJS = $(SRCS:.c=.o)

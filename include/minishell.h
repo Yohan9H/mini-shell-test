@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 15:59:43 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:06:57 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ t_token	*ft_lstnew(char *value, t_tokentype token, t_data *data);
 
 int		ft_lstsize(t_token *lst);
 
+int		ft_lstsize_env(t_env *env);
+
 char	**ft_split(char const *s, char c);
 
 int		ft_strlen(const char *s);
@@ -121,7 +123,7 @@ int		ft_isprint(int c);
 char	*ft_itoa(int nb);
 
 //  ---- EXEC ----
-char	*my_get_path(char *cmd, char **envp);
+char	*my_get_path(char *cmd, t_data *data);
 
 int		exec_cmd(t_data *data, char **envp);
 
@@ -140,6 +142,8 @@ int		builtin_unset(t_data *data, char *new_var);
 int		builtin_export(t_data *data, char *add_var);
 
 int		builtin_echo(t_data *data, char **args);
+
+char	**my_env_to_tab(t_env *env);
 
 //	---- TEST ----
 void	test_minishell(t_data *data);

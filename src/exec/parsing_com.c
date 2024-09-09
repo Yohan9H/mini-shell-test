@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:12:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/04 16:30:08 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/09 16:06:38 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,32 +50,54 @@ void	freetab(char **com)
 	}
 	free(com);
 }
-
-char	*my_get_env(char **envp, char *name)
+char	**my_env_to_tab(t_env *env)
 {
-	int		i;
-	int		j;
-	char	*sub;
+	t_env *lst;
+	char **tab;
+	size_t	size;
+	int i;
 
+	lst = env;
+	size = ft_lstsize_env(env);
+
+	tab = (char **)malloc(sizeof(char *) * (size + 1));
 	i = 0;
-	while (envp[i])
+	while (lst)
+	{
+		tab[i] = (char *)malloc(sizeof(char) * (ft_strlen(lst->line) + 1));
+		tab[i] = ft_strdup(lst->line);
+		i++;
+		lst = lst->next;
+	}
+	tab[i] = NULL;
+	return (tab);
+}
+
+char	*my_get_env(t_data *data, char *name)
+{
+	int	j;
+	char	*sub;
+	t_env	*lst;
+
+	lst = data->my_env;
+	while (lst)
 	{
 		j = 0;
-		while (envp[i][j] && envp[i][j] != '=')
+		while (lst->line[j] && lst->line[j] != '=')
 			j++;
-		sub = ft_substr(envp[i], 0, j);
+		sub = ft_substr(lst->line, 0, j);
 		if (ft_strncmp(sub, name, ft_strlen(sub)) == 0)
 		{
 			free(sub);
-			return (envp[i] + j + 1);
+			return (lst->line + j + 1);
 		}
 		free(sub);
-		i++;
+		lst = lst->next;
 	}
 	return (NULL);
 }
 
-char	*my_get_path(char *cmd, char **envp)
+char	*my_get_path(char *cmd, t_data *data)
 {
 	int		i;
 	char	**com;
@@ -84,7 +106,7 @@ char	*my_get_path(char *cmd, char **envp)
 	char	**total_path;
 
 	i = 0;
-	total_path = ft_split(my_get_env(envp, "PATH"), ':');
+	total_path = ft_split(my_get_env(data, "PATH"), ':');
 	com = ft_split(cmd, ' ');
 	while (total_path[i])
 	{
