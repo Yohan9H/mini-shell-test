@@ -6,13 +6,13 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/09 16:57:00 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/09 17:08:54 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_fd(int input_test, t_execom *execom)
+void	init_fd(int input_test, t_execom *execom, t_data *data)
 {
 	if (input_test)
 	{
@@ -24,19 +24,22 @@ void	init_fd(int input_test, t_execom *execom)
 		if (dup2(execom->fdstdin, STDIN_FILENO) == -1)
 		{
 			close(execom->fdstdin);
-			return (-1);
+			perror("error close fdstdin");
+			exit_clean(data, NOTHING, N_EXIT);
+
 		}
 		if (dup2(execom->fdstdout, STDOUT_FILENO) == -1)
 		{
 			close(execom->fdstdout);
-			return (-1);
+			perror("error close fdstdout");
+			exit_clean(data, NOTHING, N_EXIT);
 		}
 		close(execom->fdstdin);
 		close(execom->fdstdout);
 	}
 }
 
-int	create_child_process(void)
+int	create_child_process(t_data *data)
 {
 	int	id;
 
@@ -44,7 +47,7 @@ int	create_child_process(void)
 	if (id < 0)
 	{
 		perror("fork");
-		exit(EXIT_FAILURE);
+		exit_clean(data, NOTHING, N_EXIT);
 	}
 	return (id);
 }
@@ -68,23 +71,23 @@ void	close_fds(t_exec *exec, int pipe_fd[2], int *prev_fd)
 		close(pipe_fd[0]);
 }
 
-void	dup_stdin(int prev_fd)
+void	dup_stdin(int prev_fd, t_data *data)
 {
 	if (dup2(prev_fd, STDIN_FILENO) == -1)
 	{
 		perror("dup2 stdin failed");
-    	exit(EXIT_FAILURE);
+    	exit_clean(data, NOTHING, N_EXIT);
 	}
 	close(prev_fd);
 }
 
-void	dup_stdout(int pipe_fd[2])
+void	dup_stdout(int pipe_fd[2], t_data *data)
 {
 	close(pipe_fd[0]);
 	if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
 	{
 		perror("dup2 stdout failed");
-    	exit(EXIT_FAILURE);
+    	exit_clean(data, NOTHING, N_EXIT);
 	}
 	close(pipe_fd[1]);
 }
@@ -106,7 +109,7 @@ void	exec_line(t_exec *exec, t_data *data)
 }
 
 
-void	output_redir(t_exec *exec)
+void	output_redir(t_exec *exec, t_data *data)
 {
 	int	fdoutput;
 	int	flags;
@@ -136,7 +139,7 @@ void	output_redir(t_exec *exec)
 			if (fdoutput == -1) 
 			{
 				perror(exec->redir->filename);
-				exit(EXIT_FAILURE);
+				exit_clean(data, NOTHING, N_EXIT);
 			}
 			if (exec->redir->next && (exec->redir->type == OUTPUT_TK || \
 			exec->redir->type == APPEND_TK) && exec->redir->next->filename[0] != '$')
@@ -149,7 +152,7 @@ void	output_redir(t_exec *exec)
 		if (dup2(fdoutput, STDOUT_FILENO) == -1)
 		{
 			perror("dup2 output redirection failed");
-			exit(EXIT_FAILURE);
+			exit_clean(data, NOTHING, N_EXIT);
 		}
 		close(fdoutput);
 	}
@@ -187,7 +190,7 @@ void	output_redir(t_exec *exec)
 }
 */
 
-void	input_redir(t_exec *exec)
+void	input_redir(t_exec *exec, t_data *data)
 {
 	int	fdinput;
 
@@ -197,7 +200,7 @@ void	input_redir(t_exec *exec)
 		if (fdinput == -1) 
 		{
 			perror(exec->redir->filename);
-			exit(EXIT_FAILURE);
+			exit_clean(data, NOTHING, N_EXIT);
 		}
 		if (exec->redir->next && exec->redir->next->type == INPUT_TK)
 			close(fdinput);
@@ -206,7 +209,7 @@ void	input_redir(t_exec *exec)
 	if (dup2(fdinput, STDIN_FILENO) == -1)
 	{
 		perror("dup2 input redirection failed");
-		exit(EXIT_FAILURE);
+		exit_clean(data, NOTHING, N_EXIT);
 	}
 	close(fdinput);
 }
@@ -216,14 +219,14 @@ void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, t_data *data, t_ex
 	close(execom.fdstdin);
 	close(execom.fdstdout);
 	if (exec->redir && exec->redir->type == INPUT_TK)
-		input_redir(exec);
+		input_redir(exec, data);
 	else if (prev_fd != -1)
-		dup_stdin(prev_fd);
+		dup_stdin(prev_fd, data);
 	if (exec->redir && (exec->redir->type == OUTPUT_TK || \
 		exec->redir->type == APPEND_TK))
-		output_redir(exec);
+		output_redir(exec, data);
 	if (exec->next)
-		dup_stdout(pipe_fd);
+		dup_stdout(pipe_fd, data);
 	exec_line(exec, data);
 }
 
@@ -240,14 +243,14 @@ int	exec_cmd(t_data *data, char **envp)
 	exec = data->head;
 	exec_temp = exec;
 	prev_fd = -1;
-	init_fd(1, &execom);
+	init_fd(1, &execom, data);
 	while (exec_temp)
 	{
 		if (exec_temp->next)
 			pipe(pipe_fd);
 		if (verif_builtin(data, exec_temp) == 0)
 		{
-			id = create_child_process();
+			id = create_child_process(data);
 			if (id == 0)
 				child_process(exec_temp, pipe_fd, prev_fd, data, execom);
 			close_fds(exec_temp, pipe_fd, &prev_fd);
@@ -258,6 +261,6 @@ int	exec_cmd(t_data *data, char **envp)
 	}
 	while ((id = waitpid(-1, &status, 0)) > 0)
 		wait_children(id, status);
-	init_fd(0, &execom);
+	init_fd(0, &execom, data);
 	return (0);
 }
