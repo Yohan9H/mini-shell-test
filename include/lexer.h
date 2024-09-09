@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 14:09:59 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:57:33 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		is_str_sq_dq_dol(t_tokentype type);
 //	---- UTILS LEXER ----
 int		len_db_quote(char *str, int *i, char stop);
 
-int		len_string(char *str, int *i);
+int		len_string(char *str, int *i, char code);
 
 void	cpy_str(char *str, t_data *data, int *i, char stop);
 

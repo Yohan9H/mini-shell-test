@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:43:49 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 13:53:34 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/09 18:00:20 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	is_string(char *str, t_data *data, int *i)
 
 	if (str[*i] && is_allspace(str[*i]) == 0 && is_metachar(str[*i]) == 0)
 	{
-		len = len_string(str, i);
+		len = len_string(str, i, ' ');
 		data->lex->string = malloc((len + 1) * sizeof(char));
 		if (!data->lex->string)
 			return (exit_clean(data, MALLOC, N_EXIT), 0);
@@ -104,11 +104,11 @@ int	is_dollar(char *str, t_data *data, int *i)
 		if (str[*i + 1] == ' ')
 			return (0);
 		(*i)++;
-		len = len_string(str, i);
+		len = len_string(str, i, '$');
 		data->lex->string = malloc((len + 1) * sizeof(char));
 		if (!data->lex->string)
 			return (exit_clean(data, MALLOC, N_EXIT), 0);
-		cpy_str(str, data, i, ' ');
+		cpy_str(str, data, i, '$');
 		verif_value(data, len);
 		return (1);
 	}
