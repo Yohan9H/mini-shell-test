@@ -6,7 +6,7 @@
 #    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/09/07 15:33:26 by yohurteb         ###   ########.fr        #
+#    Updated: 2024/09/09 13:21:56 by yohurteb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRCS = \
 	src/exec/verif_builtin.c \
 	src/exec/builtin.c \
 	src/exec/builtin_two.c \
+	src/exec/builtin_three.c \
 	utils/garbage_collector.c \
 	utils/ft_split.c \
 	utils/ft_strlen.c \

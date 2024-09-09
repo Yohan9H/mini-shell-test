@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:28:12 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/09 11:30:04 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/09 13:19:36 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,58 +67,5 @@ int	builtin_export(t_data *data, char *add_var)
 	}
 	else
 		free(name);
-	return (1);
-}
-
-char	*verif_n(t_data *data, char **args)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	while (args[j])
-	{
-		i = 0;
-		while (args[j][i])
-		{
-			if (args[j][i] == '-')
-			{
-				i++;
-				while (args[j][i] && args[j][i] == 'n')
-					i++;
-				if (!args[j][i])
-					return (args[j]);
-			}
-			else
-				i++;
-		}
-		j++;
-	}
-	return (NULL);
-}
-
-int	builtin_echo(t_data *data, char **args)
-{
-	char	*tmp;
-	char	*param;
-	int		i;
-
-	i = 1;
-	param = verif_n(data, args);
-	while (args[i])
-	{
-		if (args[i] == param)
-			i++;
-		else
-		{
-			if (args[i + 1] == NULL || (args[i + 1] == param && !args[i + 1]))
-				printf("%s", args[i]);
-			else
-				printf("%s ", args[i]);
-			i++;
-		}
-	}
-	if (param == NULL)
-		printf("\n");
 	return (1);
 }
