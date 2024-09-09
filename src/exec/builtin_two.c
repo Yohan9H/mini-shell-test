@@ -6,27 +6,38 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:28:12 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/09 15:39:43 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:10:05 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtin_unset(t_data *data, char *delete_var)
+int	builtin_unset(t_data *data, char **delete_var)
 {
 	t_env	*lst;
+	t_env	*tmp;
+	int		j;
 
+	j = 1;
 	lst = data->my_env;
 	if (!delete_var)
 		return (1);
-	while (lst != NULL)
+	while (delete_var[j])
 	{
-		if (ft_strncmp(lst->line, delete_var, ft_strlen(delete_var)) == 0)
+		while (lst != NULL)
 		{
-			delete_node_env(lst, data);
-			return (1);
+			if (ft_strncmp(lst->line, delete_var[j],
+					ft_strlen(delete_var[j])) == 0)
+			{
+				tmp = lst->next;
+				delete_node_env(lst, data);
+				lst = tmp;
+			}
+			else
+				lst = lst->next;
 		}
-		lst = lst->next;
+		lst = data->my_env;
+		j++;
 	}
 	return (1);
 }

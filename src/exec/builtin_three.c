@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:09:38 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/09 14:59:55 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:56:58 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,13 @@ int	builtin_echo(t_data *data, char **args)
 		i++;
 	while (args[i])
 	{
-		if (args[i + 1] == NULL)
-			printf("%s", args[i]);
-		else
-			printf("%s ", args[i]);
+		if (args[i][0] != '$')
+		{
+			if (args[i + 1] == NULL)
+				printf("%s", args[i]);
+			else
+				printf("%s ", args[i]);
+		}
 		i++;
 	}
 	if (param == 0 || args[1] == NULL)
