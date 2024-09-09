@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:28:12 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/09 13:19:36 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/09 15:39:43 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,18 @@ int	skip_name(char *add_var, int *i, char *name)
 			return (1);
 }
 
-int	builtin_export(t_data *data, char *add_var)
+void	make_new_var(t_data *data, char **var, int *j, int *i)
 {
 	t_env	*node;
-	char	*name;
 	char	*value_var;
 	char	*final_line;
-	int		i;
+	char	*name;
 
-	i = 0;
-	if (!add_var)
-		return (1);
 	final_line = NULL;
-	name = ft_strdup_env(add_var);
-	if (skip_name(add_var, &i, name) == 1)
+	name = ft_strdup_env(var[*j]);
+	if (skip_name(var[*j], i, name) == 1)
 	{
-		value_var = ft_strdup(&add_var[i]);
+		value_var = ft_strdup(&var[*j][*i]);
 		final_line = ft_strjoin(name, value_var);
 		free(name);
 		free(value_var);
@@ -67,5 +63,21 @@ int	builtin_export(t_data *data, char *add_var)
 	}
 	else
 		free(name);
+}
+
+int	builtin_export(t_data *data, char **add_var)
+{
+	int		i;
+	int		j;
+
+	j = 1;
+	if (!add_var)
+		return (1);
+	while (add_var[j])
+	{
+		i = 0;
+		make_new_var(data, add_var, &j, &i);
+		j++;
+	}
 	return (1);
 }

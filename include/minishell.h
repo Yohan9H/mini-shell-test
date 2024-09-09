@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 15:59:43 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/09 15:27:40 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int		builtin_env(t_data *data);
 
 int		builtin_unset(t_data *data, char *new_var);
 
-int		builtin_export(t_data *data, char *add_var);
+int		builtin_export(t_data *data, char **add_var);
 
 int		builtin_echo(t_data *data, char **args);
 
