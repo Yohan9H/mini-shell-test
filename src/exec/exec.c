@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/09 17:08:54 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/09 17:33:10 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,27 @@ void	exec_line(t_exec *exec, t_data *data)
 	}
 }
 
+int	output_redir_success(t_exec *exec, t_data *data)
+{
+	int	fdoutput;
+	int	flags;
+	
+	if (exec->redir->type == APPEND_TK)
+
+		flags = O_WRONLY | O_CREAT | O_APPEND;
+	else
+		flags = O_WRONLY | O_CREAT | O_TRUNC;
+	fdoutput = open(exec->redir->filename, flags, 0644);
+	if (fdoutput == -1) 
+	{
+		perror(exec->redir->filename);
+		exit_clean(data, NOTHING, N_EXIT);
+	}
+	if (exec->redir->next && (exec->redir->type == OUTPUT_TK || \
+	exec->redir->type == APPEND_TK) && exec->redir->next->filename[0] != '$')
+		close(fdoutput);
+	return (fdoutput);
+}
 
 void	output_redir(t_exec *exec, t_data *data)
 {
@@ -130,20 +151,7 @@ void	output_redir(t_exec *exec, t_data *data)
 		else
 		{
 			success = 1;
-			if (exec->redir->type == APPEND_TK)
-
-				flags = O_WRONLY | O_CREAT | O_APPEND;
-			else
-				flags = O_WRONLY | O_CREAT | O_TRUNC;
-			fdoutput = open(exec->redir->filename, flags, 0644);
-			if (fdoutput == -1) 
-			{
-				perror(exec->redir->filename);
-				exit_clean(data, NOTHING, N_EXIT);
-			}
-			if (exec->redir->next && (exec->redir->type == OUTPUT_TK || \
-			exec->redir->type == APPEND_TK) && exec->redir->next->filename[0] != '$')
-				close(fdoutput);
+			fdoutput = output_redir_success(exec, data);
 			exec->redir = exec->redir->next;
 		}
 	}
@@ -157,38 +165,6 @@ void	output_redir(t_exec *exec, t_data *data)
 		close(fdoutput);
 	}
 }
-/*
-void	output_redir(t_exec *exec)
-{
-	int	fdoutput;
-	int	flags;
-
-	while (exec->redir && (exec->redir->type == OUTPUT_TK || \
-		exec->redir->type == APPEND_TK))
-	{
-		if (exec->redir->type == APPEND_TK)
-			flags = O_WRONLY | O_CREAT | O_APPEND;
-		else
-			flags = O_WRONLY | O_CREAT | O_TRUNC;
-		fdoutput = open(exec->redir->filename, flags, 0644);
-		if (fdoutput == -1) 
-		{
-			perror(exec->redir->filename);
-			exit(EXIT_FAILURE);
-		}
-		if (exec->redir->next && (exec->redir->type == OUTPUT_TK || \
-		exec->redir->type == APPEND_TK))
-			close(fdoutput);
-		exec->redir = exec->redir->next;
-	}
-	if (dup2(fdoutput, STDOUT_FILENO) == -1)
-	{
-		perror("dup2 output redirection failed");
-		exit(EXIT_FAILURE);
-	}
-	close(fdoutput);
-}
-*/
 
 void	input_redir(t_exec *exec, t_data *data)
 {
