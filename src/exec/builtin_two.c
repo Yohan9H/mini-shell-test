@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:28:12 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 14:12:12 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 15:58:39 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,9 @@ int	builtin_export(t_data *data, char *add_var)
 	else
 		free(name);
 	return (1);
+}
+
+int	builtin_echo(t_data *data, char **args)
+{
+	
 }

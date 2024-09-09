@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:03:31 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/06 13:58:39 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/08 15:59:36 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	verif_builtin(t_data *data, t_exec *lst)
 		return (builtin_unset(data, lst->args[1]));
 	else if (ft_strncmp("export", lst->cmd, 6) == 0)
 		return (builtin_export(data, lst->args[1]));
+	else if (ft_strncmp("echo", lst->cmd, 4) == 0)
+		return (builtin_echo(data, lst->args));
 	else
 		return (0);
 }
