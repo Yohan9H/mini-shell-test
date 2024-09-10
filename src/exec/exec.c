@@ -6,13 +6,20 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/09 17:33:10 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/10 17:22:47 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_fd(int input_test, t_execom *execom, t_data *data)
+void	dup2_clean(int in, int out)
+{
+	if (dup2(in, out) == -1)
+		perror("dup2 error");
+	close(in);
+}
+
+void	init_fd(int input_test, t_execom *execom)
 {
 	if (input_test)
 	{
@@ -21,35 +28,9 @@ void	init_fd(int input_test, t_execom *execom, t_data *data)
 	}
 	else
 	{
-		if (dup2(execom->fdstdin, STDIN_FILENO) == -1)
-		{
-			close(execom->fdstdin);
-			perror("error close fdstdin");
-			exit_clean(data, NOTHING, N_EXIT);
-
-		}
-		if (dup2(execom->fdstdout, STDOUT_FILENO) == -1)
-		{
-			close(execom->fdstdout);
-			perror("error close fdstdout");
-			exit_clean(data, NOTHING, N_EXIT);
-		}
-		close(execom->fdstdin);
-		close(execom->fdstdout);
+		dup2_clean(execom->fdstdin, STDIN_FILENO);
+		dup2_clean(execom->fdstdout, STDOUT_FILENO);
 	}
-}
-
-int	create_child_process(t_data *data)
-{
-	int	id;
-
-	id = fork();
-	if (id < 0)
-	{
-		perror("fork");
-		exit_clean(data, NOTHING, N_EXIT);
-	}
-	return (id);
 }
 
 void	wait_children(int id, int status)
@@ -58,54 +39,63 @@ void	wait_children(int id, int status)
 		perror("Erreur pendant l'attente d'un processus enfant");
 }
 
-void	close_fds(t_exec *exec, int pipe_fd[2], int *prev_fd)
-{
-	if (*prev_fd != -1)
-		close(*prev_fd);
-	if (exec->next)
-	{
-		close(pipe_fd[1]);
-		*prev_fd = pipe_fd[0];
-	}
-	else if (*prev_fd != -1)
-		close(pipe_fd[0]);
-}
 
-void	dup_stdin(int prev_fd, t_data *data)
-{
-	if (dup2(prev_fd, STDIN_FILENO) == -1)
-	{
-		perror("dup2 stdin failed");
-    	exit_clean(data, NOTHING, N_EXIT);
-	}
-	close(prev_fd);
-}
 
-void	dup_stdout(int pipe_fd[2], t_data *data)
-{
-	close(pipe_fd[0]);
-	if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
-	{
-		perror("dup2 stdout failed");
-    	exit_clean(data, NOTHING, N_EXIT);
-	}
-	close(pipe_fd[1]);
-}
+// void	dup_stdin(int prev_fd)
+// {
+// 	dup2_clean(prev_fd, STDIN_FILENO);
+// }
 
-void	exec_line(t_exec *exec, t_data *data)
-{
-	char	*args;
+// void	dup_stdout(int pipe_fd[2], t_data *data)
+// {
+// 	close(pipe_fd[0]);
+// 	dup2_clean(pipe_fd[1], STDOUT_FILENO);
+// }
 
+
+
+// int	exec_line(t_exec *exec, t_data *data)
+// {
+// 	char	*path;
+
+// 	if (access(exec->cmd, F_OK | X_OK) == 0)
+// 		path = exec->cmd;
+// 	else
+// 		path = my_get_path(exec->cmd, data);
+// 	if (execve(path, exec->args, my_env_to_tab(data->my_env) == -1))
+// 	{
+// 		free(path);
+// 		free(exec->args);
+// 		return (-2);
+// 	}
+// 	return (0);
+// }
+
+int	exec_line(t_exec *exec, t_data *data)
+{
+	char	*path;
+	char	**com;
+	char	**env;
+
+	if (!exec->cmd)
+		return (0);
+	path = my_get_path(exec->cmd, data);
 	if (access(exec->cmd, F_OK | X_OK) == 0)
-		args = exec->cmd;
+		path = exec->cmd;
 	else
-		args = my_get_path(exec->cmd, data);
-	if (execve(args, exec->args, my_env_to_tab(data->my_env) == -1))
+		path = my_get_path(exec->cmd, data);
+	env = my_env_to_tab(data->my_env);
+	if (!env)
+		return (free(path), -1);
+	if (!exec->args)
+		return (free(path), -1);
+	if (execve(path, exec->args, my_env_to_tab(data->my_env) == -1))
 	{
-		free(args);
+		free(path);
 		free(exec->args);
-		exit_clean(data, NOTHING, Y_EXIT);
+		return (-2);
 	}
+	return (0);
 }
 
 int	output_redir_success(t_exec *exec, t_data *data)
@@ -134,36 +124,20 @@ void	output_redir(t_exec *exec, t_data *data)
 {
 	int	fdoutput;
 	int	flags;
-	int success;
-	int	failure;
 
-	success = 0;
-	failure = 0;
 	while (exec->redir && (exec->redir->type == OUTPUT_TK || \
 		exec->redir->type == APPEND_TK))
 	{
 		if (exec->redir->filename[0] == '$')
 		{
 			fprintf(stderr, "%s: ambiguous redirect\n", exec->redir->filename);
-			failure = 1;
-			break ;
+			return ;
 		}
-		else
-		{
-			success = 1;
 			fdoutput = output_redir_success(exec, data);
 			exec->redir = exec->redir->next;
-		}
 	}
-	if (success)
-	{
-		if (dup2(fdoutput, STDOUT_FILENO) == -1)
-		{
-			perror("dup2 output redirection failed");
-			exit_clean(data, NOTHING, N_EXIT);
-		}
-		close(fdoutput);
-	}
+	if (fdoutput)
+		dup2_clean(fdoutput, STDOUT_FILENO);
 }
 
 void	input_redir(t_exec *exec, t_data *data)
@@ -182,35 +156,116 @@ void	input_redir(t_exec *exec, t_data *data)
 			close(fdinput);
 		exec->redir = exec->redir->next;
 	}
-	if (dup2(fdinput, STDIN_FILENO) == -1)
+	dup2_clean(fdinput, STDIN_FILENO);
+}
+void	init_pipes(int pipe_fd[2], t_data *data)
+{
+	if (pipe(pipe_fd) == -1)
 	{
-		perror("dup2 input redirection failed");
+		perror("pipe");
 		exit_clean(data, NOTHING, N_EXIT);
 	}
-	close(fdinput);
+}
+void	close_fds(t_exec *exec, int pipe_fd[2], int *prev_fd)
+{
+	if (*prev_fd != -1)
+		close(*prev_fd);
+	if (exec->next)
+	{
+		close(pipe_fd[1]);
+		*prev_fd = pipe_fd[0];
+	}
+	else if (*prev_fd != -1)
+		close(pipe_fd[0]);
 }
 
 void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, t_data *data, t_execom execom)
 {
+	int	exit_code;
+	
 	close(execom.fdstdin);
 	close(execom.fdstdout);
 	if (exec->redir && exec->redir->type == INPUT_TK)
 		input_redir(exec, data);
 	else if (prev_fd != -1)
-		dup_stdin(prev_fd, data);
+		dup2_clean(prev_fd, STDIN_FILENO);
 	if (exec->redir && (exec->redir->type == OUTPUT_TK || \
 		exec->redir->type == APPEND_TK))
 		output_redir(exec, data);
 	if (exec->next)
-		dup_stdout(pipe_fd, data);
-	exec_line(exec, data);
+	{
+		close(pipe_fd[0]);
+		dup2_clean(pipe_fd[1], STDOUT_FILENO);
+	}
+	exit_code = exec_line(exec, data);
+	if (exit_code == -2)
+		exit (126);
+	exit (127);
+}
+// int	create_child_process(t_data *data, t_exec *exec, int pipe_fd[2], int prev_fd, t_execom execom)
+// {
+// 	int	id;
+
+// 	id = fork();
+// 	if (id < 0)
+// 	{
+// 		perror("fork");
+// 		exit_clean(data, NOTHING, N_EXIT);
+// 	}
+// 	if (id == 0)
+// 		child_process(exec, pipe_fd, prev_fd, data, execom);
+// 	close_fds(exec, pipe_fd, &prev_fd);
+// 	return (id);
+// }
+
+int	create_child_process(t_data *data)
+{
+	int	id;
+
+	id = fork();
+	if (id < 0)
+	{
+		perror("fork");
+		exit_clean(data, NOTHING, N_EXIT);
+	}
+	return (id);
 }
 
-int	exec_cmd(t_data *data, char **envp)
+
+// int	exec_cmd2(t_data *data, char **envp)
+// {
+// 	t_exec		*exec;
+// 	t_exec		*exec_temp;
+// 	t_execom	execom;
+// 	int			id;
+// 	int			pipe_fd[2];
+// 	int			prev_fd;
+// 	int			status;
+
+// 	exec = data->head;
+// 	exec_temp = exec;
+// 	prev_fd = -1;
+// 	init_fd(1, &execom, data);
+// 	while (exec_temp)
+// 	{
+// 		if (exec_temp->next)
+// 			init_pipes(pipe_fd, data);
+// 		if (verif_builtin(data, exec_temp) == 0)
+// 			id = create_child_process(data, exec_temp, pipe_fd, prev_fd, execom);
+// 		exec_temp = exec_temp->next;
+// 	}
+// 	while ((id = waitpid(-1, &status, 0)) > 0)
+// 		wait_children(id, status);
+// 	init_fd(0, &execom, data);
+// 	return (0);
+// }
+
+
+
+int	exec_cmd2(t_data *data, t_execom *execom)
 {
 	t_exec		*exec;
 	t_exec		*exec_temp;
-	t_execom	execom;
 	int			id;
 	int			pipe_fd[2];
 	int			prev_fd;
@@ -219,24 +274,30 @@ int	exec_cmd(t_data *data, char **envp)
 	exec = data->head;
 	exec_temp = exec;
 	prev_fd = -1;
-	init_fd(1, &execom, data);
 	while (exec_temp)
 	{
 		if (exec_temp->next)
-			pipe(pipe_fd);
+			init_pipes(pipe_fd, data);
 		if (verif_builtin(data, exec_temp) == 0)
 		{
 			id = create_child_process(data);
 			if (id == 0)
-				child_process(exec_temp, pipe_fd, prev_fd, data, execom);
+				child_process(exec_temp, pipe_fd, prev_fd, data, *execom);
 			close_fds(exec_temp, pipe_fd, &prev_fd);
-			exec_temp = exec_temp->next;
 		}
-		else
-			exec_temp = exec_temp->next;
+		exec_temp = exec_temp->next;
 	}
 	while ((id = waitpid(-1, &status, 0)) > 0)
 		wait_children(id, status);
-	init_fd(0, &execom, data);
+	return (0);
+}
+
+int exec_cmd(t_data *data)
+{
+	t_execom	execom;
+
+	init_fd(1, &execom);
+	exec_cmd2(data, &execom);
+	init_fd(0, &execom);
 	return (0);
 }

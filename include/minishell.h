@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/09 16:06:57 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/10 15:07:35 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ char	*ft_itoa(int nb);
 //  ---- EXEC ----
 char	*my_get_path(char *cmd, t_data *data);
 
-int		exec_cmd(t_data *data, char **envp);
+int		exec_cmd(t_data *data);
 
 int		verif_builtin(t_data *data, t_exec *lst);
 
