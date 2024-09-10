@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/08 13:46:44 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:33:11 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,10 +197,8 @@ int	exec_cmd(t_data *data, char **envp)
 				child_process(exec_temp, pipe_fd, prev_fd, envp);
 			//init_fd(0, &execom);
 			close_fds(exec_temp, pipe_fd, &prev_fd);
-			exec_temp = exec_temp->next;
 		}
-		else
-			exec_temp = exec_temp->next;
+		exec_temp = exec_temp->next;
 	}
 	while ((id = waitpid(-1, &status, 0)) > 0)
 		wait_children(id, status);

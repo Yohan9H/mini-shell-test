@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:17:37 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/09 18:00:14 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:12:50 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,9 @@ void	cpy_str(char *str, t_data *data, int *i, char stop)
 				break ;
 		if (stop == '$')
 			if (str[*i] == DOUBLE_Q || str[*i] == SINGLE_Q || str[*i] == '$'
-				|| str[*i] == '>' || str[*i] == '<' || str[*i] == '|' ||
-				str[*i] == '[' || str[*i] == ']' || str[*i] == '/')
+				|| str[*i] == '>' || str[*i] == '<' || str[*i] == '|'
+				|| str[*i] == '[' || str[*i] == ']' || str[*i] == '/'
+				|| str[*i] == ' ')
 				break ;
 	}
 	if (!str[*i] && stop != STRING && stop != '$')
