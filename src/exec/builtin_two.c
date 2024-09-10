@@ -6,16 +6,31 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:28:12 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/09 16:10:05 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:31:20 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	condition_for_delete(t_env **lst, char **del, int *j, t_data *data)
+{
+	char	*tmp;
+	int		len;
+
+	len = ft_strlen(del[*j]);
+	if (len != 0 && ft_strncmp((*lst)->line, del[*j], len) == 0)
+	{
+		tmp = (*lst)->next;
+		delete_node_env(*lst, data);
+		(*lst) = tmp;
+	}
+	else
+		(*lst) = (*lst)->next;
+}
+
 int	builtin_unset(t_data *data, char **delete_var)
 {
 	t_env	*lst;
-	t_env	*tmp;
 	int		j;
 
 	j = 1;
@@ -25,17 +40,7 @@ int	builtin_unset(t_data *data, char **delete_var)
 	while (delete_var[j])
 	{
 		while (lst != NULL)
-		{
-			if (ft_strncmp(lst->line, delete_var[j],
-					ft_strlen(delete_var[j])) == 0)
-			{
-				tmp = lst->next;
-				delete_node_env(lst, data);
-				lst = tmp;
-			}
-			else
-				lst = lst->next;
-		}
+			condition_for_delete(&lst, delete_var, &j, data);
 		lst = data->my_env;
 		j++;
 	}
@@ -49,8 +54,7 @@ int	skip_name(char *add_var, int *i, char *name)
 	while (add_var[*i] && add_var[*i] != '=')
 		(*i)++;
 	if (add_var[*i] == '=')
-		if (add_var[*i + 1])
-			return (1);
+		return (1);
 }
 
 void	make_new_var(t_data *data, char **var, int *j, int *i)
@@ -64,7 +68,10 @@ void	make_new_var(t_data *data, char **var, int *j, int *i)
 	name = ft_strdup_env(var[*j]);
 	if (skip_name(var[*j], i, name) == 1)
 	{
-		value_var = ft_strdup(&var[*j][*i]);
+		if (var[*j][*i + 1] == '\0' || var[*j][*i + 1] == ' ')
+			value_var = ft_strdup("=");
+		else
+			value_var = ft_strdup(&var[*j][*i]);
 		final_line = ft_strjoin(name, value_var);
 		free(name);
 		free(value_var);
@@ -87,6 +94,11 @@ int	builtin_export(t_data *data, char **add_var)
 	while (add_var[j])
 	{
 		i = 0;
+		if (is_allspace(add_var[j][i]) == 1 || add_var[j][i] == '=')
+		{
+			fprintf(stderr, "export: `%s': not a valid identifier\n", add_var[j]);
+			return (1);
+		}
 		make_new_var(data, add_var, &j, &i);
 		j++;
 	}
