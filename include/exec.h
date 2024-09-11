@@ -13,4 +13,8 @@ typedef struct s_execom
 	int			fdstdout;
 }	t_execom;
 
+void	error_exec(char *path, int error_nb);
+
+void	dup2_clean(int in, int out);
+
 #endif

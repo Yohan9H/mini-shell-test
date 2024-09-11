@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/11 15:11:42 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/11 17:49:01 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,21 @@ void	init_fd(int input_test, t_execom *execom)
 	}
 }
 
-void	wait_children(int id, int status)
+void wait_children(int id, int status)
 {
-	if (!WIFEXITED(status))
-		perror("Erreur pendant l'attente d'un processus enfant");
+    if (WIFEXITED(status))
+    {
+        // Le processus s'est terminé normalement
+        int exit_status = WEXITSTATUS(status);
+    }
+    else if (WIFSIGNALED(status))
+    {
+        // Le processus s'est terminé à cause d'un signal
+        int signal_number = WTERMSIG(status);
+        //fprintf(stderr, "Processus %d terminé par le signal %d\n", id, signal_number);
+    }
 }
+
 
 
 
@@ -80,15 +90,17 @@ int	exec_line(t_exec *exec, t_data *data)
 		return (0);
 	path = my_get_path(exec->cmd, data);
 	if (!path)
-		return (-1);
+		return (error_exec(exec->cmd, errno), -1);
 	env = my_env_to_tab(data->my_env);
 	if (!env)
 		return (free(path), -1);
 	if (!exec->args)
-		return (free(path), -1);
+		return (free(path), free(env), -1);
 	if (execve(path, exec->args, my_env_to_tab(data->my_env) == -1))
 	{
+		error_exec(exec->cmd, errno);
 		free(path);
+		free(env);
 		free(exec->args);
 		return (-2);
 	}
@@ -276,7 +288,6 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 				child_process(exec_temp, pipe_fd, prev_fd, data, *execom);
 			close_fds(exec_temp, pipe_fd, &prev_fd);
 		}
-		exec_temp = exec_temp->next;
 		exec_temp = exec_temp->next;
 	}
 	while ((id = waitpid(-1, &status, 0)) > 0)
