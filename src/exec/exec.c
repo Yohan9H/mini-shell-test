@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/11 14:54:41 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:11:42 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,6 @@ int	exec_line(t_exec *exec, t_data *data)
 	path = my_get_path(exec->cmd, data);
 	if (!path)
 		return (-1);
-	if (access(exec->cmd, F_OK | X_OK) == 0)
-		path = exec->cmd;
-	else
-		path = my_get_path(exec->cmd, data);
 	env = my_env_to_tab(data->my_env);
 	if (!env)
 		return (free(path), -1);
