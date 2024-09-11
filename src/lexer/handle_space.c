@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 10:39:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/11 13:31:47 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:29:51 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	join_lst(t_token *next, t_token *cur)
 	cur->type = STRING_TOKEN;
 }
 
-void	del_space(t_data *data)
+void	del_space_and_DOLLAR_FAIL(t_data *data)
 {
 	t_token	*lst;
 	t_token	*tmp;
@@ -40,7 +40,7 @@ void	del_space(t_data *data)
 	lst = data->lex->first;
 	while (lst != NULL)
 	{
-		if (lst->type == SPACE_TK)
+		if (lst->type == SPACE_TK || lst->type == DOLLAR_FAIL)
 		{
 			tmp = lst->next;
 			delete_node(lst, data);
@@ -51,7 +51,7 @@ void	del_space(t_data *data)
 	}
 }
 
-void	join_if_no_space_and_del_space(t_data *data)
+void	join_if_no_space_and_del_space_fdoll(t_data *data)
 {
 	t_token		*lst;
 
@@ -59,8 +59,7 @@ void	join_if_no_space_and_del_space(t_data *data)
 	while (lst != NULL)
 	{
 		if (lst->next != NULL && is_str_sq_dq_dol(lst->type) == 1
-			&& is_str_sq_dq_dol(lst->next->type) == 1
-			&& lst->type == DOLLAR_FAIL && lst->next->type == DOLLAR_FAIL)
+			&& is_str_sq_dq_dol(lst->next->type) == 1)
 		{
 			join_lst(lst, lst->next);
 			delete_node(lst, data);
@@ -69,5 +68,5 @@ void	join_if_no_space_and_del_space(t_data *data)
 		else
 			lst = lst->next;
 	}
-	del_space(data);
+	del_space_and_DOLLAR_FAIL(data);
 }

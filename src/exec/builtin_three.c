@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:09:38 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/11 13:53:39 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:27:19 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,7 @@ void	condition_of_print(t_data *data, char **args, int *i)
 {
 	int		len;
 
-	if (args[*i][0] == '\0' )
-		return ;
-	printf("%s", "");
-	if (args[*i + 1] == NULL || args[*i + 1][0] == '\0'
-		|| (args[*i][0] == '$' && args[*i + 1][0] != '$'))
+	if (args[*i + 1] == NULL)
 		printf("%s", args[*i]);
 	else
 		printf("%s ", args[*i]);

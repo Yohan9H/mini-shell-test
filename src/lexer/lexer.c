@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 13:52:22 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:19:15 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	add_token(t_data *data)
 		if (data->code_reset == 1)
 			break ;
 	}
-	join_if_no_space_and_del_space(data);
+	join_if_no_space_and_del_space_fdoll(data);
 	add_file_tk(data->lex->first);
 }
 
