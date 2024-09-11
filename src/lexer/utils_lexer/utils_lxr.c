@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:17:37 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/11 15:07:06 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:06:05 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	code_dollar_true(char *str, int *i, int *len)
 		&& str[*i] != ']')
 	{
 		(*i)++;
-		len++;
+		(*len)++;
 	}
 }
 
