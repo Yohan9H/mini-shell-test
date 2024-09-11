@@ -6,27 +6,43 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:28:12 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 15:58:39 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:31:20 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtin_unset(t_data *data, char *delete_var)
+void	condition_for_delete(t_env **lst, char **del, int *j, t_data *data)
+{
+	char	*tmp;
+	int		len;
+
+	len = ft_strlen(del[*j]);
+	if (len != 0 && ft_strncmp((*lst)->line, del[*j], len) == 0)
+	{
+		tmp = (*lst)->next;
+		delete_node_env(*lst, data);
+		(*lst) = tmp;
+	}
+	else
+		(*lst) = (*lst)->next;
+}
+
+int	builtin_unset(t_data *data, char **delete_var)
 {
 	t_env	*lst;
+	int		j;
 
+	j = 1;
 	lst = data->my_env;
 	if (!delete_var)
 		return (1);
-	while (lst != NULL)
+	while (delete_var[j])
 	{
-		if (ft_strncmp(lst->line, delete_var, ft_strlen(delete_var)) == 0)
-		{
-			delete_node_env(lst, data);
-			return (1);
-		}
-		lst = lst->next;
+		while (lst != NULL)
+			condition_for_delete(&lst, delete_var, &j, data);
+		lst = data->my_env;
+		j++;
 	}
 	return (1);
 }
@@ -38,26 +54,24 @@ int	skip_name(char *add_var, int *i, char *name)
 	while (add_var[*i] && add_var[*i] != '=')
 		(*i)++;
 	if (add_var[*i] == '=')
-		if (add_var[*i + 1])
-			return (1);
+		return (1);
 }
 
-int	builtin_export(t_data *data, char *add_var)
+void	make_new_var(t_data *data, char **var, int *j, int *i)
 {
 	t_env	*node;
-	char	*name;
 	char	*value_var;
 	char	*final_line;
-	int		i;
+	char	*name;
 
-	i = 0;
-	if (!add_var)
-		return (1);
 	final_line = NULL;
-	name = ft_strdup_env(add_var);
-	if (skip_name(add_var, &i, name) == 1)
+	name = ft_strdup_env(var[*j]);
+	if (skip_name(var[*j], i, name) == 1)
 	{
-		value_var = ft_strdup(&add_var[i]);
+		if (var[*j][*i + 1] == '\0' || var[*j][*i + 1] == ' ')
+			value_var = ft_strdup("=");
+		else
+			value_var = ft_strdup(&var[*j][*i]);
 		final_line = ft_strjoin(name, value_var);
 		free(name);
 		free(value_var);
@@ -67,10 +81,26 @@ int	builtin_export(t_data *data, char *add_var)
 	}
 	else
 		free(name);
-	return (1);
 }
 
-int	builtin_echo(t_data *data, char **args)
+int	builtin_export(t_data *data, char **add_var)
 {
-	
+	int		i;
+	int		j;
+
+	j = 1;
+	if (!add_var)
+		return (1);
+	while (add_var[j])
+	{
+		i = 0;
+		if (is_allspace(add_var[j][i]) == 1 || add_var[j][i] == '=')
+		{
+			fprintf(stderr, "export: `%s': not a valid identifier\n", add_var[j]);
+			return (1);
+		}
+		make_new_var(data, add_var, &j, &i);
+		j++;
+	}
+	return (1);
 }

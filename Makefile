@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: apernot <apernot@student.42.fr>            +#+  +:+       +#+         #
+#    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/09/11 14:30:15 by apernot          ###   ########.fr        #
+#    Updated: 2024/09/11 14:55:37 by yohurteb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRCS = \
 	src/exec/verif_builtin.c \
 	src/exec/builtin.c \
 	src/exec/builtin_two.c \
+	src/exec/builtin_three.c \
 	src/exec/error_exec.c \
 	utils/garbage_collector.c \
 	utils/ft_split.c \

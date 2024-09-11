@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:53:21 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 13:57:31 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:17:42 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	clean_lst(t_token *head, t_data *data)
 	while (lst != NULL)
 	{
 		if (lst->type == DQ_TOKEN || lst->type == SQ_TOKEN
-			|| lst->type == DOLLAR_TOKEN || lst->type == DOLLAR_FAIL)
+			|| lst->type == DOLLAR_TOKEN)
 			lst->type = STRING_TOKEN;
 		lst = lst->next;
 	}

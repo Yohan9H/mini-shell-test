@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:17:37 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 13:55:10 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:12:50 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,33 @@ int	len_db_quote(char *str, int *i, char stop)
 	return (len);
 }
 
-int	len_string(char *str, int *i)
+int	len_string(char *str, int *i, char code)
 {
 	int		len;
 	int		tmp;
 
 	len = 0;
 	tmp = *i;
-	while (str[*i] && is_allspace(str[*i]) != 1
-		&& str[*i] != '"' && str[*i] != '\''
-		&& str[*i] != '$' && str[*i] != '<' && str[*i] != '>')
+	if (code == '$')
 	{
-		(*i)++;
-		len++;
+		while (str[*i] && is_allspace(str[*i]) != 1
+		&& str[*i] != '"' && str[*i] != '\'' && str[*i] != '['
+		&& str[*i] != '$' && str[*i] != '<' && str[*i] != '>'
+		&& str[*i] != ']')
+		{
+			(*i)++;
+			len++;
+		}
+	}
+	else
+	{
+		while (str[*i] && is_allspace(str[*i]) != 1
+			&& str[*i] != '"' && str[*i] != '\''
+			&& str[*i] != '$' && str[*i] != '<' && str[*i] != '>')
+		{
+			(*i)++;
+			len++;
+		}
 	}
 	*i = tmp;
 	return (len);
@@ -69,8 +83,14 @@ void	cpy_str(char *str, t_data *data, int *i, char stop)
 			if (str[*i] == DOUBLE_Q || str[*i] == SINGLE_Q || str[*i] == '$'
 				|| str[*i] == '>' || str[*i] == '<' || str[*i] == '|')
 				break ;
+		if (stop == '$')
+			if (str[*i] == DOUBLE_Q || str[*i] == SINGLE_Q || str[*i] == '$'
+				|| str[*i] == '>' || str[*i] == '<' || str[*i] == '|'
+				|| str[*i] == '[' || str[*i] == ']' || str[*i] == '/'
+				|| str[*i] == ' ')
+				break ;
 	}
-	if (!str[*i] && stop != STRING)
+	if (!str[*i] && stop != STRING && stop != '$')
 		(*i)--;
 	data->lex->string[tmp] = '\0';
 }

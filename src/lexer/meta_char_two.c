@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:43:49 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 13:53:34 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/11 13:28:37 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	is_string(char *str, t_data *data, int *i)
 
 	if (str[*i] && is_allspace(str[*i]) == 0 && is_metachar(str[*i]) == 0)
 	{
-		len = len_string(str, i);
+		len = len_string(str, i, ' ');
 		data->lex->string = malloc((len + 1) * sizeof(char));
 		if (!data->lex->string)
 			return (exit_clean(data, MALLOC, N_EXIT), 0);
@@ -77,17 +77,10 @@ void	verif_value(t_data *data, int len)
 	if (get_value(data->lex->string, data, len) == 1)
 	{
 		free(data->lex->string);
-		data->lex->string = ft_strdup(svg);
 		free(svg);
-		svg = ft_strdup(data->lex->string);
+		data->lex->string = ft_strdup("");
 		if (data->lex->string == NULL)
-		{
-			free(svg);
 			exit_clean(data, MALLOC, N_EXIT);
-		}
-		free(data->lex->string);
-		data->lex->string = ft_strjoin("$", svg);
-		free(svg);
 		data->lex->new = ft_lstnew(data->lex->string, DOLLAR_FAIL, data);
 		return ;
 	}
@@ -101,14 +94,21 @@ int	is_dollar(char *str, t_data *data, int *i)
 
 	if (str[*i] == '$')
 	{
-		if (str[*i + 1] == ' ')
+		if (str[*i + 1] == ' ' || str[*i + 1] == '\0')
+		{
+			data->lex->string = ft_strdup("$");
+			data->lex->new = ft_lstnew(data->lex->string, DOLLAR_TOKEN, data);
+			(*i)++;
+			return (1);
+		}
+		if (str[*i + 1] == '"' || str[*i + 1] == '\'')
 			return (0);
 		(*i)++;
-		len = len_string(str, i);
+		len = len_string(str, i, '$');
 		data->lex->string = malloc((len + 1) * sizeof(char));
 		if (!data->lex->string)
 			return (exit_clean(data, MALLOC, N_EXIT), 0);
-		cpy_str(str, data, i, ' ');
+		cpy_str(str, data, i, '$');
 		verif_value(data, len);
 		return (1);
 	}

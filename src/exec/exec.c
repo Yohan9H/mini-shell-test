@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/11 14:13:28 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/11 14:54:41 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,6 +280,7 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 				child_process(exec_temp, pipe_fd, prev_fd, data, *execom);
 			close_fds(exec_temp, pipe_fd, &prev_fd);
 		}
+		exec_temp = exec_temp->next;
 		exec_temp = exec_temp->next;
 	}
 	while ((id = waitpid(-1, &status, 0)) > 0)

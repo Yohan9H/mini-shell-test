@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/11 13:50:13 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/11 14:56:39 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,9 @@ int		builtin_exit(t_data *data);
 
 int		builtin_env(t_data *data);
 
-int		builtin_unset(t_data *data, char *new_var);
+int		builtin_unset(t_data *data, char **delete_var);
 
-int		builtin_export(t_data *data, char *add_var);
+int		builtin_export(t_data *data, char **add_var);
 
 int		builtin_echo(t_data *data, char **args);
 

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:07 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 13:51:21 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/10 13:48:31 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	if_dollar_in_dq(char *string, int len, int pos_D, t_data *data)
 
 	i = 0;
 	pos_D++;
-	len = len_string(&string[pos_D], &i);
+	len = len_string(&string[pos_D], &i, '$');
 	value_dol = get_value_in_dq(&string[pos_D], data, len, &i);
 	after_dol = svg_after_dol(&string[pos_D]);
 	if (i == -1)
@@ -115,7 +115,8 @@ void	check_dollar_in_dq(t_data *data, char *string)
 	len = 0;
 	while (string[0] && string[pos_d])
 	{
-		if (string[pos_d] && string[pos_d] == '$')
+		if (string[pos_d] && string[pos_d] == '$'
+			&& string[pos_d + 1] != ' ' && string[pos_d + 1] != '\0')
 		{
 			if_dollar_in_dq(string, len, pos_d, data);
 			free(string);

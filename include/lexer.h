@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 14:09:59 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:19:15 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,14 @@ int		get_value(char *target, t_data *data, int len);
 
 void	add_file_tk(t_token *first);
 
-void	join_if_no_space_and_del_space(t_data *data);
+void	join_if_no_space_and_del_space_fdoll(t_data *data);
 
 int		is_str_sq_dq_dol(t_tokentype type);
 
 //	---- UTILS LEXER ----
 int		len_db_quote(char *str, int *i, char stop);
 
-int		len_string(char *str, int *i);
+int		len_string(char *str, int *i, char code);
 
 void	cpy_str(char *str, t_data *data, int *i, char stop);
 

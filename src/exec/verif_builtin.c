@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:03:31 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 15:59:36 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:31:17 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 int	verif_builtin(t_data *data, t_exec *lst)
 {
-	if (ft_strncmp("cd", lst->cmd, 2) == 0)
+	if (ft_strncmp("cd", lst->cmd, 3) == 0)
 		return (builtin_cd(data, lst->args[1]));
-	else if (ft_strncmp("pwd", lst->cmd, 3) == 0)
+	else if (ft_strncmp("pwd", lst->cmd, 4) == 0)
 		return (builtin_pwd());
-	else if (ft_strncmp("exit", lst->cmd, 4) == 0)
+	else if (ft_strncmp("exit", lst->cmd, 5) == 0)
 		return (builtin_exit(data));
-	else if (ft_strncmp("env", lst->cmd, 3) == 0)
+	else if (ft_strncmp("env", lst->cmd, 4) == 0)
 		return (builtin_env(data));
-	else if (ft_strncmp("unset", lst->cmd, 5) == 0)
-		return (builtin_unset(data, lst->args[1]));
-	else if (ft_strncmp("export", lst->cmd, 6) == 0)
-		return (builtin_export(data, lst->args[1]));
-	else if (ft_strncmp("echo", lst->cmd, 4) == 0)
+	else if (ft_strncmp("unset", lst->cmd, 6) == 0)
+		return (builtin_unset(data, lst->args));
+	else if (ft_strncmp("export", lst->cmd, 7) == 0)
+		return (builtin_export(data, lst->args));
+	else if (ft_strncmp("echo", lst->cmd, 5) == 0)
 		return (builtin_echo(data, lst->args));
 	else
 		return (0);
