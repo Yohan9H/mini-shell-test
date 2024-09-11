@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:12:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/10 17:53:52 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/11 13:32:13 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ char	**my_env_to_tab(t_env *env)
 
 	lst = env;
 	size = ft_lstsize_env(env);
-
 	tab = (char **)malloc(sizeof(char *) * (size + 1));
 	if (!tab)
 		return (NULL);

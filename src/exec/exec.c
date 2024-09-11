@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/10 17:22:47 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/11 13:50:49 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	wait_children(int id, int status)
 int	exec_line(t_exec *exec, t_data *data)
 {
 	char	*path;
-	char	**com;
 	char	**env;
 
 	if (!exec->cmd)
@@ -115,7 +114,7 @@ int	output_redir_success(t_exec *exec, t_data *data)
 		exit_clean(data, NOTHING, N_EXIT);
 	}
 	if (exec->redir->next && (exec->redir->type == OUTPUT_TK || \
-	exec->redir->type == APPEND_TK) && exec->redir->next->filename[0] != '$')
+	exec->redir->type == APPEND_TK))
 		close(fdoutput);
 	return (fdoutput);
 }
@@ -128,16 +127,10 @@ void	output_redir(t_exec *exec, t_data *data)
 	while (exec->redir && (exec->redir->type == OUTPUT_TK || \
 		exec->redir->type == APPEND_TK))
 	{
-		if (exec->redir->filename[0] == '$')
-		{
-			fprintf(stderr, "%s: ambiguous redirect\n", exec->redir->filename);
-			return ;
-		}
-			fdoutput = output_redir_success(exec, data);
-			exec->redir = exec->redir->next;
+		fdoutput = output_redir_success(exec, data);
+		exec->redir = exec->redir->next;
 	}
-	if (fdoutput)
-		dup2_clean(fdoutput, STDOUT_FILENO);
+	dup2_clean(fdoutput, STDOUT_FILENO);
 }
 
 void	input_redir(t_exec *exec, t_data *data)
@@ -199,8 +192,8 @@ void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, t_data *data, t_ex
 	}
 	exit_code = exec_line(exec, data);
 	if (exit_code == -2)
-		exit (126);
-	exit (127);
+		exit (IS_A_DIRECTORY);
+	exit (COMMAND_NOT_FOUND);
 }
 // int	create_child_process(t_data *data, t_exec *exec, int pipe_fd[2], int prev_fd, t_execom execom)
 // {

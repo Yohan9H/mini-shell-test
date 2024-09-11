@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/10 15:07:35 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/11 13:50:13 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "lexer.h"
 # include "parser.h"
 # include "env.h"
+# include "exec.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -43,13 +44,7 @@ typedef struct s_data
 	t_env		*my_env;
 }	t_data;
 
-typedef struct s_execom
-{
-	int			pipe_fd[2];
-	int			prev_fd;
-	int			fdstdin;
-	int			fdstdout;
-}	t_execom;
+
 
 //	---- MAIN ----
 void	init_data(t_data *data, char **env);
