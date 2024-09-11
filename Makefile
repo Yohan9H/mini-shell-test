@@ -6,13 +6,13 @@
 #    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/09/11 14:55:37 by yohurteb         ###   ########.fr        #
+#    Updated: 2024/09/11 18:54:39 by yohurteb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CC = gcc -g
+CC = gcc -g #-Wall -Werror -Wextra
 
 CFLAGS =  -I include/ -g
 

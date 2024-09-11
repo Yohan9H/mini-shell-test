@@ -6,13 +6,13 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:58:00 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 14:09:39 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:53:13 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*find_name(t_data *data)
+char	*find_name(void)
 {
 	char	*name;
 	char	*str_counter;
@@ -39,7 +39,7 @@ char	*find_name(t_data *data)
 	return (name);
 }
 
-int	put_value_in_heredoc(t_data *data, char *eof, int fd)
+void	put_value_in_heredoc(char *eof, int fd)
 {
 	char	*line;
 	char	*tmp;
@@ -63,11 +63,11 @@ void	create_heredoc(t_data *data, t_redir *new, char *eof)
 {
 	int		fd;
 
-	new->filename = find_name(data);
+	new->filename = find_name();
 	fd = open(new->filename, O_CREAT | O_RDWR, S_IRWXU | S_IRWXG | S_IRWXO);
 	if (fd == -1)
 		exit_clean(data, OPEN, Y_EXIT);
-	put_value_in_heredoc(data, eof, fd);
+	put_value_in_heredoc(eof, fd);
 	close(fd);
 	new->type = HEREDOC_TK;
 	new->next = NULL;
