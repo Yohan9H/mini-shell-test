@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:09:38 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/11 15:12:54 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:56:27 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,6 @@ int	verif_n(char *args)
 			i++;
 		if (!args[i])
 			return (1);
-	}
-	return (0);
-}
-
-int	verif_if_dollar_sq(char *target, t_data *data, int len)
-{
-	t_env	*lst_env;
-	int		j;
-
-	j = 0;
-	lst_env = data->my_env;
-	while (lst_env != NULL)
-	{
-		if (ft_strncmp(lst_env->line, target, len) == 0
-			&& lst_env->line[len] == '=')
-			return (1);
-		lst_env = lst_env->next;
 	}
 	return (0);
 }
@@ -77,4 +60,25 @@ int	builtin_echo(t_data *data, char **args)
 	if (param == 0 || args[1] == NULL)
 		printf("\n");
 	return (1);
+}
+
+void	delete_if_exist(t_data *data, char *name)
+{
+	int		len;
+	t_env	*lst;
+	t_env	*tmp;
+
+	lst = data->my_env;
+	while (lst != NULL)
+	{
+		len = ft_strlen(name);
+		if (len != 0 && ft_strncmp(lst->line, name, len) == 0)
+		{
+			tmp = lst->next;
+			delete_node_env(lst, data);
+			lst = tmp;
+		}
+		else
+			lst = lst->next;
+	}
 }

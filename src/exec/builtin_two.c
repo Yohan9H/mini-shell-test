@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:28:12 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/11 15:45:43 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:56:16 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	make_new_var(t_data *data, char **var, int *j, int *i)
 
 	final_line = NULL;
 	name = ft_strdup_env(var[*j]);
+	delete_if_exist(data, name);
 	if (skip_name(var[*j], i, name) == 1)
 	{
 		if (var[*j][*i + 1] == '\0' || var[*j][*i + 1] == ' ')

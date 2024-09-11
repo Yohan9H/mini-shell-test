@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/11 15:13:52 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:56:59 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,9 @@ int		builtin_env(t_data *data);
 
 int		builtin_unset(t_data *data, char **delete_var);
 
-int		builtin_export(t_data *data, char **add_var);
+void	delete_if_exist(t_data *data, char *name);
+
+int		builtin_export(t_data *data, char **new);
 
 int		builtin_echo(t_data *data, char **args);
 
