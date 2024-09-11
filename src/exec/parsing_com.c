@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:12:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/11 13:32:13 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/11 14:16:06 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,27 +154,6 @@ char	*my_get_exec(char *cmd, char **total_path)
 	return (NULL);
 }
 
-char	*my_get_path(char *cmd, t_data *data)
-{
-	int		i;
-	char	**com;
-	char	*path;
-	char	*exec;
-	char	**total_path;
-
-	i = 0;
-	if (cmd && cmd[0] == '\0')
-		return (NULL);
-	if (!data->my_env || is_absolute_path(cmd) == 1) // rajouter condition si chemin absolu
-		return (ft_strdup(cmd));
-	total_path = ft_split(my_get_env(data, "PATH"), ':');
-	if (!total_path)
-		return (ft_strdup(cmd));
-	exec = my_get_exec(cmd, total_path);
-	freetab(total_path);
-	return (exec);
-}
-
 int	is_absolute_path(char *cmd)
 {
 	int	i;
@@ -188,3 +167,26 @@ int	is_absolute_path(char *cmd)
 	}
 	return (0);
 }
+
+char	*my_get_path(char *cmd, t_data *data)
+{
+	int		i;
+	char	**com;
+	char	*path;
+	char	*exec;
+	char	**total_path;
+
+	i = 0;
+	if (cmd && cmd[0] == '\0')
+		return (NULL);
+	if (!data->my_env || is_absolute_path(cmd) == 1)
+		return (ft_strdup(cmd));
+	total_path = ft_split(my_get_env(data, "PATH"), ':');
+	if (!total_path)
+		return (ft_strdup(cmd));
+	exec = my_get_exec(cmd, total_path);
+	freetab(total_path);
+	return (exec);
+}
+
+
