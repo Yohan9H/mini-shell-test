@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 10:39:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/11 14:29:51 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:03:56 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	join_lst(t_token *next, t_token *cur)
 	cur->type = STRING_TOKEN;
 }
 
-void	del_space_and_DOLLAR_FAIL(t_data *data)
+void	del_space_and_dollar_fail(t_data *data)
 {
 	t_token	*lst;
 	t_token	*tmp;
@@ -68,5 +68,5 @@ void	join_if_no_space_and_del_space_fdoll(t_data *data)
 		else
 			lst = lst->next;
 	}
-	del_space_and_DOLLAR_FAIL(data);
+	del_space_and_dollar_fail(data);
 }

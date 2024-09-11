@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/11 14:56:39 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:13:52 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ typedef struct s_data
 	int			code_reset;
 	t_env		*my_env;
 }	t_data;
-
-
 
 //	---- MAIN ----
 void	init_data(t_data *data, char **env);

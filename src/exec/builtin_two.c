@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:28:12 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/10 16:31:20 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:12:24 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,23 +83,23 @@ void	make_new_var(t_data *data, char **var, int *j, int *i)
 		free(name);
 }
 
-int	builtin_export(t_data *data, char **add_var)
+int	builtin_export(t_data *data, char **new)
 {
 	int		i;
 	int		j;
 
 	j = 1;
-	if (!add_var)
+	if (!new)
 		return (1);
-	while (add_var[j])
+	while (new[j])
 	{
 		i = 0;
-		if (is_allspace(add_var[j][i]) == 1 || add_var[j][i] == '=')
+		if (is_allspace(new[j][i]) == 1 || new[j][i] == '=')
 		{
-			fprintf(stderr, "export: `%s': not a valid identifier\n", add_var[j]);
+			fprintf(stderr, "export: `%s': not a valid identifier\n", new[j]);
 			return (1);
 		}
-		make_new_var(data, add_var, &j, &i);
+		make_new_var(data, new, &j, &i);
 		j++;
 	}
 	return (1);

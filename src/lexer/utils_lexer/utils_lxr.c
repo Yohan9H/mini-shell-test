@@ -6,19 +6,11 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:17:37 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/10 14:12:50 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:07:06 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	is_allspace(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\n')
-		return (1);
-	else
-		return (0);
-}
 
 int	len_db_quote(char *str, int *i, char stop)
 {
@@ -37,6 +29,18 @@ int	len_db_quote(char *str, int *i, char stop)
 	return (len);
 }
 
+void	code_dollar_true(char *str, int *i, int *len)
+{
+	while (str[*i] && is_allspace(str[*i]) != 1
+		&& str[*i] != '"' && str[*i] != '\'' && str[*i] != '['
+		&& str[*i] != '$' && str[*i] != '<' && str[*i] != '>'
+		&& str[*i] != ']')
+	{
+		(*i)++;
+		len++;
+	}
+}
+
 int	len_string(char *str, int *i, char code)
 {
 	int		len;
@@ -45,16 +49,7 @@ int	len_string(char *str, int *i, char code)
 	len = 0;
 	tmp = *i;
 	if (code == '$')
-	{
-		while (str[*i] && is_allspace(str[*i]) != 1
-		&& str[*i] != '"' && str[*i] != '\'' && str[*i] != '['
-		&& str[*i] != '$' && str[*i] != '<' && str[*i] != '>'
-		&& str[*i] != ']')
-		{
-			(*i)++;
-			len++;
-		}
-	}
+		code_dollar_true(str, i, &len);
 	else
 	{
 		while (str[*i] && is_allspace(str[*i]) != 1

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:09:38 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/11 14:27:19 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:12:54 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	verif_if_dollar_sq(char *target, t_data *data, int len)
 	{
 		if (ft_strncmp(lst_env->line, target, len) == 0
 			&& lst_env->line[len] == '=')
-				return (1);
+			return (1);
 		lst_env = lst_env->next;
 	}
 	return (0);
