@@ -168,8 +168,13 @@ void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, t_data *data, t_ex
 	if (verif_builtin(data, exec) == 0)
 		exit_code = exec_line(exec, data);
 	if (exit_code == -2)
-		exit (IS_A_DIRECTORY);
-	exit (COMMAND_NOT_FOUND);
+	{
+		exit_clean(data, NOTHING, Y_EXIT);
+		// add exit number to exit clean
+		// exit (IS_A_DIRECTORY);
+	}
+		exit_clean(data, NOTHING, Y_EXIT);
+	// exit (COMMAND_NOT_FOUND);
 }
 
 int	create_child_process(t_data *data)
