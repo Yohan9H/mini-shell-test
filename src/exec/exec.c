@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/11 17:49:01 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/12 10:58:35 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	exec_line(t_exec *exec, t_data *data)
 		return (free(path), -1);
 	if (!exec->args)
 		return (free(path), free(env), -1);
-	if (execve(path, exec->args, my_env_to_tab(data->my_env) == -1))
+	if (execve(path, exec->args, my_env_to_tab(data->my_env)) == -1)
 	{
 		error_exec(exec->cmd, errno);
 		free(path);
