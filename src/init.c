@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:10:48 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/02 12:22:22 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:16:34 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ void	init_data(t_data *data, char **env)
 	data->par->new_redir = NULL;
 	data->head = NULL;
 	data->my_env = NULL;
+	data->exit_code = 0;
 	create_linked_env(data, env);
 }

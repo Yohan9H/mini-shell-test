@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/12 11:05:04 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:01:04 by aper9not          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,53 +33,20 @@ void	init_fd(int input_test, t_execom *execom)
 	}
 }
 
-void wait_children(int id, int status)
+void wait_children(int id, t_data *data)
 {
-    if (WIFEXITED(status))
-    {
-        // Le processus s'est terminé normalement
-        int exit_status = WEXITSTATUS(status);
-    }
-    else if (WIFSIGNALED(status))
-    {
-        // Le processus s'est terminé à cause d'un signal
-        int signal_number = WTERMSIG(status);
-        //fprintf(stderr, "Processus %d terminé par le signal %d\n", id, signal_number);
-    }
+	int	status;
+
+	id = waitpid(-1, &status, 0);
+	while (id  > 0)
+	{
+		if (WIFEXITED(status))
+			data->exit_code = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			data->exit_code = WTERMSIG(status);
+		id = waitpid(-1, &status, 0);
+	}
 }
-
-
-
-
-// void	dup_stdin(int prev_fd)
-// {
-// 	dup2_clean(prev_fd, STDIN_FILENO);
-// }
-
-// void	dup_stdout(int pipe_fd[2], t_data *data)
-// {
-// 	close(pipe_fd[0]);
-// 	dup2_clean(pipe_fd[1], STDOUT_FILENO);
-// }
-
-
-
-// int	exec_line(t_exec *exec, t_data *data)
-// {
-// 	char	*path;
-
-// 	if (access(exec->cmd, F_OK | X_OK) == 0)
-// 		path = exec->cmd;
-// 	else
-// 		path = my_get_path(exec->cmd, data);
-// 	if (execve(path, exec->args, my_env_to_tab(data->my_env) == -1))
-// 	{
-// 		free(path);
-// 		free(exec->args);
-// 		return (-2);
-// 	}
-// 	return (0);
-// }
 
 int	exec_line(t_exec *exec, t_data *data)
 {
@@ -113,7 +80,6 @@ int	output_redir_success(t_exec *exec, t_data *data)
 	int	flags;
 	
 	if (exec->redir->type == APPEND_TK)
-
 		flags = O_WRONLY | O_CREAT | O_APPEND;
 	else
 		flags = O_WRONLY | O_CREAT | O_TRUNC;
@@ -132,7 +98,6 @@ int	output_redir_success(t_exec *exec, t_data *data)
 void	output_redir(t_exec *exec, t_data *data)
 {
 	int	fdoutput;
-	int	flags;
 
 	while (exec->redir && (exec->redir->type == OUTPUT_TK || \
 		exec->redir->type == APPEND_TK))
@@ -234,37 +199,6 @@ int	create_child_process(t_data *data)
 	return (id);
 }
 
-
-// int	exec_cmd2(t_data *data, char **envp)
-// {
-// 	t_exec		*exec;
-// 	t_exec		*exec_temp;
-// 	t_execom	execom;
-// 	int			id;
-// 	int			pipe_fd[2];
-// 	int			prev_fd;
-// 	int			status;
-
-// 	exec = data->head;
-// 	exec_temp = exec;
-// 	prev_fd = -1;
-// 	init_fd(1, &execom, data);
-// 	while (exec_temp)
-// 	{
-// 		if (exec_temp->next)
-// 			init_pipes(pipe_fd, data);
-// 		if (verif_builtin(data, exec_temp) == 0)
-// 			id = create_child_process(data, exec_temp, pipe_fd, prev_fd, execom);
-// 		exec_temp = exec_temp->next;
-// 	}
-// 	while ((id = waitpid(-1, &status, 0)) > 0)
-// 		wait_children(id, status);
-// 	init_fd(0, &execom, data);
-// 	return (0);
-// }
-
-
-
 int	exec_cmd2(t_data *data, t_execom *execom)
 {
 	t_exec		*exec;
@@ -290,8 +224,7 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 		}
 		exec_temp = exec_temp->next;
 	}
-	while ((id = waitpid(-1, &status, 0)) > 0)
-		wait_children(id, status);
+	wait_children(id, data);
 	return (0);
 }
 
