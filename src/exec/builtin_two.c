@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:28:12 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/11 17:56:16 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:10:00 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	condition_for_delete(t_env **lst, char **del, int *j, t_data *data)
 {
-	char	*tmp;
+	t_env	*tmp;
 	int		len;
 
 	len = ft_strlen(del[*j]);
