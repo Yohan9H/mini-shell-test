@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/12 11:22:56 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:34:35 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@ typedef enum e_type_error
 
 typedef struct s_data
 {
-	t_lex		*lex;
-	t_data_ex	*par;
-	t_exec		*head;
-	int			code_reset;
-	t_env		*my_env;
+	t_lex			*lex;
+	t_data_ex		*par;
+	t_exec			*head;
+	int				code_reset;
+	t_env			*my_env;
+	unsigned char	code;
 }	t_data;
 
 //	---- MAIN ----

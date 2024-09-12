@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:07 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/11 18:50:31 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:06:31 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	join_str_value(t_data *data, char *string, char *value_dol, char *aft)
 	}
 }
 
-void	if_dollar_in_dq(char *string, int len, int pos_D, t_data *data)
+void	if_dollar_in_dq(char *string, int len, int pos_d, t_data *data)
 {
 	char	*value_dol;
 	char	*after_dol;
@@ -84,10 +84,13 @@ void	if_dollar_in_dq(char *string, int len, int pos_D, t_data *data)
 	int		i;
 
 	i = 0;
-	pos_D++;
-	len = len_string(&string[pos_D], &i, '$');
-	value_dol = get_value_in_dq(&string[pos_D], data, len, &i);
-	after_dol = svg_after_dol(&string[pos_D]);
+	pos_d++;
+	len = len_string(&string[pos_d], &i, '$');
+	value_dol = NULL;
+	value_dol = check_if_code(&string[pos_d], data, &i);
+	if (value_dol == NULL)
+		value_dol = get_value_in_dq(&string[pos_d], data, len, &i);
+	after_dol = svg_after_dol(&string[pos_d], &i);
 	if (i == -1)
 	{
 		data->lex->string = cpy_without_dollar(string, data);

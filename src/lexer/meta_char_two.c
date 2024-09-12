@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:43:49 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/11 18:50:18 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:22:10 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,8 @@ int	is_dollar(char *str, t_data *data, int *i)
 
 	if (str[*i] == '$')
 	{
-		if (str[*i + 1] == ' ' || str[*i + 1] == '\0')
-		{
-			data->lex->string = ft_strdup("$");
-			data->lex->new = ft_lstnew(data->lex->string, DOLLAR_TOKEN, data);
-			(*i)++;
+		if (verif_edge_case(str, i, data) == 1)
 			return (1);
-		}
 		if (str[*i + 1] == '"' || str[*i + 1] == '\'')
 			return (0);
 		(*i)++;
