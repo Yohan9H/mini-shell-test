@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/11 17:56:59 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:05:33 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 # include <sys/stat.h>
 # include <errno.h> 
 # include <linux/limits.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+
 
 typedef enum e_type_error
 {
