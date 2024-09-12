@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/12 11:05:33 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:22:56 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,6 @@ void	delete_node(t_token *del, t_data *data);
 
 void	ft_putstr_fd(char *s, int fd);
 
-char	*ft_strtrim(char const *s1, char const *set);
-
 void	delete_node_env(t_env *del, t_data *data);
 
 char	*give_value_env(char *target, t_data *data, int len);
@@ -125,7 +123,7 @@ int		exec_cmd(t_data *data);
 
 int		verif_builtin(t_data *data, t_exec *lst);
 
-int		builtin_cd(t_data *data, char *path);
+int		builtin_cd(t_data *data, char **args);
 
 int		builtin_pwd(void);
 
