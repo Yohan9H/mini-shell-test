@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:09:22 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/12 17:06:01 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/13 14:48:17 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@ void	error_exec(char *path, int error_nb);
 void	dup2_clean(int in, int out);
 
 int		is_builtin(t_data *data, t_exec *lst);
+
+void	freetab(char **com);
 
 #endif
