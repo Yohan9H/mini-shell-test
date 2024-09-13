@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_in_dq_two.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:37:37 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/12 18:14:30 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:21:42 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*check_if_code(char *str, t_data *data, int *status)
 	if (str[0] == '?')
 	{
 		*status = 2;
-		str_code = ft_itoa(data->code);
+		str_code = ft_itoa(data->exit_code);
 	}
 	return (str_code);
 }
