@@ -6,26 +6,52 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:24:21 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/12 11:00:24 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:33:38 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtin_cd(t_data *data, char *path)
+int	verif_nb_parameter(char **args)
 {
-	if (path == NULL || path[0] == '\0')
+	int		j;
+	int		nb;
+
+	nb = 0;
+	j = 1;
+	while (args[j])
 	{
-		path = give_value_env("HOME", data, 4);
-		if (path == NULL)
+		j++;
+		nb++;
+	}
+	if (nb > 1)
+		return (1);
+	return (0);
+}
+
+int	builtin_cd(t_data *data, char **args)
+{
+	char	*home;
+
+	if (verif_nb_parameter(args) == 1)
+	{
+		fprintf(stderr, "cd : too many arguments\n");
+		return (1);
+	}
+	home = ft_strdup(args[1]);
+	if (args[1] == NULL || args[1][0] == '\0')
+	{
+		free(home);
+		home = give_value_env("HOME", data, 4);
+		if (home == NULL)
 		{
 			fprintf(stderr, "cd : HOME not set\n");
-			return (1);
+			return (free(home) , 1);
 		}
 	}
-	if (chdir(path) == -1)
+	if (chdir(home) == -1)
 		perror("chdir()");
-	return (1);
+	return (free(home), 1);
 }
 
 int	builtin_pwd(void)

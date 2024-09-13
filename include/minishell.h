@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/12 17:48:38 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/13 13:13:26 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int		exec_cmd(t_data *data);
 
 int		verif_builtin(t_data *data, t_exec *lst);
 
-int		builtin_cd(t_data *data, char *path);
+int		builtin_cd(t_data *data, char **args);
 
 int		builtin_pwd(void);
 
