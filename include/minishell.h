@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/13 13:13:26 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/16 13:49:30 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,13 +122,13 @@ char	*my_get_path(char *cmd, t_data *data);
 
 int		exec_cmd(t_data *data);
 
-int		verif_builtin(t_data *data, t_exec *lst);
+int		verif_builtin(t_data *data, t_exec *lst, t_execom *execom);
 
 int		builtin_cd(t_data *data, char **args);
 
 int		builtin_pwd(void);
 
-int		builtin_exit(t_data *data);
+int		builtin_exit(t_data *data, t_execom *execom);
 
 int		builtin_env(t_data *data);
 

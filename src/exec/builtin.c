@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:24:21 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/12 11:33:38 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/16 13:49:45 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,10 @@ int	builtin_pwd(void)
 	return (1);
 }
 
-int	builtin_exit(t_data *data)
+int	builtin_exit(t_data *data, t_execom *execom)
 {
+	close(execom->fdstdin);
+	close(execom->fdstdout);
 	printf("exit\n");
 	exit_clean(data, NOTHING, Y_EXIT);
 	return (1);

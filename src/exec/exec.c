@@ -68,7 +68,6 @@ int	exec_line(t_exec *exec, t_data *data)
 		error_exec(exec->cmd, errno);
 		free(path);
 		freetab(env);
-		//free(exec->args);
 		return (-2);
 	}
 	return (0);
@@ -87,7 +86,6 @@ int	output_redir_success(t_exec *exec, t_data *data)
 	if (fdoutput == -1) 
 	{
 		perror(exec->redir->filename);
-	//	exit_clean(data, NOTHING, N_EXIT);
 		return (-1);
 	}
 	if (exec->redir->next && (exec->redir->type == OUTPUT_TK || \
@@ -155,7 +153,6 @@ void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, t_data *data, t_ex
 	int	exit_code;
 	
 	exit_code = -1;
-
 	close(execom.fdstdin);
 	close(execom.fdstdout);
 	if (exec->redir && exec->redir->type == INPUT_TK)
@@ -170,16 +167,14 @@ void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, t_data *data, t_ex
 		close(pipe_fd[0]);
 		dup2_clean(pipe_fd[1], STDOUT_FILENO);
 	}
-	if (verif_builtin(data, exec) == 0)
-		exit_code = exec_line(exec, data);
-	if (exit_code == -2)
+	if (verif_builtin(data, exec, &execom) == 0)
+		data->exit_code = exec_line(exec, data);
+	if (data->exit_code == -2)
 	{
 		exit_clean(data, NOTHING, Y_EXIT);
 		// add exit number to exit clean
-		// exit (IS_A_DIRECTORY);
 	}
 		exit_clean(data, NOTHING, Y_EXIT);
-	// exit (COMMAND_NOT_FOUND);
 }
 
 int	create_child_process(t_data *data)
@@ -195,6 +190,21 @@ int	create_child_process(t_data *data)
 	return (id);
 }
 
+int	builtin_redir(t_exec *exec, t_data *data, t_execom *execom)
+{
+	if (exec->next == NULL && is_builtin(data, exec) == 1)
+	{
+		if (exec->redir && exec->redir->type == INPUT_TK)
+			input_redir(exec, data);
+		if (exec->redir && (exec->redir->type == OUTPUT_TK || \
+		exec->redir->type == APPEND_TK))
+			output_redir(exec, data);
+		if (exec->cmd)
+			verif_builtin(data, exec, execom);
+		return (0);
+	}
+}
+
 int	exec_cmd2(t_data *data, t_execom *execom)
 {
 	t_exec		*exec;
@@ -207,19 +217,8 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 	exec = data->head;
 	exec_temp = exec;
 	prev_fd = -1;
-
-	if (exec_temp->next == NULL && is_builtin(data, exec_temp) == 1)
-	{
-		if (exec_temp->redir && exec_temp->redir->type == INPUT_TK)
-			input_redir(exec, data);
-		if (exec_temp->redir && (exec_temp->redir->type == OUTPUT_TK || \
-		exec_temp->redir->type == APPEND_TK))
-			output_redir(exec_temp, data);
-		if (exec_temp->cmd)
-			verif_builtin(data, exec_temp);
+	if (builtin_redir(exec_temp, data, execom) == 0)
 		return (0);
-	}
-
 	while (exec_temp)
 	{
 		if (exec_temp->next)
