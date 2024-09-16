@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:24:21 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/16 14:23:34 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/16 14:41:52 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,17 @@ int	is_numeric(char *str)
 
 int	builtin_exit(t_data *data, char **args, t_execom *execom)
 {
-	close(execom->fdstdin);
-	close(execom->fdstdout);
+
 	printf("exit\n");
 	if (!(is_numeric(args[1])))
-		printf("numeric argument required\n");
+		printf("%s: numeric argument required\n", args[0]);
 	else if (args[2] != NULL)
-		printf("too many arguments\n");
+	{
+		printf("%s: too many arguments\n", args[0]);
+		return (1);
+	}
+	close(execom->fdstdin);
+	close(execom->fdstdout);
 	exit_clean(data, NOTHING, Y_EXIT);
 	return (1);
 }
