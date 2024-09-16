@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/16 13:49:30 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/16 14:20:06 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int		builtin_cd(t_data *data, char **args);
 
 int		builtin_pwd(void);
 
-int		builtin_exit(t_data *data, t_execom *execom);
+int		builtin_exit(t_data *data, char **args, t_execom *execom);
 
 int		builtin_env(t_data *data);
 

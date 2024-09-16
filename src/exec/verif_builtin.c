@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:03:31 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/16 13:49:16 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/16 14:22:45 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	verif_builtin(t_data *data, t_exec *lst, t_execom *execom)
 	else if (ft_strncmp("pwd", lst->cmd, 4) == 0)
 		return (builtin_pwd());
 	else if (ft_strncmp("exit", lst->cmd, 5) == 0)
-		return (builtin_exit(data, execom));
+		return (builtin_exit(data, lst->args, execom));
 	else if (ft_strncmp("env", lst->cmd, 4) == 0)
 		return (builtin_env(data));
 	else if (ft_strncmp("unset", lst->cmd, 6) == 0)

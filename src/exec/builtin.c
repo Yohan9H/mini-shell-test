@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:24:21 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/16 13:49:45 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/16 14:23:34 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,29 @@ int	builtin_pwd(void)
 	return (1);
 }
 
-int	builtin_exit(t_data *data, t_execom *execom)
+int	is_numeric(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	builtin_exit(t_data *data, char **args, t_execom *execom)
 {
 	close(execom->fdstdin);
 	close(execom->fdstdout);
 	printf("exit\n");
+	if (!(is_numeric(args[1])))
+		printf("numeric argument required\n");
+	else if (args[2] != NULL)
+		printf("too many arguments\n");
 	exit_clean(data, NOTHING, Y_EXIT);
 	return (1);
 }
