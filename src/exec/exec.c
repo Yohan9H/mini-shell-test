@@ -218,7 +218,7 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 	exec_temp = exec;
 	prev_fd = -1;
 	if (builtin_redir(exec_temp, data, execom) == 0)
-		return (0);
+		return (0); // faire une verif avant du nombre de commande ?
 	while (exec_temp)
 	{
 		if (exec_temp->next)

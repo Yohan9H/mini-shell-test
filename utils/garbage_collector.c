@@ -6,18 +6,21 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:56:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 14:10:23 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/17 10:47:00 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_error(int error)
+void	print_error(int error, t_data *data)
 {
 	if (error == MALLOC)
 		fprintf(stderr, "error : malloc\n");
 	if (error == QUOTE_CLOSE)
+	{
 		fprintf(stderr, "error : quote not close\n");
+		data->exit_code = 2;
+	}
 	if (error == OPEN)
 		fprintf(stderr, "error : open failed\n");
 }
@@ -91,6 +94,6 @@ void	exit_clean(t_data *data, t_type_error error, t_bool num)
 		data->lex->new = NULL;
 	}
 	clean_data_parser(data);
-	print_error(error);
+	print_error(error, data);
 	if_exit(data, num);
 }

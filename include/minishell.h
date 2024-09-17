@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/16 14:20:06 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/17 10:50:47 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_data
 //	---- MAIN ----
 void	init_data(t_data *data, char **env);
 
-void	print_error(int error);
+void	print_error(int error, t_data *data);
 
 void	exit_clean(t_data *data, t_type_error error, t_bool num);
 

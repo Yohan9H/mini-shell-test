@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:07 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/17 10:06:02 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:06:31 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,7 @@ void	check_dollar_in_dq(t_data *data, char *string)
 	while (string[0] && string[pos_d])
 	{
 		if (string[pos_d] && string[pos_d] == '$'
-			&& string[pos_d + 1] != ' ' && string[pos_d + 1] != '\0'
-			&& string[pos_d + 1] != '\'')
+			&& string[pos_d + 1] != ' ' && string[pos_d + 1] != '\0')
 		{
 			if_dollar_in_dq(string, len, pos_d, data);
 			free(string);

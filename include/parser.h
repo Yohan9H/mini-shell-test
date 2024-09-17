@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:54:53 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 14:11:00 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:05:32 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ void	verif_nothing(t_data *data, t_token *lst);
 void	verif_same_tk(t_data *data, t_token *lst, t_tokentype type);
 
 void	verif_redirection_pipe(t_data *data, t_token *lst);
-
-void	verif_dollar_fail(t_token *next);
 
 // ---- UTILS PARSER ----
 int		is_redirection(t_tokentype type);

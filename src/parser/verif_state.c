@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 12:10:54 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 14:09:39 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/17 10:57:30 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	verif_nothing(t_data *data, t_token *lst)
 {
 	if (lst->next == NULL || ft_strlen(lst->value) == 0)
 	{
+		data->exit_code = 2;
 		fprintf(stderr, "error : nothing after \'%s\'\n", lst->value);
 		exit_clean(data, NOTHING, N_EXIT);
 	}
@@ -25,6 +26,7 @@ void	verif_same_tk(t_data *data, t_token *lst, t_tokentype type)
 {
 	if (lst->type == type)
 	{
+		data->exit_code = 2;
 		fprintf(stderr, "error near unexpected token \'%s\'\n", lst->value);
 		exit_clean(data, NOTHING, N_EXIT);
 	}
@@ -34,18 +36,15 @@ void	verif_redirection_pipe(t_data *data, t_token *lst)
 {
 	if (is_redirection(lst->type) == 1)
 	{
+		data->exit_code = 2;
 		fprintf(stderr, "error near unexpected token \'%s\'\n", lst->value);
 		exit_clean(data, NOTHING, N_EXIT);
 	}
 	if (data->code_reset == 0 && lst->type == PIPE_TK)
 	{
+		data->exit_code = 2;
 		fprintf(stderr, "error near unexpected token \'|\'\n");
 		exit_clean(data, NOTHING, N_EXIT);
 	}
 }
 
-void	verif_dollar_fail(t_token *next)
-{
-	if (next->type == DOLLAR_FAIL)
-		fprintf(stderr, "%s: ambiguous redirect\n", next->value);
-}

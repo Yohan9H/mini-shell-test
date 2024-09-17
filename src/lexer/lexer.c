@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/11 14:19:15 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/17 10:44:56 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	lexer(t_data *data)
 		ft_lstclear(&(data->lex->first));
 	if (data->lex->input == NULL)
 	{
+		data->exit_code = 0;
 		printf("exit\n");
 		exit_clean(data, NOTHING, Y_EXIT);
 	}
