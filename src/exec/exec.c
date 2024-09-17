@@ -36,15 +36,14 @@ void	init_fd(int input_test, t_execom *execom)
 void wait_children(int id, t_data *data)
 {
 	int	status;
-	int exit_code;
 
 	id = waitpid(-1, &status, 0);
 	while (id  > 0)
 	{
 		if (WIFEXITED(status))
-			exit_code = WEXITSTATUS(status);
+			data->exit_code = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
-			exit_code = WTERMSIG(status);
+			data->exit_code = WTERMSIG(status);
 		id = waitpid(-1, &status, 0);
 	}
 }
@@ -86,9 +85,9 @@ int	output_redir_success(t_exec *exec, t_data *data)
 	fdoutput = open(exec->redir->filename, flags, 0644);
 	if (fdoutput == -1) 
 	{
-		data->exit_code = 1;
 		perror(exec->redir->filename);
-		return (-1);
+		exit_clean(data, NOTHING, N_EXIT);
+		exit (1);
 	}
 	if (exec->redir->next && (exec->redir->type == OUTPUT_TK || \
 	exec->redir->type == APPEND_TK))
@@ -120,9 +119,9 @@ void	input_redir(t_exec *exec, t_data *data)
 		fdinput = open(exec->redir->filename, O_RDONLY);
 		if (fdinput == -1) 
 		{
-			data->exit_code = 1;
 			perror(exec->redir->filename);
 			exit_clean(data, NOTHING, N_EXIT);
+			exit (1);
 		}
 		if (exec->redir->next && exec->redir->next->type == INPUT_TK)
 			close(fdinput);
