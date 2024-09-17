@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:24:21 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/12 11:33:38 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:05:31 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,35 @@ int	builtin_pwd(void)
 	return (1);
 }
 
-int	builtin_exit(t_data *data)
+int	is_numeric(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	builtin_exit(t_data *data, char **args, t_execom *execom)
 {
 	printf("exit\n");
+	if (args[1])
+	{
+		if (!(is_numeric(args[1])))
+			printf("%s: numeric argument required\n", args[0]);
+		else if (args[2] != NULL)
+		{
+			printf("%s: too many arguments\n", args[0]);
+			return (1);
+		}
+	}
+	close(execom->fdstdin);
+	close(execom->fdstdout);
 	exit_clean(data, NOTHING, Y_EXIT);
 	return (1);
 }

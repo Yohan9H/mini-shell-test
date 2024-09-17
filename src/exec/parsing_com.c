@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:12:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/11 14:16:06 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/13 14:57:03 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,12 @@ char	**my_env_to_tab(t_env *env)
 	i = 0;
 	while (lst)
 	{
-		tab[i] = (char *)malloc(sizeof(char) * (ft_strlen(lst->line) + 1));
-		if (!tab[i])
-			return (NULL);
 		tab[i] = ft_strdup(lst->line);
+		if (!tab[i])
+		{
+			freetab(tab);
+			return (NULL);
+		}
 		i++;
 		lst = lst->next;
 	}
