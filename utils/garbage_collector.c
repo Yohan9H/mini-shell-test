@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:56:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/17 10:47:00 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:38:30 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 void	print_error(int error, t_data *data)
 {
 	if (error == MALLOC)
-		fprintf(stderr, "error : malloc\n");
+		ft_fprintf("error : malloc\n");
 	if (error == QUOTE_CLOSE)
 	{
-		fprintf(stderr, "error : quote not close\n");
+		ft_fprintf("error : quote not close\n");
 		data->exit_code = 2;
 	}
 	if (error == OPEN)
-		fprintf(stderr, "error : open failed\n");
+		ft_fprintf("error : open failed\n");
 }
 
 void	clean_my_env(t_data *data)

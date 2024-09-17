@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/17 14:48:29 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:37:32 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdarg.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
@@ -118,6 +119,10 @@ int		ft_isprint(int c);
 char	*ft_itoa(int nb);
 
 int		ft_atoi(const char *str);
+
+int		ft_fprintf(const char *format, ...);
+
+int		verif_nil(unsigned long nb, char *base, unsigned long size_b);
 
 //  ---- EXEC ----
 char	*my_get_path(char *cmd, t_data *data);

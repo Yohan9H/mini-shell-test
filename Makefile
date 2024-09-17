@@ -6,7 +6,7 @@
 #    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/09/17 14:24:51 by yohurteb         ###   ########.fr        #
+#    Updated: 2024/09/17 17:34:59 by yohurteb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,8 @@ SRCS = \
 	utils/ft_itoa.c \
 	utils/ft_atoi.c \
 	utils/ft_lstsize.c \
+	utils/ft_fprintf.c \
+	utils/ft_fprintf_utils.c \
 	test/test.c # ---- POUR TEST A ENLEVER ----
 
 OBJS = $(SRCS:.c=.o)

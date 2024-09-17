@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:53:21 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/17 10:52:04 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:38:03 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	verif_first_position(t_data *data, t_token *lst)
 {
 	if (lst->type == PIPE_TK)
 	{
-		fprintf(stderr, "error near unexpected token \'|\'\n");
+		ft_fprintf("error near unexpected token \'|\'\n");
 		data->exit_code = 2;
 		exit_clean(data, NOTHING, N_EXIT);
 	}

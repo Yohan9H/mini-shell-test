@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:28:12 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/17 15:11:02 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:37:47 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	builtin_export(t_data *data, char **new)
 		i = 0;
 		if (is_allspace(new[j][i]) == 1 || new[j][i] == '=')
 		{
-			fprintf(stderr, "export: `%s': not a valid identifier\n", new[j]);
+			ft_fprintf("`%s': not a valid identifier\n", new[j]);
 			data->exit_code = 1;
 			return (1);
 		}
