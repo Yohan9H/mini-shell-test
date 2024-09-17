@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yohan.h <yohan.h@student.42.fr>            +#+  +:+       +#+         #
+#    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/09/13 12:55:51 by yohan.h          ###   ########.fr        #
+#    Updated: 2024/09/17 14:24:51 by yohurteb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRCS = \
 	utils/ft_isprint.c \
 	utils/ft_putstr_fd.c \
 	utils/ft_itoa.c \
+	utils/ft_atoi.c \
 	utils/ft_lstsize.c \
 	test/test.c # ---- POUR TEST A ENLEVER ----
 

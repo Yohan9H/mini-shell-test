@@ -6,13 +6,13 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:24:21 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/17 13:11:40 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:14:42 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	verif_nb_parameter(char **args)
+int	verif_nb_parameter(char **args, t_data *data)
 {
 	int		j;
 	int		nb;
@@ -25,7 +25,11 @@ int	verif_nb_parameter(char **args)
 		nb++;
 	}
 	if (nb > 1)
+	{
+		fprintf(stderr, "cd : too many arguments\n");
+		data->exit_code	= 1;
 		return (1);
+	}
 	return (0);
 }
 
@@ -33,11 +37,8 @@ int	builtin_cd(t_data *data, char **args)
 {
 	char	*home;
 
-	if (verif_nb_parameter(args) == 1)
-	{
-		fprintf(stderr, "cd : too many arguments\n");
+	if (verif_nb_parameter(args, data) == 1)
 		return (1);
-	}
 	home = ft_strdup(args[1]);
 	if (args[1] == NULL || args[1][0] == '\0')
 	{
@@ -46,23 +47,18 @@ int	builtin_cd(t_data *data, char **args)
 		if (home == NULL)
 		{
 			fprintf(stderr, "cd : HOME not set\n");
+			data->exit_code = 1;
 			return (free(home), 1);
 		}
 	}
 	if (chdir(home) == -1)
+	{
 		perror("chdir()");
-	return (free(home), 1);
-}
-
-int	builtin_pwd(void)
-{
-	char	buf[PATH_MAX];
-
-	if (getcwd(buf, sizeof(buf)) != NULL)
-		printf("%s\n", buf);
+		data->exit_code = 1;
+	}
 	else
-		perror("getcwd() error");
-	return (1);
+		data->exit_code = 0;
+	return (free(home), 1);
 }
 
 int	is_numeric(char *str)
@@ -70,6 +66,8 @@ int	is_numeric(char *str)
 	size_t	i;
 
 	i = 0;
+	if (str[0] == '-')
+		i++;
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
@@ -81,32 +79,46 @@ int	is_numeric(char *str)
 
 int	builtin_exit(t_data *data, char **args, t_execom *execom)
 {
+	unsigned char	para;
+
 	printf("exit\n");
 	if (args[1])
 	{
-		if (!(is_numeric(args[1])))
-			printf("%s: numeric argument required\n", args[0]);
-		else if (args[2] != NULL)
+		para = ft_atoi(args[1]);
+		if (args[2] != NULL)
 		{
+			data->exit_code = 1;
 			printf("%s: too many arguments\n", args[0]);
 			return (1);
 		}
+		if (!(is_numeric(args[1])))
+		{
+			data->exit_code = 2;
+			printf("%s: numeric argument required\n", args[1]);
+		}
 	}
+	data->exit_code = para;
 	close(execom->fdstdin);
 	close(execom->fdstdout);
 	exit_clean(data, NOTHING, Y_EXIT);
-	return (1);
 }
 
-int	builtin_env(t_data *data)
+int	builtin_env(t_data *data, char **args)
 {
 	t_env	*lst;
 
 	lst = data->my_env;
+	if (args[1])
+	{
+		data->exit_code = 127;
+		fprintf(stderr, "\'%s\': No such file or directory\n", args[1]);
+		return (1);
+	}
 	while (lst != NULL)
 	{
 		printf("%s\n", lst->line);
 		lst = lst->next;
 	}
+	data->exit_code = 0;
 	return (1);
 }

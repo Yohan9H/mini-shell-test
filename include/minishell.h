@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/17 10:50:47 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:48:29 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ int		ft_isprint(int c);
 
 char	*ft_itoa(int nb);
 
+int		ft_atoi(const char *str);
+
 //  ---- EXEC ----
 char	*my_get_path(char *cmd, t_data *data);
 
@@ -126,11 +128,11 @@ int		verif_builtin(t_data *data, t_exec *lst, t_execom *execom);
 
 int		builtin_cd(t_data *data, char **args);
 
-int		builtin_pwd(void);
+int		builtin_pwd(t_data *data);
 
 int		builtin_exit(t_data *data, char **args, t_execom *execom);
 
-int		builtin_env(t_data *data);
+int		builtin_env(t_data *data, char **args);
 
 int		builtin_unset(t_data *data, char **delete_var);
 

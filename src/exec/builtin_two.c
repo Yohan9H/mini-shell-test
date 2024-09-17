@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:28:12 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/12 11:10:00 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:11:02 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	builtin_unset(t_data *data, char **delete_var)
 
 	j = 1;
 	lst = data->my_env;
+	data->exit_code = 0;
 	if (!delete_var)
 		return (1);
 	while (delete_var[j])
@@ -98,10 +99,12 @@ int	builtin_export(t_data *data, char **new)
 		if (is_allspace(new[j][i]) == 1 || new[j][i] == '=')
 		{
 			fprintf(stderr, "export: `%s': not a valid identifier\n", new[j]);
+			data->exit_code = 1;
 			return (1);
 		}
 		make_new_var(data, new, &j, &i);
 		j++;
 	}
+	data->exit_code = 0;
 	return (1);
 }

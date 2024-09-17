@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:03:31 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/16 14:22:45 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/17 14:48:18 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ int	verif_builtin(t_data *data, t_exec *lst, t_execom *execom)
 	if (ft_strncmp("cd", lst->cmd, 3) == 0)
 		return (builtin_cd(data, lst->args));
 	else if (ft_strncmp("pwd", lst->cmd, 4) == 0)
-		return (builtin_pwd());
+		return (builtin_pwd(data));
 	else if (ft_strncmp("exit", lst->cmd, 5) == 0)
 		return (builtin_exit(data, lst->args, execom));
 	else if (ft_strncmp("env", lst->cmd, 4) == 0)
-		return (builtin_env(data));
+		return (builtin_env(data, lst->args));
 	else if (ft_strncmp("unset", lst->cmd, 6) == 0)
 		return (builtin_unset(data, lst->args));
 	else if (ft_strncmp("export", lst->cmd, 7) == 0)

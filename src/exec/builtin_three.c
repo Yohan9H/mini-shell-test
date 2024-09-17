@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:09:38 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/11 17:56:27 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:14:51 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	builtin_echo(t_data *data, char **args)
 	}
 	if (param == 0 || args[1] == NULL)
 		printf("\n");
+	data->exit_code = 0;
 	return (1);
 }
 
@@ -81,4 +82,21 @@ void	delete_if_exist(t_data *data, char *name)
 		else
 			lst = lst->next;
 	}
+}
+
+int	builtin_pwd(t_data *data)
+{
+	char	buf[PATH_MAX];
+
+	if (getcwd(buf, sizeof(buf)) != NULL)
+	{
+		data->exit_code = 0;
+		printf("%s\n", buf);
+	}
+	else
+	{
+		data->exit_code = 1;
+		perror("getcwd() error");
+	}
+	return (1);
 }
