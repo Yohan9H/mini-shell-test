@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_in_dq_two.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:37:37 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/13 13:21:42 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/17 11:41:13 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,19 @@ char	*check_if_code(char *str, t_data *data, int *status)
 		str_code = ft_itoa(data->exit_code);
 	}
 	return (str_code);
+}
+
+void	no_find(t_data * data, char *string, char *after_dol)
+{
+	char	*svg;
+
+	data->lex->string = cpy_without_dollar(string, data);
+	if (after_dol != NULL)
+	{
+		svg = ft_strdup(data->lex->string);
+		free(data->lex->string);
+		data->lex->string = ft_strjoin(svg, after_dol);
+		free(svg);
+		free(after_dol);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:07 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/12 18:06:31 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:41:07 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	if_dollar_in_dq(char *string, int len, int pos_d, t_data *data)
 {
 	char	*value_dol;
 	char	*after_dol;
-	char	*svg;
 	int		i;
 
 	i = 0;
@@ -92,17 +91,7 @@ void	if_dollar_in_dq(char *string, int len, int pos_d, t_data *data)
 		value_dol = get_value_in_dq(&string[pos_d], data, len, &i);
 	after_dol = svg_after_dol(&string[pos_d], &i);
 	if (i == -1)
-	{
-		data->lex->string = cpy_without_dollar(string, data);
-		if (after_dol != NULL)
-		{
-			svg = ft_strdup(data->lex->string);
-			free(data->lex->string);
-			data->lex->string = ft_strjoin(svg, after_dol);
-			free(svg);
-			free(after_dol);
-		}
-	}
+		no_find(data, string, after_dol);
 	else
 		join_str_value(data, string, value_dol, after_dol);
 }
@@ -117,7 +106,8 @@ void	check_dollar_in_dq(t_data *data, char *string)
 	while (string[0] && string[pos_d])
 	{
 		if (string[pos_d] && string[pos_d] == '$'
-			&& string[pos_d + 1] != ' ' && string[pos_d + 1] != '\0')
+			&& string[pos_d + 1] != ' ' && string[pos_d + 1] != '\0'
+			&& string[pos_d + 1] != '\'')
 		{
 			if_dollar_in_dq(string, len, pos_d, data);
 			free(string);

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/12 18:21:37 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:41:59 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,11 @@ char	*check_if_code(char *str, t_data *data, int *status);
 
 int		is_string(char *str, t_data *data, int *i);
 
-int	verif_edge_case(char *str, int *i, t_data *data);
+int		verif_edge_case(char *str, int *i, t_data *data);
+
+void	no_find(t_data * data, char *string, char *after_dol);
+
+char	*cpy_without_dollar(char *string, t_data *data);
 
 int		is_dollar(char *str, t_data *data, int *i);
 

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 12:10:54 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/17 10:57:30 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:11:10 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,3 @@ void	verif_redirection_pipe(t_data *data, t_token *lst)
 		exit_clean(data, NOTHING, N_EXIT);
 	}
 }
-

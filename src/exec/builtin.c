@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:24:21 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/16 16:05:31 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/17 13:11:40 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	builtin_cd(t_data *data, char **args)
 		if (home == NULL)
 		{
 			fprintf(stderr, "cd : HOME not set\n");
-			return (free(home) , 1);
+			return (free(home), 1);
 		}
 	}
 	if (chdir(home) == -1)
