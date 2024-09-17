@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:32:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/12 18:23:03 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/17 10:01:42 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	verif_edge_case(char *str, int *i, t_data *data)
 	}
 	if (str[*i + 1] == '?')
 	{
-		data->lex->string = ft_itoa(data->code);
+		data->lex->string = ft_itoa(data->exit_code);
 		data->lex->new = ft_lstnew(data->lex->string, DOLLAR_TOKEN, data);
 		*i = *i + 2;
 		return (1);
