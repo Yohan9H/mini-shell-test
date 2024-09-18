@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:12:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/18 14:23:56 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:12:36 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	handle_sigint(int sig)
 	rl_replace_line("", 0);
 	rl_redisplay();
 }
+
+
 
 void	init_sig(void)
 {

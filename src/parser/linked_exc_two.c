@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:58:00 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/18 15:36:38 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:12:12 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	create_heredoc(t_data *data, t_redir *new, char *eof)
 		exit_clean(data, OPEN, Y_EXIT);
 	put_value_in_heredoc(eof, fd);
 	close(fd);
+	unlink(new->filename);
 	new->type = HEREDOC_TK;
 	new->next = NULL;
 }

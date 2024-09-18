@@ -33,6 +33,7 @@ void	init_fd(int input_test, t_execom *execom)
 	}
 }
 
+
 void wait_children(int id, t_data *data)
 {
 	int	status;
@@ -73,62 +74,51 @@ int	exec_line(t_exec *exec, t_data *data)
 	return (0);
 }
 
-int	output_redir_success(t_exec *exec, t_data *data)
+
+int	open_clean(const char *filename, t_exec *exec, t_data *data)
 {
-	int	fdoutput;
-	int	flags;
-	
+	int	fd;
+	int flags;
+
 	if (exec->redir->type == APPEND_TK)
 		flags = O_WRONLY | O_CREAT | O_APPEND;
-	else
+	else if (exec->redir->type == OUTPUT_TK)
 		flags = O_WRONLY | O_CREAT | O_TRUNC;
-	fdoutput = open(exec->redir->filename, flags, 0644);
-	if (fdoutput == -1) 
+	if (exec->redir->type == INPUT_TK)
+		fd = open(exec->redir->filename, O_RDONLY);
+	else
+		fd = open(exec->redir->filename, flags, 0644);
+	if (fd == -1) 
 	{
 		perror(exec->redir->filename);
 		exit_clean(data, NOTHING, C_EXIT);
 		exit (1);
 	}
-	if (exec->redir->next && (exec->redir->type == OUTPUT_TK || \
-	exec->redir->type == APPEND_TK))
-		close(fdoutput);
-	return (fdoutput);
+	return (fd);
 }
 
-void	output_redir(t_exec *exec, t_data *data)
+void	redir(t_exec *exec, t_data *data)
 {
-	int	fdoutput;
+	int fdinput;
+	int fdoutput;
+	int flags;
 
-	while (exec->redir && (exec->redir->type == OUTPUT_TK || \
-		exec->redir->type == APPEND_TK))
+	while (exec->redir)
 	{
-		fdoutput = output_redir_success(exec, data);
-		if (fdoutput == -1)
-			return ;
-		exec->redir = exec->redir->next;
-	}
-	dup2_clean(fdoutput, STDOUT_FILENO);
-}
-
-void	input_redir(t_exec *exec, t_data *data)
-{
-	int	fdinput;
-
-	while (exec->redir && exec->redir->type == INPUT_TK)
-	{
-		fdinput = open(exec->redir->filename, O_RDONLY);
-		if (fdinput == -1) 
+		if (exec->redir->type == INPUT_TK)
 		{
-			perror(exec->redir->filename);
-			exit_clean(data, NOTHING, C_EXIT);
-			exit (1);
+			fdinput = open_clean(exec->redir->filename, exec, data);
+			dup2_clean(fdinput, STDIN_FILENO);
 		}
-		if (exec->redir->next && exec->redir->next->type == INPUT_TK)
-			close(fdinput);
+		else if ((exec->redir->type == OUTPUT_TK || exec->redir->type == APPEND_TK))
+		{
+			fdoutput = open_clean(exec->redir->filename, exec, data);
+			dup2_clean(fdoutput, STDOUT_FILENO);
+		}
 		exec->redir = exec->redir->next;
 	}
-	dup2_clean(fdinput, STDIN_FILENO);
 }
+
 void	init_pipes(int pipe_fd[2], t_data *data)
 {
 	if (pipe(pipe_fd) == -1)
@@ -157,13 +147,9 @@ void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, t_data *data, t_ex
 	exit_code = 0;
 	close(execom.fdstdin);
 	close(execom.fdstdout);
-	if (exec->redir && exec->redir->type == INPUT_TK)
-		input_redir(exec, data);
-	else if (prev_fd != -1)
+	if (prev_fd != -1)
 		dup2_clean(prev_fd, STDIN_FILENO);
-	if (exec->redir && (exec->redir->type == OUTPUT_TK || \
-		exec->redir->type == APPEND_TK))
-		output_redir(exec, data);
+	redir(exec, data);
 	if (exec->next)
 	{
 		close(pipe_fd[0]);
