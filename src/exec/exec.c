@@ -147,9 +147,9 @@ void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, t_data *data, t_ex
 	exit_code = 0;
 	close(execom.fdstdin);
 	close(execom.fdstdout);
+	redir(exec, data);
 	if (prev_fd != -1)
 		dup2_clean(prev_fd, STDIN_FILENO);
-	redir(exec, data);
 	if (exec->next)
 	{
 		close(pipe_fd[0]);
