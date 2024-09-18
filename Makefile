@@ -6,7 +6,7 @@
 #    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/09/17 17:34:59 by yohurteb         ###   ########.fr        #
+#    Updated: 2024/09/18 17:58:19 by yohurteb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRCS = \
 	src/exec/builtin.c \
 	src/exec/builtin_two.c \
 	src/exec/builtin_three.c \
+	src/exec/builtin_four.c \
 	src/exec/error_exec.c \
 	utils/garbage_collector.c \
 	utils/ft_split.c \
