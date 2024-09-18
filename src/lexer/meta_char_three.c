@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   meta_char_three.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:32:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/13 13:20:59 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/18 17:03:59 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,21 @@ void	add_file_tk(t_token *first)
 
 int	verif_edge_case(char *str, int *i, t_data *data)
 {
-	if (str[*i + 1] == ' ' || str[*i + 1] == '\0')
+	if (str[*i + 1] == '$')
+	{
+		data->lex->string = ft_strdup("...");
+		data->lex->new = ft_lstnew(data->lex->string, DOLLAR_TOKEN, data);
+		*i = *i + 2;
+		return (1);
+	}
+	else if (str[*i + 1] == ' ' || str[*i + 1] == '\0')
 	{
 		data->lex->string = ft_strdup("$");
 		data->lex->new = ft_lstnew(data->lex->string, DOLLAR_TOKEN, data);
 		(*i)++;
 		return (1);
 	}
-	if (str[*i + 1] == '?')
+	else if (str[*i + 1] == '?')
 	{
 		data->lex->string = ft_itoa(data->exit_code);
 		data->lex->new = ft_lstnew(data->lex->string, DOLLAR_TOKEN, data);

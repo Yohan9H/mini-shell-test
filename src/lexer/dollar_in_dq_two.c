@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:37:37 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/17 11:41:13 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:57:22 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*svg_after_dol(char *string, int *if_code)
 	return (cpy);
 }
 
-char	*check_if_code(char *str, t_data *data, int *status)
+char	*check_if_edge_case(char *str, t_data *data, int *status)
 {
 	char	*str_code;
 
@@ -41,6 +41,11 @@ char	*check_if_code(char *str, t_data *data, int *status)
 	{
 		*status = 2;
 		str_code = ft_itoa(data->exit_code);
+	}
+	if (str[0] == '$')
+	{
+		*status = 2;
+		str_code = ft_strdup("...");
 	}
 	return (str_code);
 }

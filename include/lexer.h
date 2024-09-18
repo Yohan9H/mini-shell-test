@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/18 11:53:52 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/18 16:57:47 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*svg_after_dol(char *string, int *if_code);
 
 void	check_dollar_in_dq(t_data *data, char *string);
 
-char	*check_if_code(char *str, t_data *data, int *status);
+char	*check_if_edge_case(char *str, t_data *data, int *status);
 
 int		is_string(char *str, t_data *data, int *i);
 

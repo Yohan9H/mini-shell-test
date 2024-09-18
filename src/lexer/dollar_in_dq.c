@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:07 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/17 11:41:07 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:57:14 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	if_dollar_in_dq(char *string, int len, int pos_d, t_data *data)
 	pos_d++;
 	len = len_string(&string[pos_d], &i, '$');
 	value_dol = NULL;
-	value_dol = check_if_code(&string[pos_d], data, &i);
+	value_dol = check_if_edge_case(&string[pos_d], data, &i);
 	if (value_dol == NULL)
 		value_dol = get_value_in_dq(&string[pos_d], data, len, &i);
 	after_dol = svg_after_dol(&string[pos_d], &i);
