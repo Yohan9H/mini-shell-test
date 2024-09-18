@@ -57,7 +57,7 @@ int	exec_line(t_exec *exec, t_data *data)
 		return (0);
 	path = my_get_path(exec->cmd, data);
 	if (!path)
-		return (error_exec(exec->cmd, errno), -1);
+		return (error_exec(data, exec->cmd, errno), -1);
 	env = my_env_to_tab(data->my_env);
 	if (!env)
 		return (free(path), -1);
@@ -65,7 +65,7 @@ int	exec_line(t_exec *exec, t_data *data)
 		return (free(path), freetab(env), -1);
 	if (execve(path, exec->args, env) == -1)
 	{
-		error_exec(exec->cmd, errno);
+		error_exec(data, exec->cmd, errno);
 		free(path);
 		freetab(env);
 		return (-2);
@@ -86,7 +86,8 @@ int	output_redir_success(t_exec *exec, t_data *data)
 	if (fdoutput == -1) 
 	{
 		perror(exec->redir->filename);
-		return (-1);
+		exit_clean(data, NOTHING, N_EXIT);
+		exit (1);
 	}
 	if (exec->redir->next && (exec->redir->type == OUTPUT_TK || \
 	exec->redir->type == APPEND_TK))
@@ -119,7 +120,8 @@ void	input_redir(t_exec *exec, t_data *data)
 		if (fdinput == -1) 
 		{
 			perror(exec->redir->filename);
-			exit_clean(data, NOTHING, Y_EXIT);
+			exit_clean(data, NOTHING, N_EXIT);
+			exit (1);
 		}
 		if (exec->redir->next && exec->redir->next->type == INPUT_TK)
 			close(fdinput);
@@ -150,9 +152,9 @@ void	close_fds(t_exec *exec, int pipe_fd[2], int *prev_fd)
 
 void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, t_data *data, t_execom execom)
 {
-	int	exit_code;
-	
-	exit_code = -1;
+	int exit_code;
+
+	exit_code = 0;
 	close(execom.fdstdin);
 	close(execom.fdstdout);
 	if (exec->redir && exec->redir->type == INPUT_TK)
@@ -168,13 +170,11 @@ void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, t_data *data, t_ex
 		dup2_clean(pipe_fd[1], STDOUT_FILENO);
 	}
 	if (verif_builtin(data, exec, &execom) == 0)
-		data->exit_code = exec_line(exec, data);
-	if (data->exit_code == -2)
-	{
-		exit_clean(data, NOTHING, Y_EXIT);
-		// add exit number to exit clean
-	}
-		exit_clean(data, NOTHING, Y_EXIT);
+		exit_code = exec_line(exec, data);
+	exit_clean(data, NOTHING, N_EXIT);
+	if (exit_code == -2)
+		exit (COMMAND_NOT_FOUND);
+	exit (IS_A_DIRECTORY);
 }
 
 int	create_child_process(t_data *data)
