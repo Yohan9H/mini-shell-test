@@ -86,7 +86,7 @@ int	output_redir_success(t_exec *exec, t_data *data)
 	if (fdoutput == -1) 
 	{
 		perror(exec->redir->filename);
-		exit_clean(data, NOTHING, N_EXIT);
+		exit_clean(data, NOTHING, C_EXIT);
 		exit (1);
 	}
 	if (exec->redir->next && (exec->redir->type == OUTPUT_TK || \
@@ -120,7 +120,7 @@ void	input_redir(t_exec *exec, t_data *data)
 		if (fdinput == -1) 
 		{
 			perror(exec->redir->filename);
-			exit_clean(data, NOTHING, N_EXIT);
+			exit_clean(data, NOTHING, C_EXIT);
 			exit (1);
 		}
 		if (exec->redir->next && exec->redir->next->type == INPUT_TK)
@@ -171,10 +171,10 @@ void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, t_data *data, t_ex
 	}
 	if (verif_builtin(data, exec, &execom) == 0)
 		exit_code = exec_line(exec, data);
-	exit_clean(data, NOTHING, N_EXIT);
+	exit_clean(data, NOTHING, C_EXIT);
 	if (exit_code == -2)
-		exit (COMMAND_NOT_FOUND);
-	exit (IS_A_DIRECTORY);
+		exit (IS_A_DIRECTORY);
+	exit (COMMAND_NOT_FOUND);
 }
 
 int	create_child_process(t_data *data)

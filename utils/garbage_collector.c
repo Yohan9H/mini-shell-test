@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:56:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/17 17:38:30 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/18 11:54:42 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	clean_my_env(t_data *data)
 
 void	if_exit(t_data *data, t_bool num)
 {
-	if (num == Y_EXIT)
+	if (num == Y_EXIT || num == C_EXIT)
 	{
 		if (data->lex)
 		{
@@ -49,7 +49,8 @@ void	if_exit(t_data *data, t_bool num)
 			data->par = NULL;
 		}
 		clean_my_env(data);
-		exit(1);
+		if (num == Y_EXIT)
+			exit(1);
 	}
 	else if (num == N_EXIT)
 		data->code_reset = 1;
