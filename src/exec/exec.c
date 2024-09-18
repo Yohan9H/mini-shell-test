@@ -33,6 +33,7 @@ void	init_fd(int input_test, t_execom *execom)
 	}
 }
 
+
 void wait_children(int id, t_data *data)
 {
 	int	status;

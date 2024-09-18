@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:24:21 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/17 17:40:05 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/18 13:47:31 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,12 @@ int	builtin_exit(t_data *data, char **args, t_execom *execom)
 			ft_fprintf("%s: numeric argument required\n", args[1]);
 		}
 	}
-	data->exit_code = para;
 	close(execom->fdstdin);
 	close(execom->fdstdout);
-	exit_clean(data, NOTHING, Y_EXIT);
+	exit_clean(data, NOTHING, C_EXIT);
+	if  (!(is_numeric(args[1])))
+		exit (2);
+	exit(para);
 }
 
 int	builtin_env(t_data *data, char **args)
