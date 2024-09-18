@@ -6,20 +6,18 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:58:00 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/18 15:07:38 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/18 15:36:38 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*find_name(void)
+char	*find_name(int counter)
 {
 	char	*name;
 	char	*str_counter;
 	char	*base;
-	int		counter;
 
-	counter = 0;
 	str_counter = NULL;
 	base = ft_strdup(".heredoc");
 	name = ft_strdup(".heredoc");
@@ -33,7 +31,10 @@ char	*find_name(void)
 			return (name);
 		}
 		counter++;
+		if (str_counter != NULL)
+			free(str_counter);
 		str_counter = ft_itoa(counter);
+		free(name);
 		name = ft_strjoin(base, str_counter);
 	}
 	return (name);
@@ -47,6 +48,11 @@ void	put_value_in_heredoc(char *eof, int fd)
 	while (1)
 	{
 		line = readline("> ");
+		if (line == NULL)
+		{
+			ft_putstr_fd("\n", fd);
+			break ;
+		}
 		if (strncmp(line, eof, ft_strlen(eof)) == 0)
 		{
 			free(line);
@@ -62,8 +68,10 @@ void	put_value_in_heredoc(char *eof, int fd)
 void	create_heredoc(t_data *data, t_redir *new, char *eof)
 {
 	int		fd;
+	int		counter_for_name;
 
-	new->filename = find_name();
+	counter_for_name = 0;
+	new->filename = find_name(counter_for_name);
 	fd = open(new->filename, O_CREAT | O_RDWR, S_IRWXU | S_IRWXG | S_IRWXO);
 	if (fd == -1)
 		exit_clean(data, OPEN, Y_EXIT);
