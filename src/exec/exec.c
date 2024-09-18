@@ -180,11 +180,7 @@ int	builtin_redir(t_exec *exec, t_data *data, t_execom *execom)
 {
 	if (exec->next == NULL && is_builtin(data, exec) == 1)
 	{
-		if (exec->redir && exec->redir->type == INPUT_TK)
-			input_redir(exec, data);
-		if (exec->redir && (exec->redir->type == OUTPUT_TK || \
-		exec->redir->type == APPEND_TK))
-			output_redir(exec, data);
+		redir(exec, data);
 		if (exec->cmd)
 			verif_builtin(data, exec, execom);
 		return (1);
