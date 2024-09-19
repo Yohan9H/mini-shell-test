@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_three.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:09:38 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/19 10:53:17 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:58:57 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@ int	verif_n(char *args)
 	return (0);
 }
 
-void	condition_of_print(t_data *data, char **args, int *i)
+void	condition_of_print(char **args, int *i)
 {
-	int		len;
-
 	if (args[*i + 1] == NULL)
 		printf("%s", args[*i]);
 	else
@@ -42,7 +40,6 @@ void	condition_of_print(t_data *data, char **args, int *i)
 
 int	builtin_echo(t_data *data, char **args)
 {
-	char	*tmp;
 	int		param;
 	int		i;
 
@@ -54,12 +51,12 @@ int	builtin_echo(t_data *data, char **args)
 		i++;
 	while (args[i])
 	{
-		condition_of_print(data, args, &i);
+		condition_of_print(args, &i);
 		i++;
 	}
 	if (param == 0 || args[1] == NULL)
 		printf("\n");
-		data->exit_code = 0;
+	data->exit_code = 0;
 	return (1);
 }
 

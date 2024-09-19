@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_two.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:28:12 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/17 17:37:47 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:57:10 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	skip_name(char *add_var, int *i, char *name)
 		(*i)++;
 	if (add_var[*i] == '=')
 		return (1);
+	return (0);
 }
 
 void	make_new_var(t_data *data, char **var, int *j, int *i)

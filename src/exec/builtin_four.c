@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_four.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:48:52 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/19 13:26:32 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:00:55 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	is_numeric(char *str)
 	return (1);
 }
 
-int	verif_error(t_data *data, char **args, unsigned char para, int not_num)
+int	verif_error(t_data *data, char **args, int *not_num)
 {
 	int		len;
 
@@ -37,7 +37,7 @@ int	verif_error(t_data *data, char **args, unsigned char para, int not_num)
 		len++;
 	if (!(is_numeric(args[1])) || len >= 20)
 	{
-		not_num = 1;
+		*not_num = 1;
 		ft_fprintf("%s: numeric argument required\n", args[1]);
 	}
 	else if (args[2] != NULL)
@@ -60,7 +60,7 @@ int	builtin_exit(t_data *data, char **args, t_execom *execom)
 		para = ft_atoi(args[1]);
 	printf("exit\n");
 	if (args[1])
-		if (verif_error(data, args, para, not_num) == 1)
+		if (verif_error(data, args, &not_num) == 1)
 			return (1);
 	close(execom->fdstdin);
 	close(execom->fdstdout);

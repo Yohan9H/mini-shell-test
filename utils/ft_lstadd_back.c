@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:51:04 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 13:58:50 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:03:30 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_lstadd_back(t_token **lst, t_token *new, t_token *last)
+void	ft_lstadd_back(t_token **lst, t_token *new, t_token **last)
 {
 	t_token	*ptr;
 
@@ -27,7 +27,7 @@ void	ft_lstadd_back(t_token **lst, t_token *new, t_token *last)
 	ptr = ft_lstlast(*lst);
 	ptr->next = new;
 	new->prev = ptr;
-	last = new;
+	*last = new;
 }
 
 void	ft_rediradd_back(t_redir **lst, t_redir *new)

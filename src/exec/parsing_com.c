@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:12:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/13 14:57:03 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/19 13:51:46 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,13 +172,9 @@ int	is_absolute_path(char *cmd)
 
 char	*my_get_path(char *cmd, t_data *data)
 {
-	int		i;
-	char	**com;
-	char	*path;
 	char	*exec;
 	char	**total_path;
 
-	i = 0;
 	if (cmd && cmd[0] == '\0')
 		return (NULL);
 	if (!data->my_env || is_absolute_path(cmd) == 1)
