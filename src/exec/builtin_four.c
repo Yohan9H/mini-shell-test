@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:48:52 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/18 18:04:39 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:26:32 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ int	builtin_exit(t_data *data, char **args, t_execom *execom)
 	int				not_num;
 
 	not_num = 0;
-	para = ft_atoi(args[1]);
+	para = 0;
+	if (args[1])
+		para = ft_atoi(args[1]);
 	printf("exit\n");
 	if (args[1])
 		if (verif_error(data, args, para, not_num) == 1)
