@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:37:37 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/18 16:57:22 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/19 10:53:55 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ char	*check_if_edge_case(char *str, t_data *data, int *status)
 	if (str[0] == '?')
 	{
 		*status = 2;
+		if (g_var_global == 1)
+		{
+			data->exit_code = 130;
+			g_var_global = 0;
+		}
 		str_code = ft_itoa(data->exit_code);
 	}
 	if (str[0] == '$')
