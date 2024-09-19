@@ -56,6 +56,8 @@ int	exec_line(t_exec *exec, t_data *data)
 
 	if (!exec->cmd)
 		return (0);
+	if (exec->cmd[0] == '\0')
+		error_exec(data, exec->cmd, 2);
 	path = my_get_path(exec->cmd, data);
 	if (!path)
 		return (error_exec(data, exec->cmd, errno), -1);
