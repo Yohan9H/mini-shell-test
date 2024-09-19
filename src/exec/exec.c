@@ -46,8 +46,9 @@ void wait_children(int id, t_data *data)
 		else if (WIFSIGNALED(status))
 		{
 			 if (WTERMSIG(status) == SIGQUIT)
-			 	printf("Quit (core dumped)\n");
-			 g_var_global = WTERMSIG(status);
+			 	ft_fprintf("Quit (core dumped)\n");
+			 g_var_global = 128 + WTERMSIG(status);
+			 data->exit_code = g_var_global;
 		}
 		id = waitpid(-1, &status, 0);
 	}
