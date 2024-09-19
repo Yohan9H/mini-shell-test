@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:32:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/18 17:03:59 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/19 10:56:23 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ void	add_file_tk(t_token *first)
 	}
 }
 
+void	check_if_ctrl_c(t_data *data)
+{
+	if (g_var_global == 1)
+	{
+		data->exit_code = 130;
+		g_var_global = 0;
+	}
+}
+
 int	verif_edge_case(char *str, int *i, t_data *data)
 {
 	if (str[*i + 1] == '$')
@@ -47,6 +56,7 @@ int	verif_edge_case(char *str, int *i, t_data *data)
 	}
 	else if (str[*i + 1] == '?')
 	{
+		check_if_ctrl_c(data);
 		data->lex->string = ft_itoa(data->exit_code);
 		data->lex->new = ft_lstnew(data->lex->string, DOLLAR_TOKEN, data);
 		*i = *i + 2;

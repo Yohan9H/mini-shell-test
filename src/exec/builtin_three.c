@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:09:38 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/17 15:14:51 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/19 10:53:17 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	builtin_echo(t_data *data, char **args)
 	}
 	if (param == 0 || args[1] == NULL)
 		printf("\n");
-	data->exit_code = 0;
+		data->exit_code = 0;
 	return (1);
 }
 
