@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:03:31 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/17 14:48:18 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:55:20 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	verif_builtin(t_data *data, t_exec *lst, t_execom *execom)
 		return (builtin_echo(data, lst->args));
 	else
 		return (0);
+	(void)data;
 }
 
 int	is_builtin(t_data *data, t_exec *lst)
@@ -50,4 +51,5 @@ int	is_builtin(t_data *data, t_exec *lst)
 		return (1);
 	else
 		return (0);
+	(void)data;
 }

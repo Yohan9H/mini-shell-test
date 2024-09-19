@@ -82,7 +82,7 @@ int	exec_line(t_exec *exec, t_data *data)
 }
 
 
-int	open_clean(const char *filename, t_exec *exec, t_data *data)
+int	open_clean(t_exec *exec, t_data *data)
 {
 	int	fd;
 	int flags;
@@ -108,18 +108,17 @@ void	redir(t_exec *exec, t_data *data)
 {
 	int fdinput;
 	int fdoutput;
-	int flags;
 
 	while (exec->redir)
 	{
 		if (exec->redir->type == INPUT_TK)
 		{
-			fdinput = open_clean(exec->redir->filename, exec, data);
+			fdinput = open_clean(exec, data);
 			dup2_clean(fdinput, STDIN_FILENO);
 		}
 		else if ((exec->redir->type == OUTPUT_TK || exec->redir->type == APPEND_TK))
 		{
-			fdoutput = open_clean(exec->redir->filename, exec, data);
+			fdoutput = open_clean(exec, data);
 			dup2_clean(fdoutput, STDOUT_FILENO);
 		}
 		exec->redir = exec->redir->next;
@@ -194,6 +193,7 @@ int	builtin_redir(t_exec *exec, t_data *data, t_execom *execom)
 			verif_builtin(data, exec, execom);
 		return (1);
 	}
+	return (0);
 }
 
 int	exec_cmd2(t_data *data, t_execom *execom)
@@ -203,7 +203,6 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 	int			id;
 	int			pipe_fd[2];
 	int			prev_fd;
-	int			status;
 
 	exec = data->head;
 	exec_temp = exec;

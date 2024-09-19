@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/19 10:44:15 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:03:47 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	exit_clean(t_data *data, t_type_error error, t_bool num);
 void	init_sig(void);
 
 //	---- UTILS ----
-void	ft_lstadd_back(t_token **lst, t_token *new, t_token *last);
+void	ft_lstadd_back(t_token **lst, t_token *new, t_token **last);
 
 void	ft_rediradd_back(t_redir **lst, t_redir *new);
 

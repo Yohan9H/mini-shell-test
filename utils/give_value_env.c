@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   give_value_env.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:42:20 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/06 11:44:09 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:04:29 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ char	*give_value_env(char *target, t_data *data, int len)
 {
 	t_env	*lst_env;
 	char	*str;
-	int		j;
 
-	j = 0;
 	lst_env = data->my_env;
 	while (lst_env != NULL)
 	{

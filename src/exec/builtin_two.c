@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:28:12 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/19 13:45:56 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:11:24 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	skip_name(char *add_var, int *i, char *name)
 		(*i)++;
 	if (add_var[*i] == '=')
 		return (1);
+	return (0);
 }
 
 void	make_new_var(t_data *data, char **var, int *j, int *i)
