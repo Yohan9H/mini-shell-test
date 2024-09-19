@@ -44,7 +44,12 @@ void wait_children(int id, t_data *data)
 		if (WIFEXITED(status))
 			data->exit_code = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
-			data->exit_code = WTERMSIG(status);
+		{
+			 if (WTERMSIG(status) == SIGQUIT)
+			 	ft_fprintf("Quit (core dumped)\n");
+			 g_var_global = 128 + WTERMSIG(status);
+			 data->exit_code = g_var_global;
+		}
 		id = waitpid(-1, &status, 0);
 	}
 }
@@ -147,6 +152,8 @@ void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, t_data *data, t_ex
 	int exit_code;
 
 	exit_code = 0;
+
+	signal(SIGQUIT, SIG_DFL);
 	close(execom.fdstdin);
 	close(execom.fdstdout);
 	redir(exec, data);
