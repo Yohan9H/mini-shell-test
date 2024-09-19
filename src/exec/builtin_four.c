@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:48:52 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/19 13:26:32 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:47:30 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ int	verif_error(t_data *data, char **args, unsigned char para, int not_num)
 	if (!(is_numeric(args[1])) || len >= 20)
 	{
 		not_num = 1;
-		ft_fprintf("%s: numeric argument required\n", args[1]);
+		ft_fprintf("minishell: %s: numeric argument required\n", args[1]);
 	}
 	else if (args[2] != NULL)
 	{
 		data->exit_code = 1;
-		ft_fprintf("%s: too many arguments\n", args[0]);
+		ft_fprintf("minishell: %s: too many arguments\n", args[0]);
 		return (1);
 	}
 	return (0);

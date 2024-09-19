@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:24:21 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/18 17:49:18 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:51:13 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	verif_nb_parameter(char **args, t_data *data)
 	}
 	if (nb > 1)
 	{
-		ft_fprintf("cd : too many arguments\n");
+		ft_fprintf("minishell: cd: too many arguments\n");
 		data->exit_code	= 1;
 		return (1);
 	}
@@ -46,7 +46,7 @@ int	builtin_cd(t_data *data, char **args)
 		home = give_value_env("HOME", data, 4);
 		if (home == NULL)
 		{
-			ft_fprintf("cd : HOME not set\n");
+			ft_fprintf("minishell: cd: HOME not set\n");
 			data->exit_code = 1;
 			return (free(home), 1);
 		}
@@ -69,7 +69,7 @@ int	builtin_env(t_data *data, char **args)
 	if (args[1])
 	{
 		data->exit_code = 127;
-		ft_fprintf("\'%s\': No such file or directory\n", args[1]);
+		ft_fprintf("env: \'%s\': No such file or directory\n", args[1]);
 		return (1);
 	}
 	while (lst != NULL)
