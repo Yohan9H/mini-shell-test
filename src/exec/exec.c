@@ -211,6 +211,8 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 		return (0);
 	while (exec_temp)
 	{
+		if (!exec_temp->cmd)
+			return (0);
 		if (exec_temp->next)
 			init_pipes(pipe_fd, data);
 		id = create_child_process(data);

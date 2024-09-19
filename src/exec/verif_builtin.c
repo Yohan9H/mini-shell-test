@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:03:31 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/19 13:55:20 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/19 16:45:34 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	verif_builtin(t_data *data, t_exec *lst, t_execom *execom)
 {
+	if (!lst->cmd)
+		return (0);
 	if (ft_strncmp("cd", lst->cmd, 3) == 0)
 		return (builtin_cd(data, lst->args));
 	else if (ft_strncmp("pwd", lst->cmd, 4) == 0)
@@ -35,6 +37,8 @@ int	verif_builtin(t_data *data, t_exec *lst, t_execom *execom)
 
 int	is_builtin(t_data *data, t_exec *lst)
 {
+	if (!lst->cmd)
+		return (0);
 	if (ft_strncmp("cd", lst->cmd, 3) == 0)
 		return (1);
 	else if (ft_strncmp("pwd", lst->cmd, 4) == 0)

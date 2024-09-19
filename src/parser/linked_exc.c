@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_exc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 09:12:17 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 13:56:47 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:43:42 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_exec	*ft_lstnew_node(t_data *data, t_token *l_lex)
 		if (find_cmd != NULL)
 			new->cmd = ft_strdup(find_cmd->value);
 		else
-			new->cmd = ft_strdup("");
+			new->cmd = NULL;
 	}
 	else
 		new->cmd = ft_strdup(svg->value);
