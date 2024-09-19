@@ -61,8 +61,8 @@ int	exec_line(t_exec *exec, t_data *data)
 
 	if (!exec->cmd)
 		return (0);
-	if (exec->cmd[0] == '\0')
-		error_exec(data, exec->cmd, 2);
+	if (strcmp(exec->cmd, "") == 0)
+		return (error_exec(data, exec->cmd, 2), -1);
 	path = my_get_path(exec->cmd, data);
 	if (!path)
 		return (error_exec(data, exec->cmd, errno), -1);
@@ -165,7 +165,7 @@ void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, t_data *data, t_ex
 	}
 	if (verif_builtin(data, exec, &execom) == 0)
 		exit_code = exec_line(exec, data);
-	exit_clean(data, NOTHING, C_EXIT);
+	exit_clean(data, NOTHING, N_EXIT);
 	if (exit_code == -2)
 		exit (IS_A_DIRECTORY);
 	exit (COMMAND_NOT_FOUND);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:32:43 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/08 14:01:32 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:30:23 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	ft_lstclear_redir(t_redir **lst)
 		tmp = (*lst)->next;
 		if ((*lst)->filename)
 		{
+			printf("filename: %p\n", (*lst)->filename);
+			printf("filename: %s\n", (*lst)->filename);
 			free((*lst)->filename);
 			(*lst)->filename = NULL;
 		}
