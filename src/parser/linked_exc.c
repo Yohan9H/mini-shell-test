@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 09:12:17 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/19 16:43:42 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/20 14:27:07 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_exec	*ft_lstnew_node(t_data *data, t_token *l_lex)
 	if (svg != NULL && svg->type != STRING_TOKEN)
 	{
 		find_cmd = svg;
-		while (find_cmd != NULL && find_cmd->type != STRING_TOKEN)
+		while (find_cmd != NULL && (find_cmd->type != STRING_TOKEN || is_redirection(find_cmd->type) == 0))
 			find_cmd = find_cmd->next;
 		if (find_cmd != NULL)
 			new->cmd = ft_strdup(find_cmd->value);
