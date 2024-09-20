@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_exc_two.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:58:00 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/20 14:22:34 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/20 14:45:16 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	put_value_in_heredoc(char *eof, int fd)
 		free(line);
 		free(tmp);
 	}
+	// reset les signaux !!!!!!!!!!!!!!!!!
 }
 
 void	create_heredoc(t_data *data, t_redir *new, char *eof)
