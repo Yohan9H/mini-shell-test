@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_exc_two.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:58:00 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/18 17:12:12 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:37:41 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,21 @@ void	put_value_in_heredoc(char *eof, int fd)
 	char	*line;
 	char	*tmp;
 
+	signal(SIGINT, handle_sigint_heredoc);
 	while (1)
 	{
+		if (g_ctrl_c_received)
+		{
+			free(line);
+            break ;
+		}
 		line = readline("> ");
 		if (line == NULL)
 		{
 			ft_putstr_fd("\n", fd);
 			break ;
 		}
-		if (strncmp(line, eof, ft_strlen(eof)) == 0)
+		if (strncmp(line, eof, ft_strlen(eof)) == 0 || g_ctrl_c_received == 1)
 		{
 			free(line);
 			break ;
