@@ -212,7 +212,10 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 	while (exec_temp)
 	{
 		if (!exec_temp->cmd)
+		{
+			data->exit_code = 0;
 			return (0);
+		}
 		if (exec_temp->next)
 			init_pipes(pipe_fd, data);
 		id = create_child_process(data);
