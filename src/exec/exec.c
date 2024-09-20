@@ -104,24 +104,26 @@ int	open_clean(t_exec *exec, t_data *data)
 	return (fd);
 }
 
-void	redir(t_exec *exec, t_data *data)
+void	redir(t_redir *redir, t_exec *exec, t_data *data)
 {
 	int fdinput;
 	int fdoutput;
+	t_redir *temp;
 	
-	while (exec->redir)
+	temp = redir;
+	while (temp)
 	{
-		if (exec->redir->type == INPUT_TK)
+		if (temp->type == INPUT_TK)
 		{
 			fdinput = open_clean(exec, data);
 			dup2_clean(fdinput, STDIN_FILENO);
 		}
-		else if ((exec->redir->type == OUTPUT_TK || exec->redir->type == APPEND_TK))
+		else if ((temp->type == OUTPUT_TK || temp->type == APPEND_TK))
 		{
 			fdoutput = open_clean(exec, data);
 			dup2_clean(fdoutput, STDOUT_FILENO);
 		}
-		exec->redir = exec->redir->next;
+		temp = temp->next;
 	}
 }
 
@@ -155,7 +157,7 @@ void	child_process(t_exec *exec, int pipe_fd[2], int prev_fd, t_data *data, t_ex
 	signal(SIGQUIT, SIG_DFL);
 	close(execom.fdstdin);
 	close(execom.fdstdout);
-	redir(exec, data);
+	redir(exec->redir, exec, data);
 	if (prev_fd != -1)
 		dup2_clean(prev_fd, STDIN_FILENO);
 	if (exec->next)
@@ -188,7 +190,7 @@ int	builtin_redir(t_exec *exec, t_data *data, t_execom *execom)
 {
 	if (exec->next == NULL && is_builtin(data, exec) == 1)
 	{
-		redir(exec, data);
+		redir(exec->redir, exec, data);
 		if (exec->cmd)
 			verif_builtin(data, exec, execom);
 		return (1);
