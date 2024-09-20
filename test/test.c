@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:51:04 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/19 14:06:43 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/20 14:14:36 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,16 @@ char	*get_token(t_tokentype type)
 void	test_minishell(t_data *data)
 {
 	(void)data;
-	// //t_token	*tmp = NULL;
-	// t_exec	*tmp_exec = NULL;
-	// t_redir	*tmp_redir = NULL;
-	// // t_env	*tmp_env = NULL;
-	// // int	j;
-	// // int	i;
+	//t_token	*tmp = NULL;
+	t_exec	*tmp_exec = NULL;
+	t_redir	*tmp_redir = NULL;
+	// t_env	*tmp_env = NULL;
+	 int	j;
+	// int	i;
 
 	// // i = 0;
 	// tmp = data->lex->first;
-	// tmp_exec = data->head;
+	tmp_exec = data->head;
 	// //tmp_env = data->my_env;
 	// // -------------   ENV   --------------
 	// // while (tmp_env != NULL)
@@ -70,27 +70,27 @@ void	test_minishell(t_data *data)
 	// // 	printf("value node : %s\n  ----  \n", tmp->value);
 	// // 	tmp = tmp->next;
 	// // }
-	// // -------------   PARSER   --------------
-	// printf("\n////////////////\n");
-	// while (tmp_exec != NULL)
-	// {
-	// 	printf("cmd = %s\n", tmp_exec->cmd);
-	// 	printf("args /\n");
-	// 	j = 0;
-	// 	while (tmp_exec->args[j])
-	// 	{
-	// 		printf("  -> %s\n", tmp_exec->args[j]);
-	// 		j++;
-	// 	}
-	// 	printf("redirection /\n");
-	// 	tmp_redir = tmp_exec->redir;
-	// 	while (tmp_redir != NULL)
-	// 	{
-	// 		printf("     filename -> %s\n", tmp_redir->filename);
-	// 		printf("     type     -> %s\n", get_token(tmp_redir->type));
-	// 		tmp_redir = tmp_redir->next;
-	// 	}
-	// 	printf("\n////////////////\n");
-	// 	tmp_exec = tmp_exec->next;
-	// }
+	// -------------   PARSER   --------------
+	printf("\n////////////////\n");
+	while (tmp_exec != NULL)
+	{
+		printf("cmd = %s\n", tmp_exec->cmd);
+		printf("args /\n");
+		j = 0;
+		while (tmp_exec->args[j])
+		{
+			printf("  -> %s\n", tmp_exec->args[j]);
+			j++;
+		}
+		printf("redirection /\n");
+		tmp_redir = tmp_exec->redir;
+		while (tmp_redir != NULL)
+		{
+			printf("     filename -> %s\n", tmp_redir->filename);
+			printf("     type     -> %s\n", get_token(tmp_redir->type));
+			tmp_redir = tmp_redir->next;
+		}
+		printf("\n////////////////\n");
+		tmp_exec = tmp_exec->next;
+	}
 }

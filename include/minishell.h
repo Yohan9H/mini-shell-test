@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/19 17:41:37 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/20 14:22:04 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 # include <sys/wait.h>
 
 extern int	g_var_global;
-extern int g_ctrl_c_received;
 
 typedef enum e_type_error
 {

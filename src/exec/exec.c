@@ -108,7 +108,7 @@ void	redir(t_exec *exec, t_data *data)
 {
 	int fdinput;
 	int fdoutput;
-
+	
 	while (exec->redir)
 	{
 		if (exec->redir->type == INPUT_TK)
@@ -195,6 +195,16 @@ int	builtin_redir(t_exec *exec, t_data *data, t_execom *execom)
 	}
 	return (0);
 }
+int	is_cmd(t_exec *exec)
+{
+	while (exec)
+	{
+		if (exec->cmd)
+			return (1);
+		exec = exec->next;
+	}
+	return (0);
+}
 
 int	exec_cmd2(t_data *data, t_execom *execom)
 {
@@ -211,7 +221,7 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 		return (0);
 	while (exec_temp)
 	{
-		if (!exec_temp->cmd)
+		if (!is_cmd(exec_temp))
 			return (0);
 		if (exec_temp->next)
 			init_pipes(pipe_fd, data);
