@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 14:30:29 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/19 13:43:00 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/20 17:26:08 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ void	error_exec(t_data *data, char *path, int error_nb)
 	{
 		data->exit_code = 1;
 		ft_fprintf("minishell: %s: Permission denied\n", path);
+	}
+	else if (error_nb == 0)
+	{
+		data->exit_code = 127;
+		ft_fprintf("minishell: %s: No such file or directory\n", path);
 	}
 }
 
