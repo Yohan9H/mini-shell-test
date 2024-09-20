@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:54:53 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/17 11:05:32 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:15:24 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef struct s_data_ex
 
 // ---- PARSER ----
 void	parser(t_data *data);
+
+int		check_if_break(t_data * data, char *line, char *eof, int fd);
 
 void	state_pipe(t_data *data, t_token *lst);
 

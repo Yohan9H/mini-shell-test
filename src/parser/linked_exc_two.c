@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:58:00 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/20 14:45:16 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:48:51 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,31 +40,25 @@ char	*find_name(int counter)
 	return (name);
 }
 
-void	put_value_in_heredoc(char *eof, int fd)
+void	put_value_in_heredoc(char *eof, int fd, t_data *data)
 {
 	char	*line;
 	char	*tmp;
 
 	signal(SIGINT, handle_sigint_heredoc);
+	rl_event_hook = event_hook;
 	while (1)
 	{
 		line = readline("> ");
-		if (line == NULL)
-		{
-			ft_putstr_fd("\n", fd);
+		if (check_if_break(data, line, eof, fd) == 1)
 			break ;
-		}
-		if (strncmp(line, eof, ft_strlen(eof)) == 0 || g_var_global == 1)
-		{
-			free(line);
-			break ;
-		}
 		tmp = ft_strjoin(line, "\n");
 		ft_putstr_fd(tmp, fd);
 		free(line);
 		free(tmp);
 	}
-	// reset les signaux !!!!!!!!!!!!!!!!!
+	rl_event_hook = NULL;
+	init_sig();
 }
 
 void	create_heredoc(t_data *data, t_redir *new, char *eof)
@@ -77,7 +71,8 @@ void	create_heredoc(t_data *data, t_redir *new, char *eof)
 	fd = open(new->filename, O_CREAT | O_RDWR, S_IRWXU | S_IRWXG | S_IRWXO);
 	if (fd == -1)
 		exit_clean(data, OPEN, Y_EXIT);
-	put_value_in_heredoc(eof, fd);
+	if (data->code_reset == 0)
+		put_value_in_heredoc(eof, fd, data);
 	close(fd);
 	unlink(new->filename);
 	new->type = HEREDOC_TK;

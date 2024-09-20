@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:12:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/20 14:24:27 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/20 15:51:16 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,18 @@ void	handle_sigint(int sig)
 	g_var_global = 1;
 }
 
+int	event_hook(void)
+{
+	if (g_var_global == 1)
+		rl_done = 1;
+	return (0);
+}
+
 void	handle_sigint_heredoc(int sig)
 {
 	(void)sig;
-	rl_replace_line("", 0);
-	rl_redisplay();
-	rl_done = 1;
 	g_var_global = 1;
 }
-
-
 
 void	init_sig(void)
 {
