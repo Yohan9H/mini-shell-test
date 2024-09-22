@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/18 16:57:47 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/22 16:03:35 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_lex
 	t_token	*last;
 	t_token	*new;
 	char	*string;
+	int		pos_d;
 }	t_lex;
 
 // ---- LEXER ----

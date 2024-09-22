@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:07 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/18 16:57:14 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/22 16:06:23 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ char	*cpy_without_dollar(char *string, t_data *data)
 	int		i;
 
 	i = 0;
-	while (string[i] && string[i] != '$')
+	while (string[i] && i != data->lex->pos_d)
 		i++;
 	cpy = (char *)malloc((i + 1) * sizeof(char));
 	if (!cpy)
 		return (exit_clean(data, MALLOC, N_EXIT), NULL);
 	i = 0;
-	while (string[i] && string[i] != '$')
+	while (string[i] && i != data->lex->pos_d)
 	{
 		cpy[i] = string[i];
 		i++;
@@ -90,6 +90,7 @@ void	if_dollar_in_dq(char *string, int len, int pos_d, t_data *data)
 	if (value_dol == NULL)
 		value_dol = get_value_in_dq(&string[pos_d], data, len, &i);
 	after_dol = svg_after_dol(&string[pos_d], &i);
+	data->lex->pos_d = pos_d - 1;
 	if (i == -1)
 		no_find(data, string, after_dol);
 	else
