@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/19 14:04:03 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/22 17:19:24 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	lexer(t_data *data)
 		ft_lstclear(&(data->lex->first));
 	if (data->lex->input == NULL)
 	{
-		data->exit_code = 0;
 		printf("exit\n");
 		exit_clean(data, NOTHING, Y_EXIT);
 	}
