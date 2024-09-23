@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:24:21 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/19 13:51:13 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/23 11:33:44 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	verif_nb_parameter(char **args, t_data *data)
 	if (nb > 1)
 	{
 		ft_fprintf("minishell: cd: too many arguments\n");
-		data->exit_code	= 1;
+		data->exit_code = 1;
 		return (1);
 	}
 	return (0);

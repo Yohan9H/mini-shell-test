@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/20 17:44:00 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/23 11:39:34 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,10 @@ int		ft_atoi(const char *str);
 int		ft_fprintf(const char *format, ...);
 
 int		verif_nil(unsigned long nb, char *base, unsigned long size_b);
+
+void	freetab(char **com);
+
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 //  ---- EXEC ----
 char	*my_get_path(char *cmd, t_data *data);

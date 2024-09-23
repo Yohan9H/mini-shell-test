@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 14:30:29 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/23 10:28:56 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/23 11:25:45 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	error_exec(t_data *data, char *path, int error_nb)
 {
-	struct	stat file_stat;
+	struct stat	file_stat;
 
 	if (error_nb == 2)
 	{
@@ -40,4 +40,3 @@ void	error_exec(t_data *data, char *path, int error_nb)
 		ft_fprintf("minishell: %s: No such file or directory\n", path);
 	}
 }
-
