@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:09:22 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/23 12:06:47 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/23 16:38:36 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int		open_clean(t_exec *exec, t_data *data);
 
 int		exec_line(t_exec *exec, t_data *data);
 
-void	redir(t_redir *redir, t_exec *exec, t_data *data);
+void	redir(t_redir *redir, t_exec *exec, t_data *data, t_execom *execom);
+
+int		input_redir(t_redir *redir);
 
 #endif

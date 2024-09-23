@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:51:04 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/20 15:39:41 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:58:43 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ char	*get_token(t_tokentype type)
 void	test_minishell(t_data *data)
 {
 	(void)data;
-	//t_token	*tmp = NULL;
+	// //t_token	*tmp = NULL;
 	// t_exec	*tmp_exec = NULL;
 	// t_redir	*tmp_redir = NULL;
-	// t_env	*tmp_env = NULL;
-	//  int	j;
-	// int	i;
+	// //t_env	*tmp_env = NULL;
+	// int	j;
+	// //int	i;
 
 	// // i = 0;
-	// tmp = data->lex->first;
+	// //tmp = data->lex->first;
 	// tmp_exec = data->head;
 	// //tmp_env = data->my_env;
 	// // -------------   ENV   --------------
@@ -70,7 +70,7 @@ void	test_minishell(t_data *data)
 	// // 	printf("value node : %s\n  ----  \n", tmp->value);
 	// // 	tmp = tmp->next;
 	// // }
-	// -------------   PARSER   --------------
+	// // -------------   PARSER   --------------
 	// printf("\n////////////////\n");
 	// while (tmp_exec != NULL)
 	// {

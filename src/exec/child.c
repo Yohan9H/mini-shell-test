@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:40:47 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/23 11:55:00 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/23 18:16:34 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,12 @@ void	child_process(t_exec *exec,	t_data *data, t_execom *execom)
 	signal(SIGQUIT, SIG_DFL);
 	close(execom->fdstdin);
 	close(execom->fdstdout);
-	redir(exec->redir, exec, data);
 	if (execom->prev_fd != -1)
+	{
 		dup2_clean(execom->prev_fd, STDIN_FILENO);
+		execom->prev_fd = -1;
+	}
+	redir(exec->redir, exec, data, execom);
 	if (exec->next)
 	{
 		close(execom->pipe_fd[0]);

@@ -6,13 +6,13 @@
 #    By: apernot <apernot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/09/23 12:05:27 by apernot          ###   ########.fr        #
+#    Updated: 2024/09/23 15:29:59 by apernot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CC = gcc -g -Wall -Werror -Wextra
+CC = gcc -g #-Wall -Werror -Wextra
 
 CFLAGS =  -I include/
 
