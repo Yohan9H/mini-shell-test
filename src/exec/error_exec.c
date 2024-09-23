@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 14:30:29 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/20 17:57:03 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/23 10:28:56 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,13 @@ void	error_exec(t_data *data, char *path, int error_nb)
 		data->exit_code = 126;
 		ft_fprintf("minishell: %s: Is a directory\n", path);
 	}
-	else if (error_nb == 13)
+	else if (error_nb == 13 && stat(path, &file_stat) != -1)
 	{
 		data->exit_code = 1;
-        if (stat(path, &file_stat) == 0)
-        {
-            if (S_ISDIR(file_stat.st_mode))
-                ft_fprintf("minishell: %s: Is a directory\n", path);
-            else
-                ft_fprintf("minishell: %s: Permission denied\n", path);
-        }
+		if (S_ISDIR(file_stat.st_mode))
+			ft_fprintf("minishell: %s: Is a directory\n", path);
+		else
+			ft_fprintf("minishell: %s: Permission denied\n", path);
 	}
 	else if (error_nb == 0)
 	{
