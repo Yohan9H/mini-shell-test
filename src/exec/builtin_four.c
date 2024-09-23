@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:48:52 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/20 17:51:44 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/23 14:23:22 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,20 @@ int	builtin_exit(t_data *data, char **args, t_execom *execom)
 	if (not_num == 1)
 		exit (2);
 	exit (para);
+}
+
+int	verif_all_num_export(t_data *data, char *new)
+{
+	int		i;
+
+	i = 0;
+	while (new[i] && new[i] != '=')
+	{
+		if (!ft_isascii(new[i] + '0'))
+			return (0);
+		i++;
+	}
+	ft_fprintf("minishell: `%s': not a valid identifier\n", new);
+	data->exit_code = 1;
+	return (1);
 }

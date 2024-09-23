@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:28:12 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/19 14:11:24 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/23 14:26:43 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,18 +94,23 @@ int	builtin_export(t_data *data, char **new)
 	j = 1;
 	if (!new)
 		return (1);
+	data->exit_code = 0;
 	while (new[j])
 	{
-		i = 0;
-		if (is_allspace(new[j][i]) == 1 || new[j][i] == '=')
+		if (verif_all_num_export(data, new[j]) == 1)
+			j++;
+		else
 		{
-			ft_fprintf("minishell: `%s': not a valid identifier\n", new[j]);
-			data->exit_code = 1;
-			return (1);
+			i = 0;
+			if (is_allspace(new[j][i]) == 1 || new[j][i] == '=')
+			{
+				ft_fprintf("minishell: `%s': not a valid identifier\n", new[j]);
+				data->exit_code = 1;
+			}
+			else
+				make_new_var(data, new, &j, &i);
+			j++;
 		}
-		make_new_var(data, new, &j, &i);
-		j++;
 	}
-	data->exit_code = 0;
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/23 13:06:16 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/23 14:22:55 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ void	freetab(char **com);
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
+int		ft_isascii(int c);
+
 //  ---- EXEC ----
 char	*my_get_path(char *cmd, t_data *data);
 
@@ -151,6 +153,8 @@ int		builtin_env(t_data *data, char **args);
 int		builtin_unset(t_data *data, char **delete_var);
 
 void	delete_if_exist(t_data *data, char *name);
+
+int		verif_all_num_export(t_data *data, char *new);
 
 int		builtin_export(t_data *data, char **new);
 
