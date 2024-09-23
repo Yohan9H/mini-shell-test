@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parser.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 16:32:47 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/20 16:16:26 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:02:01 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	is_redirection(t_tokentype type)
 		return (0);
 }
 
-int	check_if_break(t_data * data, char *line, char *eof, int fd)
+int	check_if_break(t_data *data, char *line, char *eof, int fd)
 {
 	if (g_var_global == 1)
 	{

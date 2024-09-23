@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/22 16:03:35 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:06:32 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int		is_string(char *str, t_data *data, int *i);
 
 int		verif_edge_case(char *str, int *i, t_data *data);
 
-void	no_find(t_data * data, char *string, char *after_dol);
+void	no_find(t_data *data, char *string, char *after_dol);
 
 char	*cpy_without_dollar(char *string, t_data *data);
 
