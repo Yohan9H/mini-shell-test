@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:09:22 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/23 16:38:36 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/24 21:43:26 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	child_process(t_exec *exec,	t_data *data, t_execom *execom);
 
 int		create_child_process(t_data *data);
 
-int		open_clean(t_exec *exec, t_data *data);
+int		open_clean(t_redir *redir, t_data *data);
 
 int		exec_line(t_exec *exec, t_data *data);
 

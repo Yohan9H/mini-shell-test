@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/23 18:05:50 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/24 23:48:32 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	redir(t_redir *redir, t_exec *exec, t_data *data, t_execom *execom)
 	{
 		if (temp->type == INPUT_TK)
 		{
-			fdinput = open_clean(exec, data);
+			fdinput = open_clean(temp, data);
 			dup2_clean(fdinput, STDIN_FILENO);
 		}
-		else if ((temp->type == OUTPUT_TK || temp->type == APPEND_TK))
+		if ((temp->type == OUTPUT_TK || temp->type == APPEND_TK))
 		{
-			fdoutput = open_clean(exec, data);
+			fdoutput = open_clean(temp, data);
 			dup2_clean(fdoutput, STDOUT_FILENO);
 		}
 		temp = temp->next;
@@ -72,13 +72,19 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 		return (0);
 	while (exec_temp)
 	{
+		execom->pipe_fd[0] = -1;
+		execom->pipe_fd[1] = -1;
 		if (!is_cmd(exec_temp, data))
 			return (0);
-		if (exec_temp->next)
-		 	init_pipes(execom, data);
+		init_pipes(execom, data);
 		id = create_child_process(data);
 		if (id == 0)
 			child_process(exec_temp, data, execom);
+		else
+		{
+			if (execom->pipe_fd[0] != -1)
+			dup2(execom->pipe_fd[0], STDIN_FILENO);
+		}
 		close_fds(exec_temp, execom);
 		exec_temp = exec_temp->next;
 	}
@@ -90,6 +96,8 @@ int	exec_cmd(t_data *data)
 {
 	t_execom	execom;
 
+	execom.pipe_fd[0] = -1;
+	execom.pipe_fd[1] = -1;
 	init_fd(1, &execom);
 	exec_cmd2(data, &execom);
 	init_fd(0, &execom);

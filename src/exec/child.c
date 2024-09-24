@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:40:47 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/23 18:16:34 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/24 22:59:19 by arthur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,22 @@ int	exec_line(t_exec *exec, t_data *data)
 	return (0);
 }
 
-int	open_clean(t_exec *exec, t_data *data)
+int	open_clean(t_redir *redir, t_data *data)
 {
 	int	fd;
 	int	flags;
 
-	if (exec->redir->type == APPEND_TK)
+	if (redir->type == APPEND_TK)
 		flags = O_WRONLY | O_CREAT | O_APPEND;
-	else if (exec->redir->type == OUTPUT_TK)
+	else if (redir->type == OUTPUT_TK)
 		flags = O_WRONLY | O_CREAT | O_TRUNC;
-	if (exec->redir->type == INPUT_TK)
-		fd = open(exec->redir->filename, O_RDONLY);
+	if (redir->type == INPUT_TK)
+		fd = open(redir->filename, O_RDONLY);
 	else
-		fd = open(exec->redir->filename, flags, 0644);
+		fd = open(redir->filename, flags, 0644);
 	if (fd == -1)
 	{
-		perror(exec->redir->filename);
+		perror(redir->filename);
 		exit_clean(data, NOTHING, C_EXIT);
 		exit (1);
 	}
@@ -82,19 +82,28 @@ void	child_process(t_exec *exec,	t_data *data, t_execom *execom)
 	signal(SIGQUIT, SIG_DFL);
 	close(execom->fdstdin);
 	close(execom->fdstdout);
-	if (execom->prev_fd != -1)
+	if (execom->prev_fd != -1 && !input_redir(exec->redir))
+	//if (execom->prev_fd != -1 && !input_redir(exec->redir))
 	{
 		dup2_clean(execom->prev_fd, STDIN_FILENO);
 		execom->prev_fd = -1;
 	}
-	redir(exec->redir, exec, data, execom);
-	if (exec->next)
+	if (exec->next && !input_redir(exec->redir))
+	//if (exec->next)
 	{
-		close(execom->pipe_fd[0]);
-		dup2_clean(execom->pipe_fd[1], STDOUT_FILENO);
+		if (execom->pipe_fd[1] != -1)
+			dup2(execom->pipe_fd[1], STDOUT_FILENO);
 	}
-	if (verif_builtin(data, exec, execom) == 0)
-		exit_code = exec_line(exec, data);
+	redir(exec->redir, exec, data, execom);
+	close(execom->pipe_fd[0]);
+	close(execom->pipe_fd[1]);
+	if (is_builtin(data, exec) == 1)
+	{
+		exit_code = verif_builtin(data,exec, execom);
+		exit_clean(data, NOTHING, C_EXIT);
+		exit (exit_code);
+	}
+	exit_code = exec_line(exec, data);
 	exit_clean(data, NOTHING, C_EXIT);
 	if (exit_code == -2)
 		exit (IS_A_DIRECTORY);
