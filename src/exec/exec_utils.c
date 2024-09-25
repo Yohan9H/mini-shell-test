@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:48:13 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/23 11:55:23 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/25 11:14:31 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,22 @@ void	init_pipes(t_execom *execom, t_data *data)
 	}
 }
 
+int	input_redir(t_redir *redir)
+{
+	t_redir *temp;
+
+	temp = redir;
+	while (temp)
+	{
+		if (temp->type == INPUT_TK)
+			return (1);
+		temp = temp->next;
+	}
+	return (0);
+}
+
 void	close_fds(t_exec *exec, t_execom *execom)
 {
-	if (execom->prev_fd != -1)
-		close(execom->prev_fd);
-	if (exec->next)
-	{
-		close(execom->pipe_fd[1]);
-		execom->prev_fd = execom->pipe_fd[0];
-	}
-	else if (execom->prev_fd != -1)
-		close(execom->pipe_fd[0]);
+	close(execom->pipe_fd[0]);
+	close(execom->pipe_fd[1]);
 }

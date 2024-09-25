@@ -6,13 +6,13 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/23 11:57:46 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/25 11:14:06 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	redir(t_redir *redir, t_exec *exec, t_data *data)
+void	redir(t_redir *redir, t_exec *exec, t_data *data, t_execom *execom)
 {
 	int		fdinput;
 	int		fdoutput;
@@ -21,15 +21,15 @@ void	redir(t_redir *redir, t_exec *exec, t_data *data)
 	temp = redir;
 	while (temp)
 	{
+		if (temp->type == OUTPUT_TK || temp->type == APPEND_TK)
+		{
+			fdoutput = open_clean(temp, data, execom);
+			dup2_clean(fdoutput, STDOUT_FILENO);
+		}
 		if (temp->type == INPUT_TK)
 		{
-			fdinput = open_clean(exec, data);
+			fdinput = open_clean(temp, data, execom);
 			dup2_clean(fdinput, STDIN_FILENO);
-		}
-		else if ((temp->type == OUTPUT_TK || temp->type == APPEND_TK))
-		{
-			fdoutput = open_clean(exec, data);
-			dup2_clean(fdoutput, STDOUT_FILENO);
 		}
 		temp = temp->next;
 	}
@@ -39,7 +39,7 @@ int	builtin_redir(t_exec *exec, t_data *data, t_execom *execom)
 {
 	if (exec->next == NULL && is_builtin(data, exec) == 1)
 	{
-		redir(exec->redir, exec, data);
+		redir(exec->redir, exec, data, execom);
 		if (exec->cmd)
 			verif_builtin(data, exec, execom);
 		return (1);
@@ -72,13 +72,19 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 		return (0);
 	while (exec_temp)
 	{
+		execom->pipe_fd[0] = -1;
+		execom->pipe_fd[1] = -1;
 		if (!is_cmd(exec_temp, data))
 			return (0);
-		if (exec_temp->next)
-			init_pipes(execom, data);
+		init_pipes(execom, data);
 		id = create_child_process(data);
 		if (id == 0)
 			child_process(exec_temp, data, execom);
+		else
+		{
+			if (execom->pipe_fd[0] != -1)
+			dup2(execom->pipe_fd[0], STDIN_FILENO);
+		}
 		close_fds(exec_temp, execom);
 		exec_temp = exec_temp->next;
 	}
@@ -90,6 +96,8 @@ int	exec_cmd(t_data *data)
 {
 	t_execom	execom;
 
+	execom.pipe_fd[0] = -1;
+	execom.pipe_fd[1] = -1;
 	init_fd(1, &execom);
 	exec_cmd2(data, &execom);
 	init_fd(0, &execom);

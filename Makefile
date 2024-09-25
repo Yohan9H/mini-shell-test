@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
+#    By: apernot <apernot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/09/23 14:00:32 by yohurteb         ###   ########.fr        #
+#    Updated: 2024/09/25 11:24:43 by apernot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CC = gcc -g -Wall -Werror -Wextra
+CC = gcc -g #-Wall -Werror -Wextra
 
 CFLAGS =  -I include/
 
