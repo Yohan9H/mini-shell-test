@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohan.h <yohan.h@student.42.fr>            +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:10:48 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/13 12:57:16 by yohan.h          ###   ########.fr       */
+/*   Updated: 2024/09/25 13:34:05 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@ void	init_data(t_data *data, char **env)
 	data->head = NULL;
 	data->my_env = NULL;
 	data->exit_code = 0;
+	data->pid_count = 0;
+	data->pids = NULL;
 	create_linked_env(data, env);
 }

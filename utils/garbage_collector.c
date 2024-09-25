@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:56:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/22 17:22:05 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/25 13:22:24 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ void	if_exit(t_data *data, t_bool num)
 		{
 			free(data->par);
 			data->par = NULL;
+		}
+		if (data->pids)
+		{
+			free(data->pids);
+			data->pids = NULL;
 		}
 		clean_my_env(data);
 		if (num == Y_EXIT)
@@ -93,6 +98,11 @@ void	exit_clean(t_data *data, t_type_error error, t_bool num)
 	{
 		free(data->lex->new);
 		data->lex->new = NULL;
+	}
+	if (data->pids)
+	{
+		free(data->pids);
+		data->pids = NULL;
 	}
 	clean_data_parser(data);
 	print_error(error, data);

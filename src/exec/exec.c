@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/25 11:14:06 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/25 13:50:49 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,9 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 {
 	t_exec		*exec;
 	t_exec		*exec_temp;
-	int			id;
 
 	exec = data->head;
 	exec_temp = exec;
-	execom->prev_fd = -1;
 	if (builtin_redir(exec_temp, data, execom) == 1)
 		return (0);
 	while (exec_temp)
@@ -77,18 +75,15 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 		if (!is_cmd(exec_temp, data))
 			return (0);
 		init_pipes(execom, data);
-		id = create_child_process(data);
-		if (id == 0)
+		data->pids[data->pid_count] = create_child_process(data);
+		if (data->pids[data->pid_count] == 0)
 			child_process(exec_temp, data, execom);
-		else
-		{
-			if (execom->pipe_fd[0] != -1)
-			dup2(execom->pipe_fd[0], STDIN_FILENO);
-		}
+		dup2(execom->pipe_fd[0], STDIN_FILENO);
 		close_fds(exec_temp, execom);
+		data->pid_count = data->pid_count + 1;
 		exec_temp = exec_temp->next;
 	}
-	wait_children(id, data);
+	wait_children(data);
 	return (0);
 }
 
@@ -98,6 +93,9 @@ int	exec_cmd(t_data *data)
 
 	execom.pipe_fd[0] = -1;
 	execom.pipe_fd[1] = -1;
+	data->pids = (pid_t *)malloc(sizeof(pid_t) * (ft_lstsize_exec(data->head) + 1));
+	if (!data->pids)
+		exit_clean(data, MALLOC, Y_EXIT);
 	init_fd(1, &execom);
 	exec_cmd2(data, &execom);
 	init_fd(0, &execom);

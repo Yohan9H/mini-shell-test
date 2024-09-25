@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:40:47 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/25 11:32:44 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:47:43 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	child_process(t_exec *exec,	t_data *data, t_execom *execom)
 	signal(SIGQUIT, SIG_DFL);
 	close(execom->fdstdin);
 	close(execom->fdstdout);
-	if (exec->next && !input_redir(exec->redir))
+	if (exec->next && !output_redir(exec->redir))
 	{
 		if (execom->pipe_fd[1] != -1)
 			dup2(execom->pipe_fd[1], STDOUT_FILENO);
