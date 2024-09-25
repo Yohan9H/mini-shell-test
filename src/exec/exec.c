@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/25 13:50:49 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/25 16:11:47 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 		exec_temp = exec_temp->next;
 	}
 	wait_children(data);
+	data->pid_count = 0;
 	return (0);
 }
 
