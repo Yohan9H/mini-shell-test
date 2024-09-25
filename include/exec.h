@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:09:22 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/25 13:22:46 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/25 16:39:19 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ void	redir(t_redir *redir, t_exec *exec, t_data *data, t_execom *execom);
 
 int		input_redir(t_redir *redir);
 
-int 	output_redir(t_redir *redir);
+int		output_redir(t_redir *redir);
 
 #endif

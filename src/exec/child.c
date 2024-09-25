@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:40:47 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/25 15:35:11 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/25 16:40:01 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	child_process(t_exec *exec,	t_data *data, t_execom *execom)
 	close(execom->pipe_fd[1]);
 	if (is_builtin(data, exec) == 1)
 	{
-		exit_code = verif_builtin(data,exec, execom);
+		verif_builtin(data, exec, execom);
 		exit_clean(data, NOTHING, C_EXIT);
 		exit (exit_code);
 	}

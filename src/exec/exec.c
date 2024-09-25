@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/25 16:11:47 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/25 16:40:19 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ int	exec_cmd(t_data *data)
 
 	execom.pipe_fd[0] = -1;
 	execom.pipe_fd[1] = -1;
-	data->pids = (pid_t *)malloc(sizeof(pid_t) * (ft_lstsize_exec(data->head) + 1));
+	data->pids = (pid_t *)malloc(sizeof(pid_t) \
+		* (ft_lstsize_exec(data->head) + 1));
 	if (!data->pids)
 		exit_clean(data, MALLOC, Y_EXIT);
 	init_fd(1, &execom);

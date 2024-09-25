@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
+#    By: apernot <apernot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/09/25 12:19:31 by yohurteb         ###   ########.fr        #
+#    Updated: 2024/09/25 16:44:13 by apernot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCS = \
 	src/parser/utils_parser/utils_parser.c \
 	src/exec/exec.c \
 	src/exec/exec_utils.c \
+	src/exec/exec_utils2.c \
 	src/exec/child.c \
 	src/exec/parsing_com.c \
 	src/exec/verif_builtin.c \
@@ -47,7 +48,6 @@ SRCS = \
 	src/exec/builtin_two.c \
 	src/exec/builtin_three.c \
 	src/exec/builtin_four.c \
-	src/exec/error_exec.c \
 	utils/garbage_collector.c \
 	utils/ft_split.c \
 	utils/ft_strlen.c \
