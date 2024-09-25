@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:48:52 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/23 14:23:22 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:18:39 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,53 @@ int	builtin_exit(t_data *data, char **args, t_execom *execom)
 	exit (para);
 }
 
+int	verif_export_long(t_data *data, char *new, int *i, int real_export)
+{
+	while (real_export == 1 && new[*i] && new[*i] != '=')
+	{
+		if (ft_isnum((int)new[*i]) == 1)
+		{
+			ft_fprintf("minishell: `%s': not a valid identifier\n", new);
+			data->exit_code = 1;
+			return (1);
+		}
+		(*i)++;
+	}
+	*i = 0;
+	while (real_export == 0 && new[*i])
+	{
+		if (ft_isnum((int)new[*i]) == 1)
+		{
+			ft_fprintf("minishell: `%s': not a valid identifier\n", new);
+			data->exit_code = 1;
+			return (1);
+		}
+		(*i)++;
+	}
+	return (0);
+}
+
 int	verif_all_num_export(t_data *data, char *new)
 {
 	int		i;
+	int		real_export;
 
 	i = 0;
+	real_export = 0;
+	if (new[i] == '=')
+	{
+		ft_fprintf("minishell: `%s': not a valid identifier\n", new);
+		data->exit_code = 1;
+		return (1);
+	}
 	while (new[i] && new[i] != '=')
 	{
-		if (!ft_isascii(new[i] + '0'))
-			return (0);
 		i++;
+		if (new[i] == '=')
+			real_export = 1;
 	}
-	ft_fprintf("minishell: `%s': not a valid identifier\n", new);
-	data->exit_code = 1;
-	return (1);
+	i = 0;
+	if (verif_export_long(data, new, &i, real_export) == 1)
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/23 14:22:55 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:19:07 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void	freetab(char **com);
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
-int		ft_isascii(int c);
+int		ft_isnum(int c);
 
 //  ---- EXEC ----
 char	*my_get_path(char *cmd, t_data *data);

@@ -6,15 +6,15 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 17:20:33 by yohan.h           #+#    #+#             */
-/*   Updated: 2024/09/23 14:00:03 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:18:28 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_isascii(int c)
+int	ft_isnum(int c)
 {
-	if (c >= 0 && c <= 127)
+	if (c >= 48 && c <= 57)
 		return (1);
 	else
 		return (0);
