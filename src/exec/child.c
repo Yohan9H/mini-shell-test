@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:40:47 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/25 16:40:01 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/25 18:17:50 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	exec_line(t_exec *exec, t_data *data)
 
 	if (!exec->cmd)
 		return (0);
-	if (exec->cmd[0] == '\0')
-		error_exec(data, exec->cmd, 2);
 	path = my_get_path(exec->cmd, data);
 	if (!path)
 		return (error_exec(data, exec->cmd, errno), -1);
