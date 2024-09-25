@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/25 10:26:32 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/25 11:14:06 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ void	redir(t_redir *redir, t_exec *exec, t_data *data, t_execom *execom)
 	temp = redir;
 	while (temp)
 	{
+		if (temp->type == OUTPUT_TK || temp->type == APPEND_TK)
+		{
+			fdoutput = open_clean(temp, data, execom);
+			dup2_clean(fdoutput, STDOUT_FILENO);
+		}
 		if (temp->type == INPUT_TK)
 		{
-			fdinput = open_clean(temp, data);
+			fdinput = open_clean(temp, data, execom);
 			dup2_clean(fdinput, STDIN_FILENO);
-		}
-		if ((temp->type == OUTPUT_TK || temp->type == APPEND_TK))
-		{
-			fdoutput = open_clean(temp, data);
-			dup2_clean(fdoutput, STDOUT_FILENO);
 		}
 		temp = temp->next;
 	}

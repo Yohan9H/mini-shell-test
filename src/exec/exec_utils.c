@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:48:13 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/25 10:23:51 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/25 11:14:31 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	input_redir(t_redir *redir)
 	{
 		if (temp->type == INPUT_TK)
 			return (1);
+		temp = temp->next;
 	}
 	return (0);
 }

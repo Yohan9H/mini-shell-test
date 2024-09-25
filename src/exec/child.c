@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:40:47 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/25 10:26:08 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/25 10:48:53 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	exec_line(t_exec *exec, t_data *data)
 	return (0);
 }
 
-int	open_clean(t_redir *redir, t_data *data)
+int	open_clean(t_redir *redir, t_data *data, t_execom *execom)
 {
 	int	fd;
 	int	flags;
@@ -56,6 +56,10 @@ int	open_clean(t_redir *redir, t_data *data)
 	{
 		perror(redir->filename);
 		exit_clean(data, NOTHING, C_EXIT);
+		if (execom->pipe_fd[0] != -1)
+			close(execom->pipe_fd[0]);
+		if (execom->pipe_fd[1] != -1)
+			close(execom->pipe_fd[1]);
 		exit (1);
 	}
 	return (fd);
@@ -82,11 +86,6 @@ void	child_process(t_exec *exec,	t_data *data, t_execom *execom)
 	signal(SIGQUIT, SIG_DFL);
 	close(execom->fdstdin);
 	close(execom->fdstdout);
-	// if (execom->prev_fd != -1 && !input_redir(exec->redir))
-	// {
-	// 	dup2_clean(execom->prev_fd, STDIN_FILENO);
-	// 	execom->prev_fd = -1;
-	// }
 	if (exec->next && !input_redir(exec->redir))
 	{
 		if (execom->pipe_fd[1] != -1)
