@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:09:22 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/25 10:49:35 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/25 13:22:46 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	dup2_clean(int in, int out);
 
 void	init_fd(int input_test, t_execom *execom);
 
-void	wait_children(int id, t_data *data);
+void	wait_children(t_data *data);
 
 void	init_pipes(t_execom *execom, t_data *data);
 
@@ -51,5 +51,7 @@ int		exec_line(t_exec *exec, t_data *data);
 void	redir(t_redir *redir, t_exec *exec, t_data *data, t_execom *execom);
 
 int		input_redir(t_redir *redir);
+
+int 	output_redir(t_redir *redir);
 
 #endif

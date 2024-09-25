@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/23 13:06:16 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/25 13:27:32 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct s_data
 	int				code_reset;
 	t_env			*my_env;
 	unsigned char	exit_code;
+	pid_t			*pids;
+	int				pid_count;
 }	t_data;
 
 //	---- MAIN ----
@@ -98,6 +100,8 @@ t_token	*ft_lstnew(char *value, t_tokentype token, t_data *data);
 int		ft_lstsize(t_token *lst);
 
 int		ft_lstsize_env(t_env *env);
+
+int		ft_lstsize_exec(t_exec *exec);
 
 char	**ft_split(char const *s, char c);
 

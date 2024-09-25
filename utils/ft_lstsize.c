@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:29:17 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/09 15:55:02 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/25 13:26:47 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,21 @@ int	ft_lstsize_env(t_env *env)
 
 	count = 0;
 	ptr = env;
+	while (ptr != NULL)
+	{
+		ptr = ptr->next;
+		count++;
+	}
+	return (count);
+}
+
+int ft_lstsize_exec(t_exec *exec)
+{
+	t_exec	*ptr;
+	int		count;
+
+	count = 0;
+	ptr = exec;
 	while (ptr != NULL)
 	{
 		ptr = ptr->next;

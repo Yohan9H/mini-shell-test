@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:48:13 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/25 11:14:31 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/25 13:42:32 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,27 @@ void	init_fd(int input_test, t_execom *execom)
 	}
 }
 
-void	wait_children(int id, t_data *data)
+void	wait_children(t_data *data)
 {
 	int	status;
+	int	i;
 
-	id = waitpid(-1, &status, 0);
-	while (id > 0)
+	i = 0;
+	while (i < data->pid_count)
 	{
-		if (WIFEXITED(status))
-			data->exit_code = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
+		if (waitpid(data->pids[i], &status, 0))
 		{
-			if (WTERMSIG(status) == SIGQUIT)
-				ft_fprintf("Quit (core dumped)\n");
-			g_var_global = 128 + WTERMSIG(status);
-			data->exit_code = g_var_global;
+			if (WIFEXITED(status))
+				data->exit_code = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+			{
+				if (WTERMSIG(status) == SIGQUIT)
+					ft_fprintf("Quit (core dumped)\n");
+				g_var_global = 128 + WTERMSIG(status);
+				data->exit_code = g_var_global;
+			}
 		}
-		id = waitpid(-1, &status, 0);
+		i++;
 	}
 }
 
@@ -70,6 +74,20 @@ int	input_redir(t_redir *redir)
 	while (temp)
 	{
 		if (temp->type == INPUT_TK)
+			return (1);
+		temp = temp->next;
+	}
+	return (0);
+}
+
+int output_redir(t_redir *redir)
+{
+	t_redir *temp;
+
+	temp = redir;
+	while (temp)
+	{
+		if (temp->type == OUTPUT_TK || temp->type == APPEND_TK)
 			return (1);
 		temp = temp->next;
 	}
