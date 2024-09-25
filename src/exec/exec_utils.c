@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:48:13 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/24 22:43:17 by arthur           ###   ########.fr       */
+/*   Updated: 2024/09/25 10:23:51 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,6 @@ int	input_redir(t_redir *redir)
 
 void	close_fds(t_exec *exec, t_execom *execom)
 {
-	if (execom->prev_fd != -1)
-		close(execom->prev_fd);
-	if (exec->next && execom->pipe_fd[0] != -1)
-		dup2(execom->pipe_fd[0], execom->prev_fd);
 	close(execom->pipe_fd[0]);
 	close(execom->pipe_fd[1]);
 }

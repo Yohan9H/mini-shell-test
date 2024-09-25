@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:40:47 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/24 22:59:19 by arthur           ###   ########.fr       */
+/*   Updated: 2024/09/25 10:26:08 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,12 @@ void	child_process(t_exec *exec,	t_data *data, t_execom *execom)
 	signal(SIGQUIT, SIG_DFL);
 	close(execom->fdstdin);
 	close(execom->fdstdout);
-	if (execom->prev_fd != -1 && !input_redir(exec->redir))
-	//if (execom->prev_fd != -1 && !input_redir(exec->redir))
-	{
-		dup2_clean(execom->prev_fd, STDIN_FILENO);
-		execom->prev_fd = -1;
-	}
+	// if (execom->prev_fd != -1 && !input_redir(exec->redir))
+	// {
+	// 	dup2_clean(execom->prev_fd, STDIN_FILENO);
+	// 	execom->prev_fd = -1;
+	// }
 	if (exec->next && !input_redir(exec->redir))
-	//if (exec->next)
 	{
 		if (execom->pipe_fd[1] != -1)
 			dup2(execom->pipe_fd[1], STDOUT_FILENO);
