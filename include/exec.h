@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:09:22 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/25 16:39:19 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/26 11:44:09 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ typedef struct s_execom
 	int			fdstdout;
 }	t_execom;
 
-void	error_exec(t_data *data, char *path, int error_nb);
+//void	error_exec(t_data *data, char *path, int error_nb);
+
+void	error_exec(t_data *data, char *path, int error_nb, t_exec *exec);
 
 void	dup2_clean(int in, int out);
 
@@ -53,5 +55,7 @@ void	redir(t_redir *redir, t_exec *exec, t_data *data, t_execom *execom);
 int		input_redir(t_redir *redir);
 
 int		output_redir(t_redir *redir);
+
+int		is_absolute_path(char *cmd);
 
 #endif
