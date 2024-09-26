@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:40:47 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/26 15:08:22 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:26:51 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,20 @@ int	create_child_process(t_data *data)
 	return (id);
 }
 
+void	close_fd_in_out(t_execom *execom, int fdstd)
+{
+	if (fdstd)
+	{
+		close(execom->fdstdin);
+		close(execom->fdstdout);
+	}
+	else
+	{
+		close(execom->pipe_fd[0]);
+		close(execom->pipe_fd[1]);
+	}
+}
+
 void	child_process(t_exec *exec,	t_data *data, t_execom *execom)
 {
 	int	exit_code;
@@ -83,16 +97,14 @@ void	child_process(t_exec *exec,	t_data *data, t_execom *execom)
 	exit_code = 0;
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGINT, SIG_DFL);
-	close(execom->fdstdin);
-	close(execom->fdstdout);
+	close_fd_in_out(execom, 1);
 	if (exec->next && !output_redir(exec->redir))
 	{
 		if (execom->pipe_fd[1] != -1)
 			dup2(execom->pipe_fd[1], STDOUT_FILENO);
 	}
 	redir(exec->redir, data, execom);
-	close(execom->pipe_fd[0]);
-	close(execom->pipe_fd[1]);
+	close_fd_in_out(execom, 0);
 	if (is_builtin(data, exec) == 1)
 	{
 		verif_builtin(data, exec, execom);

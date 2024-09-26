@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/26 15:07:24 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:21:28 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,27 +62,25 @@ int	is_cmd(t_exec *exec, t_data *data)
 int	exec_cmd2(t_data *data, t_execom *execom)
 {
 	t_exec		*exec;
-	t_exec		*exec_temp;
 
 	exec = data->head;
-	exec_temp = exec;
-	if (builtin_redir(exec_temp, data, execom) == 1)
+	if (builtin_redir(exec, data, execom) == 1)
 		return (0);
-	while (exec_temp)
+	while (exec)
 	{
 		execom->pipe_fd[0] = -1;
 		execom->pipe_fd[1] = -1;
-		if (!is_cmd(exec_temp, data))
+		if (!is_cmd(exec, data))
 			return (0);
 		init_pipes(execom, data);
 		signal(SIGINT, handle_sigint_cat);
 		data->pids[data->pid_count] = create_child_process(data);
 		if (data->pids[data->pid_count] == 0)
-			child_process(exec_temp, data, execom);
+			child_process(exec, data, execom);
 		dup2(execom->pipe_fd[0], STDIN_FILENO);
 		close_fds(execom);
 		data->pid_count = data->pid_count + 1;
-		exec_temp = exec_temp->next;
+		exec = exec->next;
 	}
 	wait_children(data);
 	data->pid_count = 0;
