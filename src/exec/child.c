@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:40:47 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/26 15:26:51 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/26 15:29:39 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	create_child_process(t_data *data)
 
 void	close_fd_in_out(t_execom *execom, int fdstd)
 {
-	if (fdstd)
+	if (fdstd == 1)
 	{
 		close(execom->fdstdin);
 		close(execom->fdstdout);
