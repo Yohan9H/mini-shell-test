@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:48:13 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/26 13:35:06 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/26 14:13:07 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	wait_children(t_data *data)
 					ft_fprintf("Quit (core dumped)\n");
 				g_var_global = 128 + WTERMSIG(status);
 				data->exit_code = g_var_global;
+				g_var_global = 0;
 			}
 		}
 		i++;

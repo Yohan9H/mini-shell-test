@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/26 13:35:23 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/26 14:24:06 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int	exec_cmd(t_data *data)
 {
 	t_execom	execom;
 
+	g_var_global = 0;
 	execom.pipe_fd[0] = -1;
 	execom.pipe_fd[1] = -1;
 	data->pids = (pid_t *)malloc(sizeof(pid_t) \
