@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_exc_two.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:58:00 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/20 16:48:51 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:47:16 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	create_heredoc(t_data *data, t_redir *new, char *eof)
 	if (data->code_reset == 0)
 		put_value_in_heredoc(eof, fd, data);
 	close(fd);
-	unlink(new->filename);
 	new->type = HEREDOC_TK;
 	new->next = NULL;
 }

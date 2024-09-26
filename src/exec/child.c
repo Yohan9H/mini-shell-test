@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:40:47 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/26 15:29:39 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/26 17:01:26 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	open_clean(t_redir *redir, t_data *data, t_execom *execom)
 		flags = O_WRONLY | O_CREAT | O_APPEND;
 	else if (redir->type == OUTPUT_TK)
 		flags = O_WRONLY | O_CREAT | O_TRUNC;
-	if (redir->type == INPUT_TK)
+	if (redir->type == INPUT_TK || redir->type == HEREDOC_TK)
 		fd = open(redir->filename, O_RDONLY);
 	else
 		fd = open(redir->filename, flags, 0644);

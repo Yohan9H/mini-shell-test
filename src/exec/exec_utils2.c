@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:42:41 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/26 13:52:47 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/26 17:08:19 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,23 @@ void	error_exec(char *path, int error_nb)
 	}
 	else
 		ft_fprintf("minishell: %s: command not found\n", path);
+}
+
+void	total_unlink(t_data *data)
+{
+	t_exec	*exec;
+	t_redir	*temp;
+
+	exec = data->head;
+	while (exec)
+	{
+		temp = exec->redir;
+		while (temp)
+		{
+			if (temp->type == HEREDOC_TK)
+				unlink(temp->filename);
+			temp = temp->next;
+		}
+		exec = exec->next;
+	}
 }

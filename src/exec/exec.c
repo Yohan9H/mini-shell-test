@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/26 15:21:28 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/26 17:07:54 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	redir(t_redir *redir, t_data *data, t_execom *execom)
 			fdoutput = open_clean(temp, data, execom);
 			dup2_clean(fdoutput, STDOUT_FILENO);
 		}
-		if (temp->type == INPUT_TK)
+		if (temp->type == INPUT_TK || temp->type == HEREDOC_TK)
 		{
 			fdinput = open_clean(temp, data, execom);
 			dup2_clean(fdinput, STDIN_FILENO);
@@ -83,6 +83,7 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 		exec = exec->next;
 	}
 	wait_children(data);
+	total_unlink(data);
 	data->pid_count = 0;
 	return (0);
 }
