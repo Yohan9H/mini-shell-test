@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:48:13 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/25 16:44:50 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/26 13:35:06 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	init_pipes(t_execom *execom, t_data *data)
 	}
 }
 
-void	close_fds(t_exec *exec, t_execom *execom)
+void	close_fds(t_execom *execom)
 {
 	close(execom->pipe_fd[0]);
 	close(execom->pipe_fd[1]);

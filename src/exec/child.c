@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:40:47 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/26 13:20:58 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/26 13:51:43 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	exec_line(t_exec *exec, t_data *data)
 		return (0);
 	path = my_get_path(exec->cmd, data);
 	if (!path)
-		return (error_exec(data, exec->cmd, errno, exec), -1);
+		return (error_exec(exec->cmd, errno), -1);
 	env = my_env_to_tab(data->my_env);
 	if (!env)
 		return (free(path), -1);
@@ -29,7 +29,7 @@ int	exec_line(t_exec *exec, t_data *data)
 		return (free(path), freetab(env), -1);
 	if (execve(path, exec->args, env) == -1)
 	{
-		error_exec(data, exec->cmd, errno, exec);
+		error_exec(exec->cmd, errno);
 		free(path);
 		freetab(env);
 		return (-2);
@@ -89,7 +89,7 @@ void	child_process(t_exec *exec,	t_data *data, t_execom *execom)
 		if (execom->pipe_fd[1] != -1)
 			dup2(execom->pipe_fd[1], STDOUT_FILENO);
 	}
-	redir(exec->redir, exec, data, execom);
+	redir(exec->redir, data, execom);
 	close(execom->pipe_fd[0]);
 	close(execom->pipe_fd[1]);
 	if (is_builtin(data, exec) == 1)
@@ -101,6 +101,6 @@ void	child_process(t_exec *exec,	t_data *data, t_execom *execom)
 	exit_code = exec_line(exec, data);
 	exit_clean(data, NOTHING, C_EXIT);
 	if (exit_code == -2)
-        exit (IS_A_DIRECTORY);
-    exit (COMMAND_NOT_FOUND);
+		exit (IS_A_DIRECTORY);
+	exit (COMMAND_NOT_FOUND);
 }

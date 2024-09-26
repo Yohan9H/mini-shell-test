@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:09:22 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/26 11:44:09 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/26 13:50:31 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_execom
 
 //void	error_exec(t_data *data, char *path, int error_nb);
 
-void	error_exec(t_data *data, char *path, int error_nb, t_exec *exec);
+void	error_exec(char *path, int error_nb);
 
 void	dup2_clean(int in, int out);
 
@@ -40,7 +40,7 @@ void	wait_children(t_data *data);
 
 void	init_pipes(t_execom *execom, t_data *data);
 
-void	close_fds(t_exec *exec, t_execom *execom);
+void	close_fds(t_execom *execom);
 
 void	child_process(t_exec *exec,	t_data *data, t_execom *execom);
 
@@ -50,7 +50,7 @@ int		open_clean(t_redir *redir, t_data *data, t_execom *execom);
 
 int		exec_line(t_exec *exec, t_data *data);
 
-void	redir(t_redir *redir, t_exec *exec, t_data *data, t_execom *execom);
+void	redir(t_redir *redir, t_data *data, t_execom *execom);
 
 int		input_redir(t_redir *redir);
 

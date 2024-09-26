@@ -6,13 +6,13 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/25 16:40:19 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/26 13:35:23 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	redir(t_redir *redir, t_exec *exec, t_data *data, t_execom *execom)
+void	redir(t_redir *redir, t_data *data, t_execom *execom)
 {
 	int		fdinput;
 	int		fdoutput;
@@ -39,7 +39,7 @@ int	builtin_redir(t_exec *exec, t_data *data, t_execom *execom)
 {
 	if (exec->next == NULL && is_builtin(data, exec) == 1)
 	{
-		redir(exec->redir, exec, data, execom);
+		redir(exec->redir, data, execom);
 		if (exec->cmd)
 			verif_builtin(data, exec, execom);
 		return (1);
@@ -79,7 +79,7 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 		if (data->pids[data->pid_count] == 0)
 			child_process(exec_temp, data, execom);
 		dup2(execom->pipe_fd[0], STDIN_FILENO);
-		close_fds(exec_temp, execom);
+		close_fds(execom);
 		data->pid_count = data->pid_count + 1;
 		exec_temp = exec_temp->next;
 	}

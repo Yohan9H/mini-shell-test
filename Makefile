@@ -6,13 +6,13 @@
 #    By: apernot <apernot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 11:27:53 by yohurteb          #+#    #+#              #
-#    Updated: 2024/09/26 13:30:07 by apernot          ###   ########.fr        #
+#    Updated: 2024/09/26 13:53:27 by apernot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CC = gcc -g -Wall -Werror -Wextra
+CC = gcc -Wall -Werror -Wextra
 
 CFLAGS =  -I include/
 
@@ -70,8 +70,7 @@ SRCS = \
 	utils/ft_fprintf_utils.c \
 	utils/ft_substr.c \
 	utils/ft_freetab.c \
-	utils/ft_isnum.c \
-	test/test.c # ---- POUR TEST A ENLEVER ----
+	utils/ft_isnum.c
 
 OBJS = $(SRCS:.c=.o)
 
