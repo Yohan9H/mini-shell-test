@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:40:47 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/26 13:51:43 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/26 15:08:22 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	child_process(t_exec *exec,	t_data *data, t_execom *execom)
 
 	exit_code = 0;
 	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 	close(execom->fdstdin);
 	close(execom->fdstdout);
 	if (exec->next && !output_redir(exec->redir))

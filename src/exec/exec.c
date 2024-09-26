@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/26 14:24:06 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:07:24 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 		if (!is_cmd(exec_temp, data))
 			return (0);
 		init_pipes(execom, data);
+		signal(SIGINT, handle_sigint_cat);
 		data->pids[data->pid_count] = create_child_process(data);
 		if (data->pids[data->pid_count] == 0)
 			child_process(exec_temp, data, execom);

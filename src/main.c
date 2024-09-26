@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:28:39 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/25 16:38:53 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/26 15:09:10 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	init_data(&data, env);
-	init_sig();
 	while (1)
 	{
+		init_sig();
 		lexer(&data);
 		if (data.code_reset == 0)
 			parser(&data);

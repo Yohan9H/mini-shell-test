@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:30:42 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/25 14:48:29 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/26 14:56:35 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,10 @@ void	init_sig(void);
 void	handle_sigint_heredoc(int sig);
 
 int		event_hook(void);
+
+void	handle_sigint(int sig);
+
+void	handle_sigint_cat(int sig);
 
 //	---- UTILS ----
 void	ft_lstadd_back(t_token **lst, t_token *new, t_token **last);

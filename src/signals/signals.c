@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:12:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/20 15:51:16 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:13:26 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,20 @@ void	handle_sigint(int sig)
 
 int	event_hook(void)
 {
-	if (g_var_global == 1)
-		rl_done = 1;
 	return (0);
 }
 
 void	handle_sigint_heredoc(int sig)
 {
 	(void)sig;
+	g_var_global = 1;
+	rl_done = 1;
+}
+
+void	handle_sigint_cat(int sig)
+{
+	(void)sig;
+	fprintf(stderr, "\n");
 	g_var_global = 1;
 }
 
