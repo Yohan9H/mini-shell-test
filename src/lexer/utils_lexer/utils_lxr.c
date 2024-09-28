@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:17:37 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/22 14:06:52 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:27:15 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	cpy_str(char *str, t_data *data, int *i, char stop)
 				|| str[*i] == '[' || str[*i] == ']' || str[*i] == '/'
 				|| str[*i] == ' ')
 				break ;
+		data->lex->string[tmp] = str[*i];
 	}
 	if (!str[*i] && stop != STRING && stop != '$')
 		(*i)--;

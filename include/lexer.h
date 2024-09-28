@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:08 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/23 13:06:32 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/26 16:39:28 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ char	*check_if_edge_case(char *str, t_data *data, int *status);
 int		is_string(char *str, t_data *data, int *i);
 
 int		verif_edge_case(char *str, int *i, t_data *data);
+
+int		verif_edge_case_two(char *str);
 
 void	no_find(t_data *data, char *string, char *after_dol);
 
