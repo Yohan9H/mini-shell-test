@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:42:41 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/30 11:14:46 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:48:40 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	total_unlink(t_data *data)
 	t_exec	*exec;
 	t_redir	*temp;
 
+	if (!data->head)
+		return ;
 	exec = data->head;
 	while (exec)
 	{

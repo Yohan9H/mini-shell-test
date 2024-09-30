@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:56:23 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/25 16:06:44 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/30 13:49:10 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	clean_data_parser(t_data *data)
 		free(data->par->new_redir);
 		data->par->new_redir = NULL;
 	}
+	data->head = NULL;
 }
 
 void	exit_clean(t_data *data, t_type_error error, t_bool num)
