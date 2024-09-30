@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:09:22 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/30 11:15:02 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/30 14:42:55 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,7 @@ int		output_redir(t_redir *redir);
 int		is_absolute_path(char *cmd);
 
 void	total_unlink(t_data *data);
+
+int		is_redir(t_exec *exec, t_data *data);
 
 #endif

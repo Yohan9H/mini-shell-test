@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:42:41 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/30 13:48:40 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/30 14:43:19 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,18 @@ void	total_unlink(t_data *data)
 		}
 		exec = exec->next;
 	}
+}
+
+int	is_redir(t_exec *exec, t_data *data)
+{
+	t_exec *temp;
+
+	temp = exec;
+	while (temp)
+	{
+		if (exec->redir)
+			return (1);
+		temp = temp->next;
+	}
+	return (0);
 }

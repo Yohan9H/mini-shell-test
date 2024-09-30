@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/30 11:14:59 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/30 14:43:38 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	is_cmd(t_exec *exec, t_data *data)
 			return (1);
 		exec = exec->next;
 	}
-	data->exit_code = 0;
 	return (0);
 }
 
@@ -70,8 +69,8 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 	{
 		execom->pipe_fd[0] = -1;
 		execom->pipe_fd[1] = -1;
-		if (!is_cmd(exec, data))
-			return (0) ; // a cause de lui on unlink pas les alone heredocs il faut faire un break
+		if (!is_cmd(exec, data) && !is_redir(exec, data))
+			return (0) ;
 		init_pipes(execom, data);
 		signal(SIGINT, handle_sigint_cat);
 		data->pids[data->pid_count] = create_child_process(data);
@@ -83,7 +82,6 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 		exec = exec->next;
 	}
 	wait_children(data);
-	total_unlink(data);
 	data->pid_count = 0;
 	return (0);
 }
