@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:42:41 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/26 17:08:19 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/30 11:00:10 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,15 @@ void	error_exec(char *path, int error_nb)
 		ft_fprintf("minishell: %s: command not found\n", path);
 }
 
-void	total_unlink(t_data *data)
+void	total_unlink(t_data *data, int code)
 {
 	t_exec	*exec;
 	t_redir	*temp;
 
-	exec = data->head;
+	if (code == 1)
+		exec = data->par->first;
+	else
+		exec = data->head;
 	while (exec)
 	{
 		temp = exec->redir;

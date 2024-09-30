@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/26 17:07:54 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/30 10:46:35 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 		execom->pipe_fd[0] = -1;
 		execom->pipe_fd[1] = -1;
 		if (!is_cmd(exec, data))
-			return (0);
+			return (0) ; // a cause de lui on unlink pas les alone heredocs il faut faire un break
 		init_pipes(execom, data);
 		signal(SIGINT, handle_sigint_cat);
 		data->pids[data->pid_count] = create_child_process(data);
@@ -83,7 +83,7 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 		exec = exec->next;
 	}
 	wait_children(data);
-	total_unlink(data);
+	total_unlink(data, 0);
 	data->pid_count = 0;
 	return (0);
 }
