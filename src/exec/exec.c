@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:45:11 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/30 14:43:38 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/30 14:44:38 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	builtin_redir(t_exec *exec, t_data *data, t_execom *execom)
 	return (0);
 }
 
-int	is_cmd(t_exec *exec, t_data *data)
+int	is_cmd(t_exec *exec)
 {
 	while (exec)
 	{
@@ -69,7 +69,7 @@ int	exec_cmd2(t_data *data, t_execom *execom)
 	{
 		execom->pipe_fd[0] = -1;
 		execom->pipe_fd[1] = -1;
-		if (!is_cmd(exec, data) && !is_redir(exec, data))
+		if (!is_cmd(exec) && !is_redir(exec))
 			return (0) ;
 		init_pipes(execom, data);
 		signal(SIGINT, handle_sigint_cat);

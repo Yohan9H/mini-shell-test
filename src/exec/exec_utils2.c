@@ -6,7 +6,7 @@
 /*   By: apernot <apernot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:42:41 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/30 14:43:19 by apernot          ###   ########.fr       */
+/*   Updated: 2024/09/30 14:44:22 by apernot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	total_unlink(t_data *data)
 	}
 }
 
-int	is_redir(t_exec *exec, t_data *data)
+int	is_redir(t_exec *exec)
 {
 	t_exec *temp;
 
