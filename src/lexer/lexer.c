@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:19:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/30 11:19:43 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/30 14:00:30 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	add_token(t_data *data)
 void	lexer(t_data *data)
 {
 	data->code_reset = 0;
-	data->lex->input = readline("\033[1;31m\1[MyShell]\2\033[0m\1 > \2");
+	data->lex->input = readline("\033[1;31m\1[MyShell]\2\033[0m\3 > \4");
 	if (data->lex->first != NULL)
 		ft_lstclear(&(data->lex->first));
 	if (data->lex->input == NULL)
