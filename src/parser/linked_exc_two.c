@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:58:00 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/30 11:05:47 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:48:03 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	put_value_in_heredoc(char *eof, int fd, t_data *data)
 	char	*tmp;
 
 	signal(SIGINT, handle_sigint_heredoc);
+	if (g_var_global == 1)
+		g_var_global = 0;
 	rl_event_hook = event_hook;
 	while (1)
 	{
