@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:09:22 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/09/30 11:00:18 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:15:02 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ int		output_redir(t_redir *redir);
 
 int		is_absolute_path(char *cmd);
 
-void	total_unlink(t_data *data, int code);
+void	total_unlink(t_data *data);
 
 #endif

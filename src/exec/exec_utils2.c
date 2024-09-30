@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:42:41 by apernot           #+#    #+#             */
-/*   Updated: 2024/09/30 11:00:10 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:14:46 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,12 @@ void	error_exec(char *path, int error_nb)
 		ft_fprintf("minishell: %s: command not found\n", path);
 }
 
-void	total_unlink(t_data *data, int code)
+void	total_unlink(t_data *data)
 {
 	t_exec	*exec;
 	t_redir	*temp;
 
-	if (code == 1)
-		exec = data->par->first;
-	else
-		exec = data->head;
+	exec = data->head;
 	while (exec)
 	{
 		temp = exec->redir;
